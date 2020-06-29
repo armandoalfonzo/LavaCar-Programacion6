@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dabff99cd0954931898461a82f21c48c" Name="Diagram1">
+        <EntityTypeShape EntityType="LavaCarModel.caja_chica" Width="1.5" PointX="12" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.Canton" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.cliente" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.Distrito" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.fabricante" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.factura_detalle" Width="1.5" PointX="12" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.factura_encabezado" Width="1.5" PointX="9.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.marca_vehículo" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.modelo_vehículo" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.País" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.Provincia" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.sysdiagram" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.tipo_servicio" Width="1.5" PointX="9.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.tipo_vehículo" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.usuario" Width="1.5" PointX="9.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.vehículos" Width="1.5" PointX="7.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.vehículos_x_cliente" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="LavaCarModel.FK_caja_chica_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.Canton_ref_Provincia" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.Distrito_ref_Canton" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_cliente_Canton" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_cliente_Distrito" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_cliente_Provincia" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_factura_encabezado_cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_vehículos_x_cliente_cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_fabricante_País" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_vehículos_fabricante" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_factura_detalle_factura_encabezado" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_factura_detalle_tipo_servicio" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_modelo_vehículo_marca_vehículo" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_vehículos_marca_vehículo" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_vehículos_tipo_vehículo" ManuallyRouted="false" />
+        <AssociationConnector Association="LavaCarModel.FK_vehículos_x_cliente_vehículos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
