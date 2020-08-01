@@ -304,5 +304,44 @@ namespace LavaCarProject.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<RetornaUsuario_Result> RetornaUsuario(string correoElectronico, string nombreCompleto, Nullable<int> id_Usuario)
+        {
+            var correoElectronicoParameter = correoElectronico != null ?
+                new ObjectParameter("correoElectronico", correoElectronico) :
+                new ObjectParameter("correoElectronico", typeof(string));
+    
+            var nombreCompletoParameter = nombreCompleto != null ?
+                new ObjectParameter("nombreCompleto", nombreCompleto) :
+                new ObjectParameter("nombreCompleto", typeof(string));
+    
+            var id_UsuarioParameter = id_Usuario.HasValue ?
+                new ObjectParameter("id_Usuario", id_Usuario) :
+                new ObjectParameter("id_Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RetornaUsuario_Result>("RetornaUsuario", correoElectronicoParameter, nombreCompletoParameter, id_UsuarioParameter);
+        }
+    
+        public virtual ObjectResult<RetornaUsuarioCorreoPwd_Result> RetornaUsuarioCorreoPwd(string correoElectronico, string contrasena)
+        {
+            var correoElectronicoParameter = correoElectronico != null ?
+                new ObjectParameter("correoElectronico", correoElectronico) :
+                new ObjectParameter("correoElectronico", typeof(string));
+    
+            var contrasenaParameter = contrasena != null ?
+                new ObjectParameter("contrasena", contrasena) :
+                new ObjectParameter("contrasena", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RetornaUsuarioCorreoPwd_Result>("RetornaUsuarioCorreoPwd", correoElectronicoParameter, contrasenaParameter);
+        }
+    
+        public virtual ObjectResult<RetornaUsuarioID_Result> RetornaUsuarioID(Nullable<int> id_Usuario)
+        {
+            var id_UsuarioParameter = id_Usuario.HasValue ?
+                new ObjectParameter("id_Usuario", id_Usuario) :
+                new ObjectParameter("id_Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RetornaUsuarioID_Result>("RetornaUsuarioID", id_UsuarioParameter);
+        }
     }
 }

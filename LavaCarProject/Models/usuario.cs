@@ -24,6 +24,8 @@ namespace LavaCarProject.Models
         public string tipo_usuario { get; set; }
         public string nombre_usuario { get; set; }
         public string correo_usuario { get; set; }
+        public string contraseña { get; set; }
+        public Nullable<System.DateTime> FechaIngreso { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<caja_chica> caja_chica { get; set; }

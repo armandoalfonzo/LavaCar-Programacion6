@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LavaCarProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,17 @@ namespace LavaCarProject.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            bool sesionIniciada =false;
+            if (Session["logueado"] != null)
+            {
+                sesionIniciada = (bool)Session["logueado"];
+            }
+            if (!sesionIniciada)
+            {
+                RetornaUsuarioCorreoPwd_Result modelo = (RetornaUsuarioCorreoPwd_Result)Session["datosUsuario"];
+                return View(modelo);
+            }
+            return RedirectToAction("login", "usuario");
         }
 
         public ActionResult About()
