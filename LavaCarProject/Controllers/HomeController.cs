@@ -16,7 +16,7 @@ namespace LavaCarProject.Controllers
             {
                 sesionIniciada = (bool)Session["logueado"];
             }
-            if (!sesionIniciada)
+            if (sesionIniciada)
             {
                 RetornaUsuarioCorreoPwd_Result modelo = (RetornaUsuarioCorreoPwd_Result)Session["datosUsuario"];
                 return View(modelo);

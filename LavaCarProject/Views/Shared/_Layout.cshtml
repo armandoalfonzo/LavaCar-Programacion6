@@ -19,6 +19,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
     @RenderSection("Style", required: false)
 </head>
 <body>
@@ -37,15 +38,29 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li><a id="linkCerrarsesion">Cerrar sesion</a></li>
+                    <li id="LogOut"><a>Cerrar sesion</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @{ if (sesionIniciada)
+            {
+                RenderBody();
+            }
+            else
+            {
+                Response.Redirect(actionLogIn);
+            }
+        }
 
-        @RenderBody();
         <hr />
+
+        <div id="DivCerrarSesion" hidden>
+            <p>Desea cerrar la sesion?</p>
+            <button id="btnSi">SI</button>
+            <button id="btnNO">NO</button>
+        </div>
 
         <footer class="panel-footer">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -54,6 +69,37 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            crearEvento();
+        });
+
+        function crearEvento() {
+            $("#DivCerrarSesion").dialog({
+                autoOpen: false,
+                height: 150,
+                width: 200,
+                modal: true,
+                tittle: 'Cerrar Sesion',
+                resizable: false
+            });
+
+            $("#LogOut").click(function () {
+                $("#DivCerrarSesion").dialog("open");
+            });
+
+            $("#btnNO").click(function () {
+                $("#DivCerrarSesion").dialog("close");
+            });
+
+            $("#btnSi").click(function () {
+                window.location.href = '@actionLogOut';
+            });
+        }
+
+
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
