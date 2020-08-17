@@ -25,6 +25,12 @@ namespace LavaCarProject
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bundleJquery").Include(
+                           "~/Scripts/jquery-3.4.1.js",
+                        //"~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.validate.js"
+                        ));
         }
     }
 }

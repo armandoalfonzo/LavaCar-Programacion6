@@ -1,0 +1,25 @@
+﻿@model List<LavaCarProject.Models.sp_RetornaFabricantes_Result>
+@{
+    ViewBag.Title = "Fabricantes";
+}
+
+<h2>Fabricantes</h2>
+<table  class="table">
+    <tr>
+        <th>Nombre casa Fabricante </th>
+        <th>País</th>
+        <th>Acciones</th>
+    </tr>
+    @{
+        foreach (LavaCarProject.Models.sp_RetornaFabricantes_Result pcsmodelo in this.Model)
+        {
+        <tr>
+            <td>@pcsmodelo.nombre_fabricante</td>
+            <td>@pcsmodelo.nombre_pais</td>
+        </tr>
+        }
+
+    }
+
+
+</table>

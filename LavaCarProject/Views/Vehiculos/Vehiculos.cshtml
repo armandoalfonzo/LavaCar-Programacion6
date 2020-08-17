@@ -1,0 +1,69 @@
+﻿@section css{
+    <link rel="stylesheet" href=" https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
+}
+
+
+<h2>Lista de Vehículos</h2>
+
+<div id="divMarcas">
+
+</div>
+
+<input type="button" id="btMostrarDialog" value="Insertar Nuevo Vehículo" />
+<div id="divInsertar" hidden>
+
+    <h2>Inserta Vehículo</h2>
+    <form class="form" id="fmrnuevovehiculo" method="POST">
+
+
+        <div>
+            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca">
+            <input id="id_marca_select" hidden />
+            <input id="id_fabricante_select" hidden />
+        </div>
+
+        <div class="form-group">
+            <label>Modelo:</label>
+            <select name="modelo" id="modelo" class="form-control"></select>
+
+        </div>
+
+        <div class="form-group">
+            <label>Cantidad de Puertas:</label>
+            <input type="text" name="cantpuertas" id="cantpuertas" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Cantidad de ruedas:</label>
+            <input type="text" name="cantruedas" id="cantruedas" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Tipo Vehículo:</label>
+            <select name="tipovehiculo" id="tipovehiculo" class="form-control"></select>
+        </div>
+
+
+        <div class="form-group">
+            <label>Número de placa:</label>
+            <input type="text" name="placa" id="placa" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNacimiento">Año de Fabricación: </label>
+            <input type="text" name="aniofabric" id="aniofabric" />
+        </div>
+
+        <div class="form-group">
+            <input type="button" value="Insertar" id="btninsertar" />
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/Vehiculos.js"></script>
+}

@@ -1,0 +1,76 @@
+﻿@section css{
+    <link rel="stylesheet" href="   https://code.jquery.com/ui/1.12.1/themes/eggplant/jquery-ui.css" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
+}
+
+<h2>Lista de Clientes</h2>
+
+<div id="divClientes">
+
+</div>
+
+<input type="button" id="btMostrarDialog" value="Insertar Nueva Persona" />
+<div id="divInsertar" hidden>
+
+    <h2>Inserta Cliente</h2>
+
+    <form class="form" id="fmrnuevocliente" method="POST">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Primer Apellido:</label>
+            <input type="text" name="primerapellido" id="primerapellido" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Segundo Apellido:</label>
+            <input type="text" name="segundoapellido" id="segundoapellido" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Cédula:</label>
+            <input type="text" name="cedula" id="cedula" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Provincia:</label>
+            <select name="provincia" id="provincia" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Cantón:</label>
+            <select name="canton" id="canton" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Distrito:</label>
+            <select name="distrito" id="distrito" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Direccion:</label>
+            <input type="text" name="direccion" id="direccion" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Correo electrónico:</label>
+            <input type="text" name="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="button" value="Insertar" id="btninsertar" />
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/Kendo.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+}

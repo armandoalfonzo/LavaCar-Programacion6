@@ -1,0 +1,16 @@
+﻿@model List<LavaCarProject.Models.sp_RetornaPais_Result>
+@{
+    ViewBag.Title = "ModificaPais";
+}
+
+<h2>Modifica País</h2>
+<form method="post" id="frmmodificapais">
+    <div class="form-group">
+        <label>Nombre País</label>
+        <input type="text" name="nombrepais" id="nombrepais" class="form-control" value="@Model.nombre_pais" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Guardar" id="btnAceptar" />
+    </div>
+    <a href="~/País/Pais">Regresar a Países</a>
+</form>
