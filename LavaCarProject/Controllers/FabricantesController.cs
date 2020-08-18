@@ -14,9 +14,64 @@ namespace LavaCarProject.Controllers
         // GET: Fabricantes
         public ActionResult Fabricantes()
         {
-            List<sp_RetornaFabricantes_Result> modelovista = new List<sp_RetornaFabricantes_Result>();
-            modelovista = this.modeloBD.sp_RetornaFabricantes(null, "", null).ToList();
-            return View(modelovista);
+            
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult RetornaFabricantes()
+        {
+            List<sp_RetornaFabricantes_Result> fabricantes = this.modeloBD.sp_RetornaFabricantes(null, "", null).ToList();
+            return Json(new
+            {
+                resultado = fabricantes
+            });
+        }
+
+        [HttpPost]
+        public ActionResult RetornaPais()
+        {
+            List<sp_RetornaPais_Result> pais = this.modeloBD.sp_RetornaPais("").ToList();
+            return Json(new
+            {
+                resultado = pais
+            });
+        }
+        [HttpPost]
+        public ActionResult InsertaFabricante(string pfabricante, int pid_pais)
+        {
+            int reg_afectados = 0;
+            string mensaje = "";
+
+            try
+            {
+                reg_afectados = this.modeloBD.sp_Inserta_Fabricante(
+                    pfabricante,
+                    pid_pais
+                   );
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "Hubo un error " + error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    mensaje = "Registro agregado";
+                }
+                else
+                {
+                    mensaje = "No se pudo insertar, verifique";
+                }
+            }
+
+            return Json(new
+            {
+                resultado = mensaje
+            });
         }
 
         public ActionResult ModificaFabricantes(int id_fabricante)

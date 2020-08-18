@@ -35,8 +35,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Cliente", "Cliente", "Cliente")</li>
+                    <li>@Html.ActionLink("Vehículos", "Vehiculos", "RetornaVehiculos")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li id="LogOut"><a>Cerrar sesion</a></li>
                 </ul>
@@ -46,7 +46,7 @@
     <div class="container body-content">
         @{ if (sesionIniciada)
             {
-                RenderBody();
+                @RenderBody();
             }
             else
             {

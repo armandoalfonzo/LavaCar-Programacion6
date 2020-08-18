@@ -1,6 +1,10 @@
 ﻿$(function () {
+
     obtenerClientes();
     MostrarDialog();
+    estableceEventosChange();
+    cargaDropdownListProvincias()
+    creaEventos();
 });
 
 
@@ -21,8 +25,8 @@ function creaGridKendo(data) {
         columns:
             [
                 {
-                    field: 'nombre_cliente',
-                    title: 'Nombre'
+                    template: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
+                    title: 'Nombre Completo'
                 },
                 {
                     field: 'cedula',
@@ -86,4 +90,120 @@ function crearDialog() {
             });
         }
     });
+}
+
+function estableceEventosChange() {
+
+    $("#provincia").change(function () {
+        var provincia = $("#provincia").val();
+        cargaDropdownListCantones(provincia);
+    });
+
+    $("#canton").change(function () {
+        var canton = $("#canton").val();
+        cargaDropdownListDistritos(canton);
+    });
+}
+
+function cargaDropdownListProvincias() {
+    var urlMetodo = '/Cliente/RetornaProvincias'
+    var parametros = {};
+    var funcion = procesarResultadoProvincias;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+function procesarResultadoProvincias(data) {
+
+    var ddlProvincias = $("#provincia");
+    ddlProvincias.empty();
+    var nuevaOpcion = "<option value ''>Seleccione una Provincia</option>";
+    ddlProvincias.append(nuevaOpcion);
+
+    $(data).each(function () {
+
+        var provinciaActual = this;
+        nuevaOpcion = "<option value ='" + provinciaActual.id_Provincia + "'>" + provinciaActual.nombre + "</option>";
+        ddlProvincias.append(nuevaOpcion);
+    });
+}
+function cargaDropdownListCantones(pIdProvincia) {
+    var urlMetodo = '/Cliente/RetornaCantones'
+    var parametros = {
+        id_provincia: pIdProvincia
+    };
+    var funcion = procesarResultadoCanton;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+function procesarResultadoCanton(data) {
+
+    var ddlcantones = $("#canton");
+    ddlcantones.empty();
+    var nuevaOpcion = "<option value ''>Seleccione un Cantón</option>";
+    ddlcantones.append(nuevaOpcion);
+
+    $(data).each(function () {
+
+        var cantonActual = this;
+        nuevaOpcion = "<option value ='" + cantonActual.id_Canton + "'>" + cantonActual.nombre + "</option>";
+        ddlcantones.append(nuevaOpcion);
+
+    });
+}
+
+
+function cargaDropdownListDistritos(pidCanton) {
+    var urlMetodo = '/Cliente/RetornaDistritos'
+    var parametros = {
+        id_canton : pidCanton
+    };
+    var funcion = procesarResultadoDistrito;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+
+function procesarResultadoDistrito(data) {
+
+    var ddldistritos = $("#distrito");
+    ddldistritos.empty();
+    var nuevaOpcion = "<option value ''>Selecciones un Distrito</option>";
+    ddldistritos.append(nuevaOpcion);
+
+    $(data).each(function () {
+
+        var distritoActual = this;
+        opcionDistritos = "<option value='" + distritoActual.id_Distrito + "'>" + distritoActual.nombre + " </option>";
+        ddldistritos.append(opcionDistritos);
+    });
+}
+
+function creaEventos() {
+    $("#btninsertar").on("click", function () {
+        var formulario = $("#fmrnuevocliente");
+        InsertaNuevoCliente();
+    });
+}
+
+function InsertaNuevoCliente() {
+    var urlMetodo = '/Cliente/NuevoCliente'
+    var parametros = {
+        pnombre: $("#nombre").val(),
+        papelli1: $("#primerapellido").val(),
+        papelli2: $("#segundoapellido").val(),
+        pcedula: $("#cedula").val(),
+        pidprovincia: $("#provincia").val(),
+        pidcanton: $("#canton").val(),
+        pid_distrito: $("#distrito").val(),
+        pdireccion: $("#direccion").val(),
+        ptelefono: $("#telefono").val(),
+        pemail: $("#email").val()
+    };
+    var funcion = procesarInsert;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+
+
+function procesarInsert(data) {
+
+    var resultadoFuncion = data.respuesta;
+    alert(resultadoFuncion);
+    location.reload();
+
 }

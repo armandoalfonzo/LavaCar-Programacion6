@@ -1,25 +1,40 @@
-﻿@model List<LavaCarProject.Models.sp_RetornaFabricantes_Result>
-@{
-    ViewBag.Title = "Fabricantes";
+﻿@section Style{
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
 }
+<h2>Lista Fabricantes</h2>
 
-<h2>Fabricantes</h2>
-<table  class="table">
-    <tr>
-        <th>Nombre casa Fabricante </th>
-        <th>País</th>
-        <th>Acciones</th>
-    </tr>
-    @{
-        foreach (LavaCarProject.Models.sp_RetornaFabricantes_Result pcsmodelo in this.Model)
-        {
-        <tr>
-            <td>@pcsmodelo.nombre_fabricante</td>
-            <td>@pcsmodelo.nombre_pais</td>
-        </tr>
-        }
+<div id="divKendoGridFabricante">
 
-    }
+</div>
 
+<input type="button" id="btMostrarDialog" value="Insertar Nuevo Fabricante" />
 
-</table>
+<div id="divInsertar" hidden>
+
+    <h2>Inserta Fabricante</h2>
+
+    <form class="form" id="fmrnuevoFabri" method="POST">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nomfabricante" id="nomfabricante" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>País:</label>
+            <select name="pais" id="pais" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <input type="button" value="Insertar" id="btninsertar" />
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/Fabricantes.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+}

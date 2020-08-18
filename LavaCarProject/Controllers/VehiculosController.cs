@@ -86,8 +86,8 @@ namespace LavaCarProject.Controllers
                 }
 
             }
-            return Json(new { resultado = mensaje }
-                );
+                return Json(new { resultado = mensaje }
+                    );
         }
     }
 }

@@ -12,11 +12,56 @@ namespace LavaCarProject.Controllers
 
         LavaCarEntities modeloBD = new LavaCarEntities();
         // GET: Pais
+
+ 
         public ActionResult Pais()
         {
-            List<sp_RetornaPais_Result> modelovista = new List<sp_RetornaPais_Result>();
-            modelovista = this.modeloBD.sp_RetornaPais("").ToList();
-            return View(modelovista);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RetornaPais()
+        {
+            List<sp_RetornaPais_Result> pais = this.modeloBD.sp_RetornaPais("").ToList();
+            return Json(new
+            {
+                resultado = pais
+            });
+        }
+
+        [HttpPost]
+
+        public ActionResult InsertaPais(string pnombrepais)
+        {
+
+            int reg_afectados = 0;
+            string mensaje = "";
+
+            try
+            {
+                reg_afectados = this.modeloBD.sp_InsertaPais(
+                   pnombrepais);
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "Hubo un error " + error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    mensaje = "Registro agregado";
+                }
+                else
+                {
+                    mensaje = "No se pudo insertar, verifique";
+                }
+            }
+
+            return Json(new
+            {
+                resultado = mensaje
+            });
         }
 
         public ActionResult ModificaPais(int id_pais)
@@ -56,7 +101,6 @@ namespace LavaCarProject.Controllers
                     resultado += "No se pudo modificar, verifique";
                 }
             }
-            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
             return View (modelovista);
         }
 
@@ -87,7 +131,6 @@ namespace LavaCarProject.Controllers
                 else
                     resultado = "No se pudo eliminar, verifique";
             }
-            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
             return View(modelovista);
         }
 

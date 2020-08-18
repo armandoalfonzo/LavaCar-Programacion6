@@ -1,15 +1,34 @@
-﻿@section css{
+﻿@section Style{
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
 }
-<h2>Ejemplo Kendo Grid</h2>
+<h2>Lista países</h2>
 
 <div id="divKendoGridPais">
 
+</div>
+
+<input type="button" id="btMostrarDialog" value="Insertar Nuevo Pais" />
+
+<div id="divInsertar" hidden>
+
+    <h2>Inserta País</h2>
+
+    <form class="form" id="fmrnuevoPais" method="POST">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="pais" id="pais" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="button" value="Insertar" id="btninsertar" />
+        </div>
+    </form>
 </div>
 
 @section scripts{
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
     <script src="~/Scripts/Geografia/ListaPais.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
 }

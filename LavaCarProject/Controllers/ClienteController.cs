@@ -25,6 +25,7 @@ namespace LavaCarProject.Controllers
             return Json(new
             {
                 resultado = clientes
+                
             });
         }
         public ActionResult NuevoCliente()
@@ -57,7 +58,8 @@ namespace LavaCarProject.Controllers
 
         [HttpPost]
 
-        public ActionResult NuevoCliente(sp_RetornaCliente_Result modelovista)
+        public ActionResult NuevoCliente(string pnombre, string papelli1,string papelli2, int pcedula, int pidprovincia,
+            int pidcanton, int pid_distrito, string pdireccion, int ptelefono, string pemail)
         {
             int reg_afectados = 0;
             string resultado = "";
@@ -65,16 +67,16 @@ namespace LavaCarProject.Controllers
             try
             {
                 reg_afectados = this.modeloBD.sp_InsertaNuevoCliente(
-                    modelovista.nombre_cliente,
-                    modelovista.apellido1,
-                    modelovista.apellido2,
-                    modelovista.cedula,
-                    modelovista.id_provincia,
-                    modelovista.id_canton,
-                    modelovista.id_distrito,
-                    modelovista.direccion,
-                    modelovista.telefono,
-                    modelovista.email);
+                    pnombre,
+                    papelli1,
+                    papelli2,
+                    pcedula,
+                    pidprovincia,
+                    pidcanton,
+                    pid_distrito,
+                    pdireccion,
+                    ptelefono,
+                    pemail);
             }
             catch (Exception error)
             {
@@ -91,9 +93,9 @@ namespace LavaCarProject.Controllers
                     resultado += "No se pudo insertar, verifique";
                 }
             }
-            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
             this.RetornaProvincias();
-            return View();
+            return Json(new { respuesta = resultado }
+                );
         }
 
 

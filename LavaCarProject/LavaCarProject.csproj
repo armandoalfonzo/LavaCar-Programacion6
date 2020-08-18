@@ -135,7 +135,6 @@
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\VehiculosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -331,6 +330,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\Fabricantes.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Kendo.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Modelos.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos.js" />
@@ -350,7 +350,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-
     <Content Include="Views\Cliente\Cliente.cshtml" />
     <Content Include="Views\Pais\Pais.cshtml" />
     <Content Include="Views\Pais\EliminaPais.cshtml" />

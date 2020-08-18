@@ -1,29 +1,30 @@
 ﻿$(function () {
-    obtenerRegistrosPersonas();
+    obtenerRegistrosFabricantes();
     MostrarDialog();
+    cargaDropdownListPais();
     creareventos();
 });
 
+function obtenerRegistrosFabricantes() {
 
-function obtenerRegistrosPersonas() {
-
-    var urlMetodo = '/Pais/RetornaPais'
+    var urlMetodo = '/Fabricantes/RetornaFabricantes'
     var parametros = {};
     var funcion = creaGridKendo;
     ejecutaAjax(urlMetodo, parametros, funcion);
 }
+
 function creaGridKendo(data) {
-    $("#divKendoGridPais").kendoGrid({
+    $("#divKendoGridFabricante").kendoGrid({
         dataSource: {
             data: data.resultado,
-            pageSize: 10
+            pageSize: 5
         },
         pageable: true,
         columns:
             [
                 {
-                    field: 'id_pais', width: "200px",
-                    title: 'Identificador de País'
+                    field: 'nombre_fabricante', width: "200px",
+                    title: 'Nombre del Fabricante'
                 },
                 {
                     field: 'nombre_pais', width: "200px",
@@ -32,13 +33,12 @@ function creaGridKendo(data) {
                 {
                     //title: "Company",
                     //template: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
-                    
+
                 }
             ],
         filterable: true
     });
 }
-
 function MostrarDialog() {
 
     crearDialog();
@@ -68,16 +68,39 @@ function crearDialog() {
     });
 }
 
-function creareventos() {
-    $("#btninsertar").on("click", function () {
-        var formulario = $("fmrnuevoPais");
-        InsertanuevoPais();
+function cargaDropdownListPais() {
+    var urlMetodo = '/Fabricantes/RetornaPais'
+    var parametros = {};
+    var funcion = procesarResultadoPais;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+
+function procesarResultadoPais(data) {
+
+    var ddlpais = $("#pais");
+    ddlpais.empty();
+    var nuevaOpcion = "<option value ''>Seleccione un País</option>";
+    ddlpais.append(nuevaOpcion);
+
+    $(data).each(function () {
+
+        var paisActual = this;
+        nuevaOpcion = "<option value ='" + paisActual.id_pais + "'>" + paisActual.nombre_pais + "</option>";
+        ddlpais.append(nuevaOpcion);
     });
 }
-function InsertanuevoPais(){
-    var urlMetodo = '/Pais/InsertaPais'
+
+function creareventos() {
+    $("#btninsertar").on("click", function () {
+        var formulario = $("fmrnuevoFabri");
+        InsertanuevoFabricante();
+    });
+}
+function InsertanuevoFabricante() {
+    var urlMetodo = '/Fabricantes/InsertaFabricante'
     var parametros = {
-        pnombrepais: $("#pais").val()
+        pfabricante: $("#nomfabricante").val(),
+        pid_pais: $("#pais").val()
     };
     var funcion = procesarInsert;
     ejecutaAjax(urlMetodo, parametros, funcion);
