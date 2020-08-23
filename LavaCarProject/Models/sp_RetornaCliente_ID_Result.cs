@@ -13,6 +13,7 @@ namespace LavaCarProject.Models
     
     public partial class sp_RetornaCliente_ID_Result
     {
+        public int id_cliente { get; set; }
         public string nombre_cliente { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }

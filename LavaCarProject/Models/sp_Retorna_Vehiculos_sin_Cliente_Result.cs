@@ -11,7 +11,7 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaVehiculo_Result
+    public partial class sp_Retorna_Vehiculos_sin_Cliente_Result
     {
         public int id_vehiculo { get; set; }
         public int placa { get; set; }

@@ -198,15 +198,6 @@
     <Compile Include="Models\RetornaUsuario_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RetornaUsuarioCorreoPwd_Result.cs">
-      <DependentUpon>LavaCarBDModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RetornaUsuarioID_Result.cs">
-      <DependentUpon>LavaCarBDModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RetornaUsuario_Result.cs">
-      <DependentUpon>LavaCarBDModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -265,6 +256,9 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_RetornaVehiculo_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
@@ -359,6 +353,15 @@
     <Content Include="Views\Cliente\NuevoCliente.cshtml" />
     <Content Include="Views\Vehiculos\Vehiculos.cshtml" />
     <Content Include="Views\Usuario\LogIn.cshtml" />
+    <Content Include="Views\Fabricantes\ModificaFabricantes.cshtml" />
+    <Content Include="Views\Fabricantes\ModificarFabricantes.cshtml" />
+    <Content Include="Views\Fabricantes\EliminarFabricante.cshtml" />
+    <Content Include="Views\Cliente\ModificaCliente.cshtml" />
+    <Content Include="Views\Cliente\EliminarCliente.cshtml" />
+    <Content Include="Views\Vehiculos\ModificaVehiculo.cshtml" />
+    <Content Include="Views\Vehiculos\EliminaVehiculo.cshtml" />
+    <Content Include="Views\Vehiculos\VehiculosLibres.cshtml" />
+    <Content Include="Views\Vehiculos\AsignarVehiculos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,12 +1,38 @@
-﻿@section Style{
+﻿@model List<LavaCarProject.Models.sp_RetornaFabricantes_Result>
+@{
+    ViewBag.Title = "Fabricantes";
+}
+
+
+@section Style{
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
 }
 <h2>Lista Fabricantes</h2>
+<table class="table">
+    <tr>
+        <th>Nombre Fabricante</th>
+        <th>País Fabricante</th>
+    </tr>
+    @{
+        foreach (LavaCarProject.Models.sp_RetornaFabricantes_Result posicionModelo in this.Model)
+        {
+            <tr>
+                <td>@posicionModelo.nombre_fabricante</td>
+                <td>@posicionModelo.nombre_pais</td>
+                <td>
+                    <a href="~/Fabricantes/ModificaFabricantes?id_fabricante=@posicionModelo.id_fabricante">Modificar</a>
+                    <br />
+                    <a href="~/Fabricantes/EliminarFabricante?id_fabricante=@posicionModelo.id_fabricante">Eliminar</a>
+                </td>
+            </tr>
+        }
+    }
+</table>
 
-<div id="divKendoGridFabricante">
+@*<div id="divKendoGridFabricante">
 
-</div>
+</div>*@
 
 <input type="button" id="btMostrarDialog" value="Insertar Nuevo Fabricante" />
 

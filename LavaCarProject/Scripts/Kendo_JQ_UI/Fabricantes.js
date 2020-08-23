@@ -1,44 +1,70 @@
 ﻿$(function () {
-    obtenerRegistrosFabricantes();
+    //obtenerRegistrosFabricantes();
     MostrarDialog();
     cargaDropdownListPais();
     creareventos();
+    //creaGridKendo();
 });
 
-function obtenerRegistrosFabricantes() {
+//function obtenerRegistrosFabricantes() {
 
-    var urlMetodo = '/Fabricantes/RetornaFabricantes'
-    var parametros = {};
-    var funcion = creaGridKendo;
-    ejecutaAjax(urlMetodo, parametros, funcion);
-}
+//    var urlMetodo = '/Fabricantes/RetornaFabricantes'
+//    var parametros = {};
+//    var funcion = creaGridKendo;
+//    ejecutaAjax(urlMetodo, parametros, funcion);
+//}
 
-function creaGridKendo(data) {
-    $("#divKendoGridFabricante").kendoGrid({
-        dataSource: {
-            data: data.resultado,
-            pageSize: 5
-        },
-        pageable: true,
-        columns:
-            [
-                {
-                    field: 'nombre_fabricante', width: "200px",
-                    title: 'Nombre del Fabricante'
-                },
-                {
-                    field: 'nombre_pais', width: "200px",
-                    title: 'Nombre del País'
-                },
-                {
-                    //title: "Company",
-                    //template: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
+//function creaGridKendo() {
+//    $("#divKendoGridFabricante").kendoGrid({
 
-                }
-            ],
-        filterable: true
-    });
-}
+//        columns:
+//            [
+//                {
+//                    field: 'id_fabricante', width: "200px",
+//                    title: 'ID'
+//                },
+//                {
+//                    field: 'nombre_fabricante', width: "200px",
+//                    title: 'Nombre del Fabricante'
+//                },
+//                {
+//                    field: 'nombre_pais', width: "200px",
+//                    title: 'Nombre del País'
+//                },
+//                {
+//                    title: 'Editar',
+//                    command: 'edit'
+//                },
+//                {
+//                    title: 'Eliminar',
+//                    command: 'destroy'
+//                }
+//            ],
+//        dataSource: {
+//            //data: data.resultado,
+//            transport: {
+//                read: {
+//                   url: '/Fabricantes/RetornaFabricantes'
+//                },
+//                update: {
+//                    url: 'Fabricantes/ModificarFabricantes',
+//                    type: 'POST'
+//                }
+//            },
+//            schema: {
+//                model: {
+//                    id: 'id_fabricante'
+//                }
+//            },
+
+//            pageSize: 5
+//        },
+//        pageable: true,
+//        save: function () {this.refresh()},
+//        filterable: true,
+//        editable: 'inline'
+//    });
+//}
 function MostrarDialog() {
 
     crearDialog();

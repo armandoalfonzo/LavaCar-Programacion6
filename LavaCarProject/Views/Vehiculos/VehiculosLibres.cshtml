@@ -1,0 +1,42 @@
+﻿@model List<LavaCarProject.Models.sp_Retorna_Vehiculos_sin_Cliente_Result>
+@{
+    ViewBag.Title = "VehiculosLibres";
+}
+
+<h2>Asignación de Vehículos</h2>
+
+<div id="divVehiculosLibres">
+
+    <form class="form" id="fmrVehiculosLibres" method="POST">
+
+        <table class="table">
+            <tr>
+                <th>Placa</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Tipo Vehículo</th>
+                <th>Número de puertas</th>
+                <th>Número de ruedas</th>
+                <th>Año</th>
+                <th>Acciones</th>
+            </tr>
+            @{
+                foreach (LavaCarProject.Models.sp_Retorna_Vehiculos_sin_Cliente_Result posicionModelo in this.Model)
+                {
+                    <tr>
+                        <td>@posicionModelo.placa</td>
+                        <td>@posicionModelo.nombre_marca</td>
+                        <td>@posicionModelo.nombre_modelo</td>
+                        <td>@posicionModelo.nombre_vehiculo</td>
+                        <td>@posicionModelo.cantidad_puertas</td>
+                        <td>@posicionModelo.cantidad_ruedas</td>
+                        <td>@posicionModelo.año_fabricacion</td>
+                        <td>
+                            <a href="~/Vehiculos/AsignarVehiculos?id_vehiculo=@posicionModelo.id_vehiculo">Asignar Vehículo</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </form>
+</div>

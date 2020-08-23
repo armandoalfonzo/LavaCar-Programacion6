@@ -1,5 +1,5 @@
 ﻿$(function () {
-    obtenerVehiculos();
+    //obtenerVehiculos();
     MostrarDialog();
     obtenerMarcas();
     estableceEventosChange();

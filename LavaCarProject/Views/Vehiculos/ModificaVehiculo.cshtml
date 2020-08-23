@@ -1,4 +1,7 @@
-﻿@model List<LavaCarProject.Models.sp_RetornaVehiculo_Result>
+﻿@model LavaCarProject.Models.sp_RetornaVehiculo_ID_Result
+@{
+    ViewBag.Title = "ModificaVehiculo";
+}
 
 @section Style{
     <link rel="stylesheet" href=" https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -6,41 +9,7 @@
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
 }
 
-
-<h2>Lista de Vehículos</h2>
-
-<table class="table">
-    <tr>
-        <th>Placa</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Tipo Vehículo</th>
-        <th>Número de puertas</th>
-        <th>Número de ruedas</th>
-        <th>Año</th>
-    </tr>
-    @{
-        foreach (LavaCarProject.Models.sp_RetornaVehiculo_Result posicionModelo in this.Model)
-        {
-        <tr>
-            <td>@posicionModelo.placa</td>
-            <td>@posicionModelo.nombre_marca</td>
-            <td>@posicionModelo.nombre_modelo</td>
-            <td>@posicionModelo.nombre_vehiculo</td>
-            <td>@posicionModelo.cantidad_puertas</td>
-            <td>@posicionModelo.cantidad_ruedas</td>
-            <td>@posicionModelo.año_fabricacion</td>
-            <td>
-                <a href="~/Vehiculos/ModificaVehiculo?id_vehiculo=@posicionModelo.id_vehiculo">Modificar</a>
-                <br />
-                <a href="~/Vehiculos/EliminaVehiculo?id_vehiculo=@posicionModelo.id_vehiculo">Eliminar</a>
-            </td>
-        </tr>
-        }
-    }
-</table>
-
-<input type="button" id="btMostrarDialog" value="Insertar Nuevo Vehículo" />
+<h2>Modificar Vehículos</h2>
 <div id="divInsertar" hidden>
 
     <h2>Inserta Vehículo</h2>
@@ -48,7 +17,7 @@
 
 
         <div>
-            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca">
+            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca" value="@Model.nombre_marca">
             <input id="id_marca_select" hidden />
             <input id="id_fabricante_select" hidden />
         </div>
@@ -61,11 +30,11 @@
 
         <div class="form-group">
             <label>Cantidad de Puertas:</label>
-            <input type="text" name="cantpuertas" id="cantpuertas" class="form-control">
+            <input type="text" name="cantpuertas" id="cantpuertas" class="form-control" value="@Model.cantidad_puertas">
         </div>
         <div class="form-group">
             <label>Cantidad de ruedas:</label>
-            <input type="text" name="cantruedas" id="cantruedas" class="form-control">
+            <input type="text" name="cantruedas" id="cantruedas" class="form-control" value="@Model.cantidad_ruedas">
         </div>
 
         <div class="form-group">
@@ -76,16 +45,16 @@
 
         <div class="form-group">
             <label>Número de placa:</label>
-            <input type="text" name="placa" id="placa" class="form-control">
+            <input type="text" name="placa" id="placa" class="form-control" value="@Model.placa">
         </div>
 
         <div class="form-group">
             <label for="fechaNacimiento">Año de Fabricación: </label>
-            <input type="text" name="aniofabric" id="aniofabric" />
+            <input type="text" name="aniofabric" id="aniofabric"  value="@Model.año_fabricacion"/>
         </div>
 
         <div class="form-group">
-            <input type="button" value="Insertar" id="btninsertar" />
+            <input type="button" value="Modificar" id="btninsertar" />
         </div>
     </form>
 </div>

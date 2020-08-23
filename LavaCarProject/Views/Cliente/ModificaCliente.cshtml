@@ -1,0 +1,110 @@
+﻿@model LavaCarProject.Models.sp_RetornaCliente_ID_Result
+@{
+    ViewBag.Title = "ModificaCliente";
+}
+
+<h2>ModificaCliente</h2>
+
+<div id="divInsertar" >
+
+    <h2>Inserta Cliente</h2>
+
+    <form class="form" id="fmrmodificacliente" method="POST">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" value="@Model.nombre_cliente">
+        </div>
+        <div class="form-group">
+            <label>Primer Apellido:</label>
+            <input type="text" name="primerapellido" id="primerapellido" class="form-control" value="@Model.apellido1">
+        </div>
+        <div class="form-group">
+            <label>Segundo Apellido:</label>
+            <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" value="@Model.apellido2">
+        </div>
+        <div class="form-group">
+            <label>Cédula:</label>
+            <input type="text" name="cedula" id="cedula" class="form-control" value="@Model.cedula">
+        </div>
+
+        <div class="form-group">
+            <label>Provincia:</label>
+            <select name="provincia" id="provincia" class="form-control">
+                <option value="">Seleccione una provincia</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaProvincias_Result provincia in this.ViewBag.ListaProvincias)
+                    {
+                        bool pronviciaID = provincia.id_Provincia == Model.id_provincia;
+                        if (pronviciaID)
+                        {
+                            <option value="@provincia.id_Provincia" selected>@provincia.nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@provincia.id_Provincia">@provincia.nombre</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Cantón:</label>
+            <select name="canton" id="canton" class="form-control">
+                <option value="">Seleccione una cantón</option>
+                @{
+                    foreach (LavaCarProject.Models.RetornaCantones_Result canton in this.ViewBag.ListaCantones)
+                    {
+                        bool cantonID = canton.id_Canton == Model.id_canton;
+                        if (cantonID)
+                        {
+                            <option value="@canton.id_Canton" selected>@canton.nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@canton.id_Canton">@canton.nombre</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Distrito:</label>
+            <select name="distrito" id="distrito" class="form-control">
+                <option value="">Seleccione un distrito</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaDistritos_Result distrito in this.ViewBag.ListaDistritos)
+                    {
+                        bool cantonID = distrito.id_Canton == Model.id_canton;
+                        if (cantonID)
+                        {
+                            <option value="@distrito.id_Canton" selected>@distrito.nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@distrito.id_Canton">@distrito.nombre</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Direccion:</label>
+            <input type="text" name="direccion" id="direccion" class="form-control" value="@Model.direccion">
+        </div>
+        <div class="form-group">
+            <label>Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" class="form-control" value="@Model.telefono">
+        </div>
+        <div class="form-group">
+            <label>Correo electrónico:</label>
+            <input type="text" name="email" id="email" class="form-control" value="@Model.email">
+        </div>
+        <div class="form-group">
+            <input type="button" value="Insertar" id="btninsertar" />
+        </div>
+    </form>
+</div>

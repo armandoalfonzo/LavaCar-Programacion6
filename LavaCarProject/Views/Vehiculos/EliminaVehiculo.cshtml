@@ -1,0 +1,55 @@
+﻿@model LavaCarProject.Models.sp_RetornaVehiculo_ID_Result
+@{
+    ViewBag.Title = "EliminaVehiculo";
+}
+
+<h2>Eliminar Vehiculo</h2>
+
+<div id="divInsertar" >
+
+    <h2>Inserta Vehículo</h2>
+    <form class="form" id="fmrnuevovehiculo" method="POST">
+
+
+        <div>
+            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca" value="@Model.nombre_marca">
+            <input id="id_marca_select" hidden />
+            <input id="id_fabricante_select" hidden />
+        </div>
+
+        <div class="form-group">
+            <label>Modelo:</label>
+            <select name="modelo" id="modelo" class="form-control"></select>
+
+        </div>
+
+        <div class="form-group">
+            <label>Cantidad de Puertas:</label>
+            <input type="text" name="cantpuertas" id="cantpuertas" class="form-control" value="@Model.cantidad_puertas">
+        </div>
+        <div class="form-group">
+            <label>Cantidad de ruedas:</label>
+            <input type="text" name="cantruedas" id="cantruedas" class="form-control" value="@Model.cantidad_ruedas">
+        </div>
+
+        <div class="form-group">
+            <label>Tipo Vehículo:</label>
+            <select name="tipovehiculo" id="tipovehiculo" class="form-control"></select>
+        </div>
+
+
+        <div class="form-group">
+            <label>Número de placa:</label>
+            <input type="text" name="placa" id="placa" class="form-control" value="@Model.placa">
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNacimiento">Año de Fabricación: </label>
+            <input type="text" name="aniofabric" id="aniofabric" value="@Model.año_fabricacion" />
+        </div>
+
+        <div class="form-group">
+            <input type="button" value="Modificar" id="btninsertar" />
+        </div>
+    </form>
+</div>

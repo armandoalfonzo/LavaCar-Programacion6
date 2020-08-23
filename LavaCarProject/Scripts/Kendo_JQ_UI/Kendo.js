@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    obtenerClientes();
+    //obtenerClientes();
     MostrarDialog();
     estableceEventosChange();
     cargaDropdownListProvincias()

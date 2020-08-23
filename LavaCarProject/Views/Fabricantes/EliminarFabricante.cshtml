@@ -1,0 +1,46 @@
+﻿@model LavaCarProject.Models.sp_RetornaFabricante_ID_Result
+@{
+    ViewBag.Title = "EliminarFabricante";
+}
+
+<h2>Eliminar Fabricante</h2>
+
+<div id="divModificar">
+
+    <form class="form" id="fmrmodificafabri" method="POST">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nomfabricante" id="nomfabricante" class="form-control" value="@Model.nombre_fabricante">
+        </div>
+
+        <div class="form-group">
+            <label>País:</label>
+            <select name="pais" id="pais" class="form-control">
+                <option value="">Seleccione un país</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaPais_Result pais in this.ViewBag.ListaPais)
+                    {
+                        bool paisID = pais.id_pais == Model.id_pais;
+                        if (paisID)
+                        {
+                            <option value="@pais.id_pais" selected>@pais.nombre_pais</option>
+                        }
+                        else
+                        {
+                            <option value="@pais.id_pais">@pais.nombre_pais</option>
+                        }
+                    }
+                }
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Guardar" id="btninsertar" />
+        </div>
+        <div>
+            <a href="~/Fabricantes/Fabricantes"> Regresar a Fabricantes</a>
+        </div>
+    </form>
+</div>

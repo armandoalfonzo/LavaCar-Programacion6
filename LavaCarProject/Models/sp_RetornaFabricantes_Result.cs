@@ -14,6 +14,7 @@ namespace LavaCarProject.Models
     public partial class sp_RetornaFabricantes_Result
     {
         public string nombre_fabricante { get; set; }
+        public int id_fabricante { get; set; }
         public string nombre_pais { get; set; }
     }
 }

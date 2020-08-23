@@ -1,4 +1,7 @@
-﻿@section Style{
+﻿@model List<LavaCarProject.Models.sp_RetornaCliente_Result>
+
+
+@section Style{
     <link rel="stylesheet" href=" https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
@@ -6,9 +9,45 @@
 
 <h2>Lista de Clientes</h2>
 
-<div id="divClientes">
+@*<div id="divClientes">
 
-</div>
+    </div>*@
+
+<table class="table">
+    <tr>
+        <th>Nombre Cliente:</th>
+        <th>Cédula:</th>
+        <th>Provincia:</th>
+        <th>Cantón:</th>
+        <th>Distrito:</th>
+        <th>Direccion:</th>
+        <th>Teléfono:</th>
+        <th>Correo Electrónico:</th>
+    </tr>
+    @{
+        foreach (LavaCarProject.Models.sp_RetornaCliente_Result posicionModelo in this.Model)
+        {
+        <tr>
+            <td>@posicionModelo.nombre_cliente @posicionModelo.apellido1 @posicionModelo.apellido2</td>
+            <td>@posicionModelo.cedula</td>
+            <td>@posicionModelo.Provincia</td>
+            <td>@posicionModelo.Cantón</td>
+            <td>@posicionModelo.Distrito</td>
+            <td>@posicionModelo.direccion</td>
+            <td>@posicionModelo.telefono</td>
+            <td>@posicionModelo.email</td>
+
+            <td>
+                <a href="~/Cliente/ModificaCliente?id_cliente=@posicionModelo.id_cliente">Modificar</a>
+                <br />
+                <a href="~/Cliente/ModificaEliminar?id_cliente=@posicionModelo.id_cliente">Eliminar</a>
+            </td>
+        </tr>
+        }
+    }
+</table>
+
+
 
 <input type="button" id="btMostrarDialog" value="Insertar Nueva Persona" />
 <div id="divInsertar" hidden>

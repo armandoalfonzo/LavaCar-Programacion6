@@ -152,6 +152,15 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
         }
     
+        public virtual int sp_Elimina_Fabricante(Nullable<int> id_fabricante)
+        {
+            var id_fabricanteParameter = id_fabricante.HasValue ?
+                new ObjectParameter("id_fabricante", id_fabricante) :
+                new ObjectParameter("id_fabricante", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Elimina_Fabricante", id_fabricanteParameter);
+        }
+    
         public virtual int sp_Elimina_TipoVehiculo(Nullable<int> id_tipo_vehiculo)
         {
             var id_tipo_vehiculoParameter = id_tipo_vehiculo.HasValue ?
@@ -633,6 +642,11 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
         }
     
+        public virtual ObjectResult<sp_Retorna_Vehiculos_sin_Cliente_Result> sp_Retorna_Vehiculos_sin_Cliente()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Vehiculos_sin_Cliente_Result>("sp_Retorna_Vehiculos_sin_Cliente");
+        }
+    
         public virtual ObjectResult<sp_RetornaCantonesID_Result> sp_RetornaCantonesID(Nullable<int> id_Canton)
         {
             var id_CantonParameter = id_Canton.HasValue ?
@@ -865,6 +879,24 @@ namespace LavaCarProject.Models
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Veficia_Placa_Existente(Nullable<int> placa)
+        {
+            var placaParameter = placa.HasValue ?
+                new ObjectParameter("placa", placa) :
+                new ObjectParameter("placa", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Veficia_Placa_Existente", placaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Verifica_Cliente_Existente(Nullable<int> cedula)
+        {
+            var cedulaParameter = cedula.HasValue ?
+                new ObjectParameter("cedula", cedula) :
+                new ObjectParameter("cedula", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Verifica_Cliente_Existente", cedulaParameter);
         }
     }
 }
