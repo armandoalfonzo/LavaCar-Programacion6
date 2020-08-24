@@ -82,8 +82,8 @@ namespace LavaCarProject.Controllers
 
             try
             {
-                this.modeloBD.sp_Verifica_Cliente_Existente(pcedula);
-                if (reg_afectados > 0)
+                
+                if (this.modeloBD.sp_Verifica_Cliente_Existente(pcedula).FirstOrDefault() > 0)
                 {
                     resultado = "Número de cédula ya ingresada";
                 }
@@ -114,10 +114,10 @@ namespace LavaCarProject.Controllers
                 }
                 else
                 {
-                    resultado += "No se pudo insertar, verifique";
+                    resultado += "\n No se pudo insertar, verifique";
                 }
             }
-            this.RetornaProvincias();
+            this.AgregaProvincia();
             return Json(new { respuesta = resultado }
                 );
         }
@@ -126,7 +126,9 @@ namespace LavaCarProject.Controllers
         {
             sp_RetornaCliente_ID_Result modelovista = new sp_RetornaCliente_ID_Result();
             modelovista = this.modeloBD.sp_RetornaCliente_ID(id_cliente).FirstOrDefault();
-            this.RetornaProvincias();
+            this.AgregaProvincia();
+            AgregaCanton();
+            AgregaDistrito();
             return View(modelovista);
         }
         [HttpPost]
@@ -157,8 +159,9 @@ namespace LavaCarProject.Controllers
                 }
             }
             Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
-            this.RetornaProvincias();
-
+            this.AgregaProvincia();
+            AgregaCanton();
+            AgregaDistrito();
             return View(modeloVista);
         }
 
@@ -166,7 +169,9 @@ namespace LavaCarProject.Controllers
         {
             sp_RetornaCliente_ID_Result modelovista = new sp_RetornaCliente_ID_Result();
             modelovista = this.modeloBD.sp_RetornaCliente_ID(id_cliente).FirstOrDefault();
-            this.RetornaProvincias();
+            this.AgregaProvincia();
+            AgregaCanton();
+            AgregaDistrito();
             return View(modelovista);
         }
         [HttpPost]
@@ -207,8 +212,9 @@ namespace LavaCarProject.Controllers
                 }
             }
             Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
-            this.RetornaProvincias();
-
+            this.AgregaProvincia();
+            AgregaCanton();
+            AgregaDistrito();
             return View(modeloVista);
         }
 

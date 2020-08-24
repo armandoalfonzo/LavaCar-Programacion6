@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlTypes;
+using LavaCarProject.ViewModels;
 
 namespace LavaCarProject.Controllers
 {
@@ -58,8 +59,8 @@ namespace LavaCarProject.Controllers
             try
             {
 
-                this.modeloBD.sp_Veficia_Placa_Existente(pplaca);
-                if (reg_afectados > 0)
+                
+                if (this.modeloBD.sp_Veficia_Placa_Existente(pplaca).FirstOrDefault() > 0)
                 {
                     mensaje = "Número de placa ya ingresada";
                 }
@@ -92,7 +93,7 @@ namespace LavaCarProject.Controllers
                 }
                 else
                 {
-                    mensaje = "No se pudo insertar, verifique";
+                    mensaje += "\n No se pudo insertar, verifique";
                 }
 
             }
@@ -197,21 +198,30 @@ namespace LavaCarProject.Controllers
             return View(modeloVista);
         }
 
-        public ActionResult AsignarVehiculos(int id_vehiculo)
+        public ActionResult AsignarVehiculos(int id_vehiculo, int pplaca)
         {
-            List<sp_RetornaVehiculo_ID_Result> asignar = this.modeloBD.sp_RetornaVehiculo_ID(id_vehiculo).ToList();
-            return View(asignar);
+            List<sp_RetornaCliente_Result> asignar = this.modeloBD.sp_RetornaCliente("", "", "", null, null, null, null, "", null, "").ToList();
+
+            Asignar_Vehiculos_ViewModel model = new Asignar_Vehiculos_ViewModel()
+            {
+                Clientes = asignar,placa = pplaca,id_vehiculo= id_vehiculo
+            };
+
+            return View(model);
+
         }
 
+
+
         [HttpPost]
-        public ActionResult AsignarVehiculos(int pid_vehiculo, int pid_cliente)
+        public ActionResult AsignarVehiculos(Asignar_Vehiculos_ViewModel model)
         {
             int reg_afectados = 0;
             string resultado = "";
             try
             {
                 reg_afectados = this.modeloBD.sp_Inserta_Vehiculos_x_Cliente(
-                    pid_vehiculo, pid_cliente);
+                    model.id_vehiculo, model.id_cliente);
             }
             catch (Exception error)
             {
@@ -231,7 +241,7 @@ namespace LavaCarProject.Controllers
             }
             
             Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
-            return View();
+            return RedirectToAction("VehiculosLibres") ;
         }
         [HttpPost]
         public ActionResult ClientesAsignacion(int id_cliente)

@@ -1,0 +1,47 @@
+﻿.carousel-inner{
+    width: auto;
+    height: auto;
+}
+.item{
+    text-align:center;
+}
+.sprite {
+    display: inline-block;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-image: url(../../Media_Data/sprite_css.png);
+}
+.professional_car_wash_1 {
+    width: 890px;
+    height: 400px;
+    background-position: -0px -0px
+}
+.professional_car_wash_2 {
+    width: 800px;
+    height: 400px;
+    background-position: -890px -0px
+}
+
+.professional_car_wash_3 {
+    width: 532px;
+    height: 400px;
+    background-position: -0px -400px
+}
+
+.speed_car_wash {
+    width: 577px;
+    height: 400px;
+    background-position: -532px -400px
+}
+
+.vacuum_cleaner {
+    width: 650px;
+    height: 650px;
+    background-position: -0px -800px
+}
+
+.washer_machine {
+    width: 756px;
+    height: 756px;
+    background-position: -650px -800px
+}

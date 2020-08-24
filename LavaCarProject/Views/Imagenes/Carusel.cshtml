@@ -1,0 +1,99 @@
+﻿@section Style
+    {
+
+    <link href="~/Content/Media/Style_Sheet_CarWash.css" rel="stylesheet" />
+}
+<form id="frmAppBootstrap" runat="server">
+    <div class="jumbotron text-center" id="divEncabezadoPagina">
+        <h1> Ejemplo bootstrap</h1>
+        <p>Esta página se adapta al contenido</p>
+    </div>
+    <div class="container" id="divContenendorContenido">
+        <div class="row" id="divRowContenido1">
+            <div class="col-sm-4">
+                <h3>Contenido 1</h3>
+                <p>Línea 1 del contenido 1</p>
+                <p>Línea 2 del contenido 1</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Contenido 3</h3>
+                <p>Línea 1 del contenido 2</p>
+                <p>Línea 1 del contenido 2</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>contenido 3</h3>
+                <p>Línea 1 del contenido 3</p>
+                <p>Línea 1 del contenido 3</p>
+            </div>
+        </div>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol id="olCarousel" class="carousel-indicators">
+                <li data-target="myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="myCarousel" data-slide-to="1"></li>
+                <li data-target="myCarousel" data-slide-to="2"></li>
+                <li data-target="myCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <span> Css Sprite aquí</span>
+                </div>
+                <div class="item">
+                    <span>Css Sprite aquí</span>
+                </div>
+                <div class="item">
+                    <span>Css Sprite aquí</span>
+                </div>
+                <div class="item">
+                    <span>Css Sprite aquí</span>
+                </div>
+                <div class="item">
+                    <span>Css Sprite aquí</span>
+                </div>
+
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </div>
+        <br />
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol id="olCarousel" class="carousel-indicators">
+                <li data-target="myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="myCarousel" data-slide-to="1"></li>
+                <li data-target="myCarousel" data-slide-to="2"></li>
+                <li data-target="myCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="~/Imagenes/saprissa.png" />
+                </div>
+                <div class="item">
+                    <img src="~/Imagenes/liverpool.png" />
+                </div>
+                <div class="item">
+                    <img src="~/Imagenes/barcelona.png" />
+                </div>
+                <div class="item">
+                    <img src="~/Imagenes/juventus.png" />
+                </div>
+                <div class="item">
+                    <img src="~/Imagenes/psg.jpg" />
+                </div>
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
