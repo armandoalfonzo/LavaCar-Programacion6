@@ -11,13 +11,22 @@ namespace LavaCarProject.Controllers
 {
     public class CajaController : Controller
     {
+        #region Propiedades
+
         LavaCarEntities modeloBD = new LavaCarEntities();
-        // GET: Caja
+
+        #endregion
+
+        #region GETS
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// obtiene los parametros desde la base de datos
+        /// </summary>
+        /// <returns>returna un modelo de tipo sp_retorna_parametro_Result</returns>
         public ActionResult Parametros()
         {
             sp_retorna_parametro_Result fabricantes =
@@ -25,6 +34,24 @@ namespace LavaCarProject.Controllers
             return View(fabricantes);
         }
 
+        /// <summary>
+        /// obtiene las facturas desde la base de datos
+        /// </summary>
+        /// <returns>returna un modelo de tipo List<sp_retorna_parametro_Result></returns>
+        public ActionResult Facturas()
+        {
+            sp_retorna_parametro_Result fabricantes =
+               this.modeloBD.sp_retorna_parametro().FirstOrDefault();
+            return View(fabricantes);
+        }
+        #endregion
+
+        #region POSTS
+        /// <summary>
+        /// Se encarga de insertar los parametros una vez validados
+        /// </summary>
+        /// <param name="model">recibe un modelo de tipo sp_retorna_parametro_Result</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ParametrosInsert(sp_retorna_parametro_Result model)
         {
@@ -54,6 +81,11 @@ namespace LavaCarProject.Controllers
             return RedirectToAction("Parametros");
         }
 
+        /// <summary>
+        /// Se encarga de Actualizar los parametros una vez validados
+        /// </summary>
+        /// <param name="model">recibe un modelo de tipo sp_retorna_parametro_Result</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ParametrosUpdate(sp_retorna_parametro_Result model)
         {
@@ -83,6 +115,11 @@ namespace LavaCarProject.Controllers
             return RedirectToAction("Parametros");
         }
 
+        /// <summary>
+        /// Se encarga de la apertura de la caja chica una vez calidada
+        /// </summary>
+        /// <param name="montoApertura">recibe int que sera el monto de apertura de caja</param>
+        /// <returns>returna un mensaje que nos dira si se pudo o no abrir la caja</returns>
         [HttpPost]
         public ActionResult AbrirCaja(int montoApertura)
         {
@@ -96,7 +133,7 @@ namespace LavaCarProject.Controllers
                this.modeloBD.sp_retorna_parametro().FirstOrDefault();
                 if (parametros != null && parametros.monto_minimo > 0)
                 {
-                    if (parametros.monto_minimo<= montoApertura)
+                    if (parametros.monto_minimo <= montoApertura)
                     {
                         if (modeloBD.sp_Retorna_Fecha_Apertura().FirstOrDefault()?.ToString("M/d/yyyy") != DateTime.Now.ToString("M/d/yyyy"))
                         {
@@ -104,7 +141,7 @@ namespace LavaCarProject.Controllers
                             if (reg_afectados > 0)
                             {
                                 mensaje = "La caja se abrio exitosamente";
-                                if (EnviarCorreo(parametros.correo_apertura,"Apertura Caja", $"la caja fue abierta con el monto de {montoApertura}"))
+                                if (EnviarCorreo(parametros.correo_apertura, "Apertura Caja", $"la caja fue abierta con el monto de {montoApertura}"))
                                 {
                                     mensaje += "\n se envio un correo con los detalles";
                                 }
@@ -144,7 +181,16 @@ namespace LavaCarProject.Controllers
             return Json(mensaje);
         }
 
+        #endregion
 
+        #region Metodos Extras
+        /// <summary>
+        /// Envia un correo Electronico 
+        /// </summary>
+        /// <param name="para">correo destino donde sera enviado</param>
+        /// <param name="asunto">asunto del correo</param>
+        /// <param name="mensaje">mensaje del correo</param>
+        /// <returns>returna true si lo envio false si no</returns>
         public bool EnviarCorreo(string para, string asunto, string mensaje)
         {
             bool wasSend = false;
@@ -174,5 +220,6 @@ namespace LavaCarProject.Controllers
             }
             return wasSend;
         }
+        #endregion
     }
 }
