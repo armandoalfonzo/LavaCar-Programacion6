@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -181,7 +182,10 @@
     <Compile Include="Models\modelo_vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pais.cs">
+    <Compile Include="Models\Pai.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Parametro.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Parametros.cs">
@@ -203,12 +207,14 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Retorna_Cierres_Caja_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
+
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
+
+
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_MostrarCliente_Result.cs">
@@ -269,12 +275,13 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_retorna_parametro_Result.cs">
+
+    </Compile>
+    <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
+
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tipo_servicio.cs">
@@ -286,7 +293,7 @@
     <Compile Include="Models\usuario.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vehiculos.cs">
+    <Compile Include="Models\vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vehiculos_x_cliente.cs">
@@ -354,6 +361,7 @@
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_clientes.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ScriptGenerico.js" />
+    <Content Include="Scripts\ValidacionesGenericas.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -387,9 +395,12 @@
     <Content Include="Views\Vehiculos\VehiculosLibres.cshtml" />
     <Content Include="Views\Vehiculos\AsignarVehiculos.cshtml" />
     <Content Include="Views\Imagenes\Carusel.cshtml" />
-    <Content Include="Views\Vehiculos\RetornaVehiculoxcliente.cshtml" />
+
     <Content Include="Views\Vehiculos\ReporteVehiculoxcliente.cshtml" />
     <Content Include="Views\Vehiculos\RetornaMarcasLista.cshtml" />
+
+    <Content Include="Views\Caja\Parametros.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

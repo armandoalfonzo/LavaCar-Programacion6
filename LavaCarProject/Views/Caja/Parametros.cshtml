@@ -1,0 +1,154 @@
+﻿@model LavaCarProject.Models.sp_retorna_parametro_Result
+@{
+    ViewBag.Title = "Parametros";
+}
+
+
+@section Style{
+    <link rel="stylesheet" href=" https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+}
+
+
+@if (Model != null)
+{
+    <h2>Lista de Clientes</h2>
+    <br />
+    <table class="table">
+        <tr>
+            <th>Nombre Organizacion:</th>
+            <th>Correo apertura caja</th>
+            <th>Correo cierre caja</th>
+            <th>Monto mínimo apertura caja</th>
+        </tr>
+        <tr>
+            <td>@Model.nombre </td>
+            <td>@Model.correo_apertura</td>
+            <td>@Model.correo_cierre</td>
+            <td>@Model.monto_minimo</td>
+
+
+            <td>
+                <a class="btMostrarDialog" id="modificar">Modificar</a>
+            </td>
+        </tr>
+
+    </table>
+
+    <div id="divInsertar" hidden>
+
+        <h2>Modificar Parametros</h2>
+
+        <form class="form" id="fmrnuevoparametro" action="@Url.Action("ParametrosUpdate", "Caja")" method="POST">
+
+            <div class="form-group">
+                <label>Nombre Organizacion:</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" value="@Model.nombre">
+            </div>
+            <div class="form-group">
+                <label>Correo apertura caja:</label>
+                <input type="text" name="correo_apertura" id="correo_apertura" class="form-control" value="@Model.correo_apertura">
+            </div>
+            <div class="form-group">
+                <label>Correo cierre caja:</label>
+                <input type="text" name="correo_cierre" id="correo_cierre" class="form-control" value="@Model.correo_cierre">
+            </div>
+            <div class="form-group">
+                <label>Monto mínimo apertura caja:</label>
+                <input type="text" name="monto_minimo" id="monto_minimo" class="form-control" value="@Model.monto_minimo">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Modificar" id="btninsertar" />
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <h2>No se han insertado los Parametros aun </h2>
+    <br />
+    <input type="button" class="btMostrarDialog button" value="Insertar Parametros" />
+    <div id="divInsertar" hidden>
+
+        <h2>Inserta Parametros</h2>
+
+        <form class="form" id="fmrnuevoparametro" action="@Url.Action("ParametrosInsert", "Caja")" method="POST">
+
+            <div class="form-group">
+                <label>Nombre Organizacion:</label>
+                <input type="text" name="nombre" id="nombre" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Correo apertura caja:</label>
+                <input type="email" name="correo_apertura" id="correo_apertura" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Correo cierre caja:</label>
+                <input type="email" name="correo_cierre" id="correo_cierre" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Monto mínimo apertura caja:</label>
+                <input type="number" name="monto_minimo" id="monto_minimo" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Insertar" id="btninsertar" />
+            </div>
+        </form>
+    </div>
+}
+
+
+
+
+
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            MostrarDialog();
+            $("#fmrnuevoparametro").validate({
+                rules: {
+                    nombre: {
+                        required: true,
+                        maxlength:50
+                    },
+                    correo_apertura: {
+                        required: true,
+                        email: true,
+                        maxlength:50
+                    },
+                    correo_cierre: {
+                        required: true,
+                        email: true,
+                        maxlength:50
+                    },
+                    monto_minimo: {
+                        required: true,
+                        number: true
+                    }
+                }
+            });
+        });
+
+        function MostrarDialog() {
+
+            crearDialog();
+            $(".btMostrarDialog").click(function () {
+                $("#divInsertar").dialog("open");
+            });
+        }
+
+        function crearDialog() {
+            $("#divInsertar").dialog({
+                autoOpen: false,
+                height: 650,
+                widht: 750,
+                modal: true,
+                title: "Parametros",
+                resizable: true,
+            });
+        }
+
+    </script>
+}
+
+
