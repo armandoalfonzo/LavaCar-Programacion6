@@ -11,10 +11,11 @@
           </Key>
           <Property Name="id_caja" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="hora_apertura" Type="datetime" Nullable="false" />
-          <Property Name="hora_cierre" Type="datetime" Nullable="false" />
+          <Property Name="hora_cierre" Type="datetime" />
           <Property Name="monto_apertura" Type="float" Nullable="false" />
-          <Property Name="monto_cierre" Type="float" Nullable="false" />
-          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="monto_cierre_total" Type="float" />
+          <Property Name="id_usuario_apertura" Type="int" Nullable="false" />
+          <Property Name="id_usuario_cierre" Type="int" />
         </EntityType>
         <EntityType Name="Canton">
           <Key>
@@ -72,7 +73,7 @@
           <Key>
             <PropertyRef Name="id_detalle_factura" />
           </Key>
-          <Property Name="id_detalle_factura" Type="int" Nullable="false" />
+          <Property Name="id_detalle_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_factura_encabezado" Type="int" Nullable="false" />
           <Property Name="id_servicio" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
@@ -86,7 +87,9 @@
           <Property Name="fecha_factura" Type="datetime" Nullable="false" />
           <Property Name="id_cliente_factura" Type="int" Nullable="false" />
           <Property Name="vehiculo_id" Type="int" Nullable="false" />
-          <Property Name="total_pagar" Type="float" Nullable="false" />
+          <Property Name="total_pagar" Type="float" />
+          <Property Name="total_sin_iv" Type="float" />
+          <Property Name="estado_factura" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="marca_vehiculo">
           <Key>
@@ -110,6 +113,16 @@
           </Key>
           <Property Name="id_pais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre_pais" Type="nchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="id_parametro" />
+          </Key>
+          <Property Name="id_parametro" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo_apertura" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo_cierre" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="monto_minimo" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -139,7 +152,7 @@
           </Key>
           <Property Name="id_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre_servicio" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="precio_servicio" Type="float" Nullable="false" />
+          <Property Name="precio_servicio" Type="float" />
         </EntityType>
         <EntityType Name="tipo_vehiculo">
           <Key>
@@ -205,7 +218,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_caja_chica_usuario">
+        <Association Name="FK_caja_chica_usuario1">
           <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
           <End Role="caja_chica" Type="Self.caja_chica" Multiplicity="*" />
           <ReferentialConstraint>
@@ -213,7 +226,19 @@
               <PropertyRef Name="id_usuario" />
             </Principal>
             <Dependent Role="caja_chica">
+              <PropertyRef Name="id_usuario_apertura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_caja_chica_usuario2">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="caja_chica" Type="Self.caja_chica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
               <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="caja_chica">
+              <PropertyRef Name="id_usuario_cierre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -274,6 +299,18 @@
             </Principal>
             <Dependent Role="factura_encabezado">
               <PropertyRef Name="id_cliente_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_factura_encabezado_vehiculos">
+          <End Role="vehiculos" Type="Self.vehiculos" Multiplicity="1" />
+          <End Role="factura_encabezado" Type="Self.factura_encabezado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="factura_encabezado">
+              <PropertyRef Name="vehiculo_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -350,6 +387,11 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="InsertaNuevoModelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_modelo" Type="nchar" Mode="In" />
+          <Parameter Name="id_marca_modelo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Retorna_Cierres_Caja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="RetornaCantones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
           <Parameter Name="id_Provincia" Type="int" Mode="In" />
@@ -372,6 +414,14 @@
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="sp_AperturaCaja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="monto_apertura" Type="float" Mode="In" />
+          <Parameter Name="id_usuarioapertura" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Cierra_Caja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Cierre_Caja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_usuariocierre" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -384,6 +434,9 @@
         </Function>
         <Function Name="sp_Elimina_Fabricante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_fabricante" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Elimina_Modelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_modelo" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Elimina_TipoVehiculo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_tipo_vehiculo" Type="int" Mode="In" />
@@ -420,6 +473,22 @@
           <Parameter Name="nombre_fabricante" Type="nvarchar" Mode="In" />
           <Parameter Name="pais" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Inserta_factura_Detalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_factura_encabezado" Type="int" Mode="In" />
+          <Parameter Name="id_servicio" Type="int" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+          <Parameter Name="precio" Type="float" Mode="In" />
+        </Function>
+        <Function Name="sp_Inserta_factura_encabezado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_cliente" Type="int" Mode="In" />
+          <Parameter Name="vehiculo_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Inserta_parametro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="nchar" Mode="In" />
+          <Parameter Name="correo_aperture" Type="nchar" Mode="In" />
+          <Parameter Name="correo_cierre" Type="nchar" Mode="In" />
+          <Parameter Name="monto_minimo" Type="float" Mode="In" />
+        </Function>
         <Function Name="SP_INSERTA_SERVICIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NOMBRE_SERVICIO" Type="nvarchar" Mode="In" />
           <Parameter Name="PRECIO_SERVICIO" Type="float" Mode="In" />
@@ -446,6 +515,10 @@
           <Parameter Name="nombre" Type="varchar" Mode="In" />
           <Parameter Name="id_CantonInec" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_InsertaMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_marca" Type="nchar" Mode="In" />
+          <Parameter Name="id_fabricante" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_InsertaNuevoCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="nvarchar" Mode="In" />
           <Parameter Name="apellido1" Type="nvarchar" Mode="In" />
@@ -467,7 +540,7 @@
           <Parameter Name="pais" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_MODIFICA_SERVICIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="COD_SERVICIO" Type="int" Mode="In" />
+          <Parameter Name="ID_SERVICIO" Type="int" Mode="In" />
           <Parameter Name="NOMBRE_SERVICIO" Type="nvarchar" Mode="In" />
           <Parameter Name="PRECIO_SERVICIO" Type="float" Mode="In" />
         </Function>
@@ -513,18 +586,21 @@
         <Function Name="sp_ModificaModelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_modelo" Type="int" Mode="In" />
           <Parameter Name="nombre_modelo" Type="nvarchar" Mode="In" />
+          <Parameter Name="id_marca_modelo" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_ModificaPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_pais" Type="int" Mode="In" />
           <Parameter Name="nombre" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="sp_MostrarCajaChica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_MostrarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Retorna_cierre_Caja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Retorna_Fecha_Apertura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_retorna_parametro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Retorna_Vehiculos_sin_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_RetornaCantonesID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_Canton" Type="int" Mode="In" />
@@ -572,6 +648,9 @@
           <Parameter Name="id_fabricante" Type="int" Mode="In" />
           <Parameter Name="id_marca" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_RetornaModelo_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_modelo" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_RetornaPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
         </Function>
@@ -596,6 +675,12 @@
           <Parameter Name="id_cliente" Type="int" Mode="In" />
           <Parameter Name="id_vehiculo" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_update_parametro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="nchar" Mode="In" />
+          <Parameter Name="correo_aperture" Type="nchar" Mode="In" />
+          <Parameter Name="correo_cierre" Type="nchar" Mode="In" />
+          <Parameter Name="monto_minimo" Type="float" Mode="In" />
+        </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Veficia_Placa_Existente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="placa" Type="int" Mode="In" />
@@ -614,6 +699,7 @@
           <EntitySet Name="marca_vehiculo" EntityType="Self.marca_vehiculo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="modelo_vehiculo" EntityType="Self.modelo_vehiculo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametros" EntityType="Self.Parametros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tipo_servicio" EntityType="Self.tipo_servicio" Schema="dbo" store:Type="Tables" />
@@ -629,7 +715,11 @@
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
           </AssociationSet>
-          <AssociationSet Name="FK_caja_chica_usuario" Association="Self.FK_caja_chica_usuario">
+          <AssociationSet Name="FK_caja_chica_usuario1" Association="Self.FK_caja_chica_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="caja_chica" EntitySet="caja_chica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_caja_chica_usuario2" Association="Self.FK_caja_chica_usuario2">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="caja_chica" EntitySet="caja_chica" />
           </AssociationSet>
@@ -651,6 +741,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_factura_encabezado_cliente" Association="Self.FK_factura_encabezado_cliente">
             <End Role="cliente" EntitySet="cliente" />
+            <End Role="factura_encabezado" EntitySet="factura_encabezado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_factura_encabezado_vehiculos" Association="Self.FK_factura_encabezado_vehiculos">
+            <End Role="vehiculos" EntitySet="vehiculos" />
             <End Role="factura_encabezado" EntitySet="factura_encabezado" />
           </AssociationSet>
           <AssociationSet Name="FK_marca_vehiculo_fabricante" Association="Self.FK_marca_vehiculo_fabricante">
@@ -689,11 +783,13 @@
           </Key>
           <Property Name="id_caja" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="hora_apertura" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="hora_cierre" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="hora_cierre" Type="DateTime" Precision="3" />
           <Property Name="monto_apertura" Type="Double" Nullable="false" />
-          <Property Name="monto_cierre" Type="Double" Nullable="false" />
-          <Property Name="id_usuario" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="usuario" Relationship="Self.FK_caja_chica_usuario" FromRole="caja_chica" ToRole="usuario" />
+          <Property Name="monto_cierre_total" Type="Double" />
+          <Property Name="id_usuario_apertura" Type="Int32" Nullable="false" />
+          <Property Name="id_usuario_cierre" Type="Int32" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_caja_chica_usuario1" FromRole="caja_chica" ToRole="usuario" />
+          <NavigationProperty Name="usuario1" Relationship="Self.FK_caja_chica_usuario2" FromRole="caja_chica" ToRole="usuario" />
         </EntityType>
         <EntityType Name="Canton">
           <Key>
@@ -760,7 +856,7 @@
           <Key>
             <PropertyRef Name="id_detalle_factura" />
           </Key>
-          <Property Name="id_detalle_factura" Type="Int32" Nullable="false" />
+          <Property Name="id_detalle_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_factura_encabezado" Type="Int32" Nullable="false" />
           <Property Name="id_servicio" Type="Int32" Nullable="false" />
           <Property Name="cantidad" Type="Int32" Nullable="false" />
@@ -776,9 +872,12 @@
           <Property Name="fecha_factura" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id_cliente_factura" Type="Int32" Nullable="false" />
           <Property Name="vehiculo_id" Type="Int32" Nullable="false" />
-          <Property Name="total_pagar" Type="Double" Nullable="false" />
+          <Property Name="total_pagar" Type="Double" />
+          <Property Name="total_sin_iv" Type="Double" />
+          <Property Name="estado_factura" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="cliente" Relationship="Self.FK_factura_encabezado_cliente" FromRole="factura_encabezado" ToRole="cliente" />
           <NavigationProperty Name="factura_detalle" Relationship="Self.FK_factura_detalle_factura_encabezado" FromRole="factura_encabezado" ToRole="factura_detalle" />
+          <NavigationProperty Name="vehiculos" Relationship="Self.FK_factura_encabezado_vehiculos" FromRole="factura_encabezado" ToRole="vehiculos" />
         </EntityType>
         <EntityType Name="marca_vehiculo">
           <Key>
@@ -806,6 +905,16 @@
           <Property Name="id_pais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre_pais" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="fabricante" Relationship="Self.FK_fabricante_País" FromRole="Pais" ToRole="fabricante" />
+        </EntityType>
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="id_parametro" />
+          </Key>
+          <Property Name="id_parametro" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="correo_apertura" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="correo_cierre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="monto_minimo" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -837,7 +946,7 @@
           </Key>
           <Property Name="id_servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre_servicio" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="precio_servicio" Type="Double" Nullable="false" />
+          <Property Name="precio_servicio" Type="Double" />
           <NavigationProperty Name="factura_detalle" Relationship="Self.FK_factura_detalle_tipo_servicio" FromRole="tipo_servicio" ToRole="factura_detalle" />
         </EntityType>
         <EntityType Name="tipo_vehiculo">
@@ -858,7 +967,8 @@
           <Property Name="contraseña" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="correo_usuario" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="FechaIngreso" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="caja_chica" Relationship="Self.FK_caja_chica_usuario" FromRole="usuario" ToRole="caja_chica" />
+          <NavigationProperty Name="caja_chica" Relationship="Self.FK_caja_chica_usuario1" FromRole="usuario" ToRole="caja_chica" />
+          <NavigationProperty Name="caja_chica1" Relationship="Self.FK_caja_chica_usuario2" FromRole="usuario" ToRole="caja_chica" />
         </EntityType>
         <EntityType Name="vehiculos">
           <Key>
@@ -874,6 +984,7 @@
           <Property Name="año_fabricacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_fabricante_vehiculo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="fabricante" Relationship="Self.FK_vehiculos_fabricante" FromRole="vehiculos" ToRole="fabricante" />
+          <NavigationProperty Name="factura_encabezado" Relationship="Self.FK_factura_encabezado_vehiculos" FromRole="vehiculos" ToRole="factura_encabezado" />
           <NavigationProperty Name="tipo_vehiculo" Relationship="Self.FK_vehiculos_tipo_vehiculo" FromRole="vehiculos" ToRole="tipo_vehiculo" />
           <NavigationProperty Name="vehiculos_x_cliente" Relationship="Self.FK_vehículos_x_cliente_vehículos" FromRole="vehiculos" ToRole="vehiculos_x_cliente" />
         </EntityType>
@@ -887,7 +998,7 @@
           <NavigationProperty Name="cliente" Relationship="Self.FK_vehículos_x_cliente_cliente" FromRole="vehiculos_x_cliente" ToRole="cliente" />
           <NavigationProperty Name="vehiculos" Relationship="Self.FK_vehículos_x_cliente_vehículos" FromRole="vehiculos_x_cliente" ToRole="vehiculos" />
         </EntityType>
-        <Association Name="FK_caja_chica_usuario">
+        <Association Name="FK_caja_chica_usuario1">
           <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
           <End Role="caja_chica" Type="Self.caja_chica" Multiplicity="*" />
           <ReferentialConstraint>
@@ -895,7 +1006,19 @@
               <PropertyRef Name="id_usuario" />
             </Principal>
             <Dependent Role="caja_chica">
+              <PropertyRef Name="id_usuario_apertura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_caja_chica_usuario2">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="caja_chica" Type="Self.caja_chica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
               <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="caja_chica">
+              <PropertyRef Name="id_usuario_cierre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1019,6 +1142,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_factura_encabezado_vehiculos">
+          <End Role="vehiculos" Type="Self.vehiculos" Multiplicity="1" />
+          <End Role="factura_encabezado" Type="Self.factura_encabezado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehiculos">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="factura_encabezado">
+              <PropertyRef Name="vehiculo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_modelo_vehículo_marca_vehículo">
           <End Role="marca_vehiculo" Type="Self.marca_vehiculo" Multiplicity="1" />
           <End Role="modelo_vehiculo" Type="Self.modelo_vehiculo" Multiplicity="*" />
@@ -1066,6 +1201,7 @@
           <EntitySet Name="marca_vehiculo" EntityType="Self.marca_vehiculo" />
           <EntitySet Name="modelo_vehiculo" EntityType="Self.modelo_vehiculo" />
           <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Parametros" EntityType="Self.Parametros" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tipo_servicio" EntityType="Self.tipo_servicio" />
@@ -1073,7 +1209,11 @@
           <EntitySet Name="usuario" EntityType="Self.usuario" />
           <EntitySet Name="vehiculos" EntityType="Self.vehiculos" />
           <EntitySet Name="vehiculos_x_cliente" EntityType="Self.vehiculos_x_cliente" />
-          <AssociationSet Name="FK_caja_chica_usuario" Association="Self.FK_caja_chica_usuario">
+          <AssociationSet Name="FK_caja_chica_usuario1" Association="Self.FK_caja_chica_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="caja_chica" EntitySet="caja_chica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_caja_chica_usuario2" Association="Self.FK_caja_chica_usuario2">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="caja_chica" EntitySet="caja_chica" />
           </AssociationSet>
@@ -1117,6 +1257,10 @@
             <End Role="tipo_servicio" EntitySet="tipo_servicio" />
             <End Role="factura_detalle" EntitySet="factura_detalle" />
           </AssociationSet>
+          <AssociationSet Name="FK_factura_encabezado_vehiculos" Association="Self.FK_factura_encabezado_vehiculos">
+            <End Role="vehiculos" EntitySet="vehiculos" />
+            <End Role="factura_encabezado" EntitySet="factura_encabezado" />
+          </AssociationSet>
           <AssociationSet Name="FK_modelo_vehículo_marca_vehículo" Association="Self.FK_modelo_vehículo_marca_vehículo">
             <End Role="marca_vehiculo" EntitySet="marca_vehiculo" />
             <End Role="modelo_vehiculo" EntitySet="modelo_vehiculo" />
@@ -1129,6 +1273,11 @@
             <End Role="vehiculos" EntitySet="vehiculos" />
             <End Role="vehiculos_x_cliente" EntitySet="vehiculos_x_cliente" />
           </AssociationSet>
+          <FunctionImport Name="InsertaNuevoModelo">
+            <Parameter Name="nombre_modelo" Mode="In" Type="String" />
+            <Parameter Name="id_marca_modelo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Retorna_Cierres_Caja" ReturnType="Collection(LavaCarModel.Retorna_Cierres_Caja_Result)" />
           <FunctionImport Name="RetornaCantones" ReturnType="Collection(LavaCarModel.RetornaCantones_Result)">
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="id_Provincia" Mode="In" Type="Int32" />
@@ -1151,6 +1300,14 @@
             <Parameter Name="version" Mode="In" Type="Int32" />
             <Parameter Name="definition" Mode="In" Type="Binary" />
           </FunctionImport>
+          <FunctionImport Name="sp_AperturaCaja">
+            <Parameter Name="monto_apertura" Mode="In" Type="Double" />
+            <Parameter Name="id_usuarioapertura" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Cierra_Caja" ReturnType="Collection(DateTime)" />
+          <FunctionImport Name="sp_Cierre_Caja">
+            <Parameter Name="id_usuariocierre" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_creatediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -1163,6 +1320,9 @@
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Fabricante">
             <Parameter Name="id_fabricante" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Elimina_Modelo">
+            <Parameter Name="id_modelo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_TipoVehiculo">
             <Parameter Name="id_tipo_vehiculo" Mode="In" Type="Int32" />
@@ -1199,6 +1359,22 @@
             <Parameter Name="nombre_fabricante" Mode="In" Type="String" />
             <Parameter Name="pais" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_Inserta_factura_Detalle">
+            <Parameter Name="id_factura_encabezado" Mode="In" Type="Int32" />
+            <Parameter Name="id_servicio" Mode="In" Type="Int32" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="precio" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Inserta_factura_encabezado" ReturnType="Collection(Int32)">
+            <Parameter Name="id_cliente" Mode="In" Type="Int32" />
+            <Parameter Name="vehiculo_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Inserta_parametro">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="correo_aperture" Mode="In" Type="String" />
+            <Parameter Name="correo_cierre" Mode="In" Type="String" />
+            <Parameter Name="monto_minimo" Mode="In" Type="Double" />
+          </FunctionImport>
           <FunctionImport Name="SP_INSERTA_SERVICIO">
             <Parameter Name="NOMBRE_SERVICIO" Mode="In" Type="String" />
             <Parameter Name="PRECIO_SERVICIO" Mode="In" Type="Double" />
@@ -1225,6 +1401,10 @@
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="id_CantonInec" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_InsertaMarca">
+            <Parameter Name="nombre_marca" Mode="In" Type="String" />
+            <Parameter Name="id_fabricante" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_InsertaNuevoCliente">
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="apellido1" Mode="In" Type="String" />
@@ -1246,7 +1426,7 @@
             <Parameter Name="pais" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_MODIFICA_SERVICIO">
-            <Parameter Name="COD_SERVICIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_SERVICIO" Mode="In" Type="Int32" />
             <Parameter Name="NOMBRE_SERVICIO" Mode="In" Type="String" />
             <Parameter Name="PRECIO_SERVICIO" Mode="In" Type="Double" />
           </FunctionImport>
@@ -1292,18 +1472,21 @@
           <FunctionImport Name="sp_ModificaModelo">
             <Parameter Name="id_modelo" Mode="In" Type="Int32" />
             <Parameter Name="nombre_modelo" Mode="In" Type="String" />
+            <Parameter Name="id_marca_modelo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ModificaPais">
             <Parameter Name="id_pais" Mode="In" Type="Int32" />
             <Parameter Name="nombre" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_MostrarCajaChica" />
           <FunctionImport Name="sp_MostrarCliente" ReturnType="Collection(LavaCarModel.sp_MostrarCliente_Result)" />
           <FunctionImport Name="sp_renamediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_Retorna_cierre_Caja" ReturnType="Collection(DateTime)" />
+          <FunctionImport Name="sp_Retorna_Fecha_Apertura" ReturnType="Collection(DateTime)" />
+          <FunctionImport Name="sp_retorna_parametro" ReturnType="Collection(LavaCarModel.sp_retorna_parametro_Result)" />
           <FunctionImport Name="sp_Retorna_Vehiculos_sin_Cliente" ReturnType="Collection(LavaCarModel.sp_Retorna_Vehiculos_sin_Cliente_Result)" />
           <FunctionImport Name="sp_RetornaCantonesID" ReturnType="Collection(LavaCarModel.sp_RetornaCantonesID_Result)">
             <Parameter Name="id_Canton" Mode="In" Type="Int32" />
@@ -1351,6 +1534,9 @@
             <Parameter Name="id_fabricante" Mode="In" Type="Int32" />
             <Parameter Name="id_marca" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_RetornaModelo_ID" ReturnType="Collection(LavaCarModel.sp_RetornaModelo_ID_Result)">
+            <Parameter Name="id_modelo" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_RetornaPais" ReturnType="Collection(LavaCarModel.sp_RetornaPais_Result)">
             <Parameter Name="nombre" Mode="In" Type="String" />
           </FunctionImport>
@@ -1375,6 +1561,12 @@
             <Parameter Name="id_cliente" Mode="In" Type="Int32" />
             <Parameter Name="id_vehiculo" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_update_parametro">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="correo_aperture" Mode="In" Type="String" />
+            <Parameter Name="correo_cierre" Mode="In" Type="String" />
+            <Parameter Name="monto_minimo" Mode="In" Type="Double" />
+          </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="sp_Veficia_Placa_Existente" ReturnType="Collection(Int32)">
             <Parameter Name="placa" Mode="In" Type="Int32" />
@@ -1383,6 +1575,15 @@
             <Parameter Name="cedula" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="Retorna_Cierres_Caja_Result">
+          <Property Type="Int32" Name="id_caja" Nullable="false" />
+          <Property Type="DateTime" Name="hora_apertura" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="hora_cierre" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="monto_apertura" Nullable="false" />
+          <Property Type="Double" Name="monto_cierre_total" Nullable="true" />
+          <Property Type="Int32" Name="id_usuario_apertura" Nullable="false" />
+          <Property Type="Int32" Name="id_usuario_cierre" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="RetornaCantones_Result">
           <Property Type="Int32" Name="id_Canton" Nullable="false" />
           <Property Type="Int32" Name="id_Provincia" Nullable="false" />
@@ -1439,6 +1640,13 @@
           <Property Type="String" Name="direccion" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="telefono" Nullable="true" />
           <Property Type="String" Name="email" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="sp_retorna_parametro_Result">
+          <Property Type="Int32" Name="id_parametro" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo_apertura" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo_cierre" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="monto_minimo" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_Retorna_Vehiculos_sin_Cliente_Result">
           <Property Type="Int32" Name="id_vehiculo" Nullable="false" />
@@ -1552,6 +1760,15 @@
           <Property Type="Int32" Name="id_modelo" Nullable="false" />
           <Property Type="Int32" Name="id_marca_modelo" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="sp_RetornaModelo_ID_Result">
+          <Property Type="Int32" Name="id_modelo" Nullable="false" />
+          <Property Type="Int32" Name="id_marca_modelo" Nullable="false" />
+          <Property Type="String" Name="nombre_modelo" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="id_marca" Nullable="false" />
+          <Property Type="String" Name="nombre_marca" Nullable="false" MaxLength="55" />
+          <Property Type="Int32" Name="id_fabricante" Nullable="false" />
+          <Property Type="String" Name="nombre_fabricante" Nullable="false" MaxLength="100" />
+        </ComplexType>
         <ComplexType Name="sp_RetornaPais_Result">
           <Property Type="Int32" Name="id_pais" Nullable="false" />
           <Property Type="String" Name="nombre_pais" Nullable="true" MaxLength="100" />
@@ -1627,8 +1844,9 @@
                 <ScalarProperty Name="hora_apertura" ColumnName="hora_apertura" />
                 <ScalarProperty Name="hora_cierre" ColumnName="hora_cierre" />
                 <ScalarProperty Name="monto_apertura" ColumnName="monto_apertura" />
-                <ScalarProperty Name="monto_cierre" ColumnName="monto_cierre" />
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="monto_cierre_total" ColumnName="monto_cierre_total" />
+                <ScalarProperty Name="id_usuario_apertura" ColumnName="id_usuario_apertura" />
+                <ScalarProperty Name="id_usuario_cierre" ColumnName="id_usuario_cierre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1707,6 +1925,8 @@
                 <ScalarProperty Name="id_cliente_factura" ColumnName="id_cliente_factura" />
                 <ScalarProperty Name="vehiculo_id" ColumnName="vehiculo_id" />
                 <ScalarProperty Name="total_pagar" ColumnName="total_pagar" />
+                <ScalarProperty Name="total_sin_iv" ColumnName="total_sin_iv" />
+                <ScalarProperty Name="estado_factura" ColumnName="estado_factura" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1733,6 +1953,17 @@
               <MappingFragment StoreEntitySet="Pais">
                 <ScalarProperty Name="id_pais" ColumnName="id_pais" />
                 <ScalarProperty Name="nombre_pais" ColumnName="nombre_pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametros">
+            <EntityTypeMapping TypeName="LavaCarModel.Parametros">
+              <MappingFragment StoreEntitySet="Parametros">
+                <ScalarProperty Name="id_parametro" ColumnName="id_parametro" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="correo_apertura" ColumnName="correo_apertura" />
+                <ScalarProperty Name="correo_cierre" ColumnName="correo_cierre" />
+                <ScalarProperty Name="monto_minimo" ColumnName="monto_minimo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1813,6 +2044,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertaNuevoModelo" FunctionName="LavaCarModel.Store.InsertaNuevoModelo" />
+          <FunctionImportMapping FunctionImportName="Retorna_Cierres_Caja" FunctionName="LavaCarModel.Store.Retorna_Cierres_Caja">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LavaCarModel.Retorna_Cierres_Caja_Result">
+                <ScalarProperty Name="id_caja" ColumnName="id_caja" />
+                <ScalarProperty Name="hora_apertura" ColumnName="hora_apertura" />
+                <ScalarProperty Name="hora_cierre" ColumnName="hora_cierre" />
+                <ScalarProperty Name="monto_apertura" ColumnName="monto_apertura" />
+                <ScalarProperty Name="monto_cierre_total" ColumnName="monto_cierre_total" />
+                <ScalarProperty Name="id_usuario_apertura" ColumnName="id_usuario_apertura" />
+                <ScalarProperty Name="id_usuario_cierre" ColumnName="id_usuario_cierre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RetornaCantones" FunctionName="LavaCarModel.Store.RetornaCantones">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LavaCarModel.RetornaCantones_Result">
@@ -1863,9 +2108,13 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="LavaCarModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_AperturaCaja" FunctionName="LavaCarModel.Store.sp_AperturaCaja" />
+          <FunctionImportMapping FunctionImportName="sp_Cierra_Caja" FunctionName="LavaCarModel.Store.sp_Cierra_Caja" />
+          <FunctionImportMapping FunctionImportName="sp_Cierre_Caja" FunctionName="LavaCarModel.Store.sp_Cierre_Caja" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="LavaCarModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="LavaCarModel.Store.sp_dropdiagram" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Fabricante" FunctionName="LavaCarModel.Store.sp_Elimina_Fabricante" />
+          <FunctionImportMapping FunctionImportName="sp_Elimina_Modelo" FunctionName="LavaCarModel.Store.sp_Elimina_Modelo" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_TipoVehiculo" FunctionName="LavaCarModel.Store.sp_Elimina_TipoVehiculo" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Vehiculos_x_Cliente" FunctionName="LavaCarModel.Store.sp_Elimina_Vehiculos_x_Cliente" />
           <FunctionImportMapping FunctionImportName="sp_EliminaCanton" FunctionName="LavaCarModel.Store.sp_EliminaCanton" />
@@ -1893,11 +2142,15 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Inserta_Fabricante" FunctionName="LavaCarModel.Store.sp_Inserta_Fabricante" />
+          <FunctionImportMapping FunctionImportName="sp_Inserta_factura_Detalle" FunctionName="LavaCarModel.Store.sp_Inserta_factura_Detalle" />
+          <FunctionImportMapping FunctionImportName="sp_Inserta_factura_encabezado" FunctionName="LavaCarModel.Store.sp_Inserta_factura_encabezado" />
+          <FunctionImportMapping FunctionImportName="sp_Inserta_parametro" FunctionName="LavaCarModel.Store.sp_Inserta_parametro" />
           <FunctionImportMapping FunctionImportName="SP_INSERTA_SERVICIO" FunctionName="LavaCarModel.Store.SP_INSERTA_SERVICIO" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_TipoVehiculo" FunctionName="LavaCarModel.Store.sp_Inserta_TipoVehiculo" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Vehiculo" FunctionName="LavaCarModel.Store.sp_Inserta_Vehiculo" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Vehiculos_x_Cliente" FunctionName="LavaCarModel.Store.sp_Inserta_Vehiculos_x_Cliente" />
           <FunctionImportMapping FunctionImportName="sp_InsertaCanton" FunctionName="LavaCarModel.Store.sp_InsertaCanton" />
+          <FunctionImportMapping FunctionImportName="sp_InsertaMarca" FunctionName="LavaCarModel.Store.sp_InsertaMarca" />
           <FunctionImportMapping FunctionImportName="sp_InsertaNuevoCliente" FunctionName="LavaCarModel.Store.sp_InsertaNuevoCliente" />
           <FunctionImportMapping FunctionImportName="sp_InsertaPais" FunctionName="LavaCarModel.Store.sp_InsertaPais" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Fabricante" FunctionName="LavaCarModel.Store.sp_Modifica_Fabricante" />
@@ -1909,7 +2162,6 @@
           <FunctionImportMapping FunctionImportName="sp_ModificaCliente" FunctionName="LavaCarModel.Store.sp_ModificaCliente" />
           <FunctionImportMapping FunctionImportName="sp_ModificaModelo" FunctionName="LavaCarModel.Store.sp_ModificaModelo" />
           <FunctionImportMapping FunctionImportName="sp_ModificaPais" FunctionName="LavaCarModel.Store.sp_ModificaPais" />
-          <FunctionImportMapping FunctionImportName="sp_MostrarCajaChica" FunctionName="LavaCarModel.Store.sp_MostrarCajaChica" />
           <FunctionImportMapping FunctionImportName="sp_MostrarCliente" FunctionName="LavaCarModel.Store.sp_MostrarCliente">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LavaCarModel.sp_MostrarCliente_Result">
@@ -1928,6 +2180,19 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="LavaCarModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_cierre_Caja" FunctionName="LavaCarModel.Store.sp_Retorna_cierre_Caja" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Fecha_Apertura" FunctionName="LavaCarModel.Store.sp_Retorna_Fecha_Apertura" />
+          <FunctionImportMapping FunctionImportName="sp_retorna_parametro" FunctionName="LavaCarModel.Store.sp_retorna_parametro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LavaCarModel.sp_retorna_parametro_Result">
+                <ScalarProperty Name="id_parametro" ColumnName="id_parametro" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="correo_apertura" ColumnName="correo_apertura" />
+                <ScalarProperty Name="correo_cierre" ColumnName="correo_cierre" />
+                <ScalarProperty Name="monto_minimo" ColumnName="monto_minimo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Retorna_Vehiculos_sin_Cliente" FunctionName="LavaCarModel.Store.sp_Retorna_Vehiculos_sin_Cliente">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LavaCarModel.sp_Retorna_Vehiculos_sin_Cliente_Result">
@@ -2084,6 +2349,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_RetornaModelo_ID" FunctionName="LavaCarModel.Store.sp_RetornaModelo_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LavaCarModel.sp_RetornaModelo_ID_Result">
+                <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+                <ScalarProperty Name="id_marca_modelo" ColumnName="id_marca_modelo" />
+                <ScalarProperty Name="nombre_modelo" ColumnName="nombre_modelo" />
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+                <ScalarProperty Name="nombre_marca" ColumnName="nombre_marca" />
+                <ScalarProperty Name="id_fabricante" ColumnName="id_fabricante" />
+                <ScalarProperty Name="nombre_fabricante" ColumnName="nombre_fabricante" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_RetornaPais" FunctionName="LavaCarModel.Store.sp_RetornaPais">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LavaCarModel.sp_RetornaPais_Result">
@@ -2174,6 +2452,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_update_parametro" FunctionName="LavaCarModel.Store.sp_update_parametro" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="LavaCarModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="sp_Veficia_Placa_Existente" FunctionName="LavaCarModel.Store.sp_Veficia_Placa_Existente" />
           <FunctionImportMapping FunctionImportName="sp_Verifica_Cliente_Existente" FunctionName="LavaCarModel.Store.sp_Verifica_Cliente_Existente" />

@@ -18,6 +18,7 @@ namespace LavaCarProject.Models
         public usuario()
         {
             this.caja_chica = new HashSet<caja_chica>();
+            this.caja_chica1 = new HashSet<caja_chica>();
         }
     
         public int id_usuario { get; set; }
@@ -29,5 +30,7 @@ namespace LavaCarProject.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<caja_chica> caja_chica { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<caja_chica> caja_chica1 { get; set; }
     }
 }

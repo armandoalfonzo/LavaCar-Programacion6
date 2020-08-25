@@ -1,0 +1,32 @@
+﻿@model List<LavaCarProject.Models.sp_RetornaVehiculosxCliente_Result>
+@{
+    ViewBag.Title = "RetornaVehiculoxcliente";
+}
+
+<h2>Vehiculos por cliente</h2>
+
+<table class="table">
+    <tr>
+        <th>Nombre Cliente:</th>
+        <th>Placa:</th>
+        <th>Marca:</th>
+        <th>Modelo:</th>
+        <th>Acciones:</th>
+    </tr>
+    @{
+        foreach (LavaCarProject.Models.sp_RetornaVehiculosxCliente_Result posicionModelo in this.Model)
+        {
+            <tr>
+                <td>@posicionModelo.nombre_cliente @posicionModelo.apellido1 </td>
+                <td>@posicionModelo.placa</td>
+                <td>@posicionModelo.nombre_marca</td>
+                <td>@posicionModelo.nombre_modelo</td>
+                <td>
+                    <a href="~/Cliente/ModificaCliente?id_cliente=@posicionModelo.id_vehiculo_cliente">Modificar</a>
+                    <br />
+                    <a href="~/Cliente/EliminarCliente?id_cliente=@posicionModelo.id_vehiculo_cliente">Eliminar</a>
+                </td>
+            </tr>
+        }
+    }
+</table>

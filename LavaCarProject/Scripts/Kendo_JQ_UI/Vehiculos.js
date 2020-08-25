@@ -1,5 +1,5 @@
 ﻿$(function () {
-    //obtenerVehiculos();
+    obtenerVehiculos();
     MostrarDialog();
     obtenerMarcas();
     estableceEventosChange();
@@ -11,13 +11,13 @@
 
 
 function obtenerVehiculos() {
-    var urlMetodo = '/Vehiculos/RetornaVehiculos'
+    var urlMetodo = '/Vehiculos/ReporteVehiculoxcliente'
     var parametros = {};
     var funcion = creaGridKendo;
     ejecutaAjax(urlMetodo, parametros, funcion);
 }
 function creaGridKendo(data) {
-    $("#divMarcas").kendoGrid({
+    $("#divClientesVehiculos").kendoGrid({
         dataSource: {
             data: data.resultado,
             pageSize: 10
@@ -26,34 +26,21 @@ function creaGridKendo(data) {
         columns:
             [
                 {
-                    field: 'nombre_marca',
+                    field: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
                     title: 'Nombre'
                 },
                 {
-                    field: 'nombre_modelo',
+                    field: 'nombre_marca',
                     title: 'Modelo'
                 },
                 {
-                    field: 'placa',
+                    field: 'nombre_modelo',
                     title: 'Placa'
                 },
                 {
-                    field: 'nombre_vehiculo',
+                    field: 'placa',
                     title: 'Tipo de Vehículo'
-                },
-                {
-                    field: 'cantidad_puertas',
-                    title: 'Cantidad de puertas'
-                },
-                {
-                    field: 'cantidad_ruedas',
-                    title: 'Cantidad de ruedas'
-                },
-                {
-                    field: 'nombre_fabricante',
-                    title: 'Compañía Fabricante'
-                },
-               
+                },               
 
             ],
         filterable: true

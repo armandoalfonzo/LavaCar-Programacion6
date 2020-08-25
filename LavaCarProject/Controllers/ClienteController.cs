@@ -133,7 +133,7 @@ namespace LavaCarProject.Controllers
         }
         [HttpPost]
 
-        public ActionResult EliminarCliente(sp_RetornaCliente_ID_Result modeloVista)
+        public ActionResult EliminarCliente(sp_RetornaCliente_ID_Result modelovista)
         {
             int reg_afectados = 0;
             string resultado = "";
@@ -141,11 +141,11 @@ namespace LavaCarProject.Controllers
             try
             {
                 reg_afectados = this.modeloBD.sp_EliminaCliente(
-                    modeloVista.id_cliente);
+                    modelovista.id_cliente);
             }
             catch (Exception error)
             {
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {
@@ -154,15 +154,15 @@ namespace LavaCarProject.Controllers
                     resultado = "Registro Eliminado";
                 }
                 else
-                {
+                
                     resultado += "No se pudo eliminar, verifique";
-                }
+                
             }
             Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
             this.AgregaProvincia();
             AgregaCanton();
             AgregaDistrito();
-            return View(modeloVista);
+            return View(modelovista);
         }
 
         public ActionResult ModificaCliente(int id_cliente)

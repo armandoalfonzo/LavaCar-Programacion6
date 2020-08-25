@@ -1,5 +1,6 @@
 ﻿$(function () {
     obtenerModelos();
+    obtenerMarcas()
     MostrarDialog();
 });
 
@@ -66,3 +67,28 @@ function crearDialog() {
         }
     });
 }
+
+function obtenerMarcas() {
+    var urlMetodo = '/Modelos/RetornaMarcas'
+    var parametros = {};
+    var funcion = crearAutoComplete;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+
+function crearAutoComplete(data) {
+    var datosAutoComplete = $.map(data, function (item) {
+        return {
+            label: item.nombre_marca,
+            id_marca: item.id_marca,
+            id_fabricante: item.id_fabricante
+        }
+    })
+    $("#txtmarca").autocomplete({
+        source: datosAutoComplete,
+        select: function (event, ui) {
+            $("#id_marca_select").val(ui.item.id_marca)
+            $("#id_fabricante_select").val(ui.item.id_fabricante)
+        }
+
+    });
+};

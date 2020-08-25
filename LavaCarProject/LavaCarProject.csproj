@@ -184,6 +184,9 @@
     <Compile Include="Models\Pais.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Parametros.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Provincia.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -197,6 +200,9 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RetornaUsuario_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Retorna_Cierres_Caja_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
@@ -235,6 +241,9 @@
     <Compile Include="Models\sp_RetornaMarca_ID_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_RetornaModelo_ID_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_RetornaModelo_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -257,6 +266,9 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_RetornaVehiculo_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_retorna_parametro_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
@@ -336,8 +348,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Fabricantes.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Kendo.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\Marcas.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Modelos.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_clientes.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ScriptGenerico.js" />
     <Content Include="Web.config" />
@@ -373,6 +387,9 @@
     <Content Include="Views\Vehiculos\VehiculosLibres.cshtml" />
     <Content Include="Views\Vehiculos\AsignarVehiculos.cshtml" />
     <Content Include="Views\Imagenes\Carusel.cshtml" />
+    <Content Include="Views\Vehiculos\RetornaVehiculoxcliente.cshtml" />
+    <Content Include="Views\Vehiculos\ReporteVehiculoxcliente.cshtml" />
+    <Content Include="Views\Vehiculos\RetornaMarcasLista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

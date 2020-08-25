@@ -31,13 +31,44 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Cliente", "Cliente", "Cliente")</li>
-                    <li>@Html.ActionLink("Vehículos", "Vehiculos", "RetornaVehiculos")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @*<li>@Html.ActionLink("Cliente", "Cliente", "Cliente")</li>
+        <li>@Html.ActionLink("Vehículos", "Vehiculos", "Vehiculos")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li class=""><a href="frmInicio.aspx">Inicio</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reportes<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Servicios Facturados</a></li>
+                            <li><a href="~/Vehiculos/ReporteVehiculoxcliente">Vehiculos por Cliente</a></li>
+                            <li><a href="#">Cierres de caja</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="ddlAdmin" runat="server">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mantenimiento<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Cliente/Cliente">Clientes</a></li>
+                            <li><a href="~/Vehiculos/Vehiculos">Vehiculos</a></li>
+                            <li><a href="~/Vehiculos/RetornaVehiculoxcliente">Vehiculos por Cliente</a></li>
+                            <li><a href="#">Asignar Vehículos</a></li>
+                            <li><a href="#">Marcas</a></li>
+                            <li><a href="#">Modelos</a></li>
+                            <li><a href="~/Pais/Pais">Lista de Pais</a></li>
+                            <li><a href="~/Fabricantes/Fabricantes">Fabricantes</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="Li1" runat="server">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Facturacion<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Abrir Caja</a></li>
+                            <li><a href="#">Cerrar Caja</a></li>
+                            <li><a href="#">Facturar a cliente</a></li>
+                        </ul>
+                    </li>
+                    <li id="cierrasesion" runat="server" class=""><a href="frmCierraSesion.aspx">Cerrar Sesión</a></li>
                     <li id="LogOut"><a>Cerrar sesion</a></li>
                 </ul>
             </div>

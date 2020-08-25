@@ -24,10 +24,13 @@ namespace LavaCarProject.Models
         public System.DateTime fecha_factura { get; set; }
         public int id_cliente_factura { get; set; }
         public int vehiculo_id { get; set; }
-        public double total_pagar { get; set; }
+        public Nullable<double> total_pagar { get; set; }
+        public Nullable<double> total_sin_iv { get; set; }
+        public bool estado_factura { get; set; }
     
         public virtual cliente cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<factura_detalle> factura_detalle { get; set; }
+        public virtual vehiculos vehiculos { get; set; }
     }
 }

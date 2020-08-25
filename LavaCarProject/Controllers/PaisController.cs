@@ -73,7 +73,7 @@ namespace LavaCarProject.Controllers
 
         [HttpPost]
 
-        public ActionResult ModificaPais(sp_RetornaPais_Result modelovista)
+        public ActionResult ModificaPais(sp_RetornaPais_ID_Result modelovista)
         {
             int reg_afectados = 0;
             string resultado = "";
@@ -97,9 +97,9 @@ namespace LavaCarProject.Controllers
                     resultado = "Registro Modificado";
                 }
                 else
-                {
-                    resultado += "No se pudo modificar, verifique";
-                }
+                { 
+                resultado += "No se pudo modificar, verifique";
+                 }
             }
             return View (modelovista);
         }

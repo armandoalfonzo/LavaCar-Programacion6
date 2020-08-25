@@ -22,7 +22,7 @@ namespace LavaCarProject.Models
     
         public int id_servicio { get; set; }
         public string nombre_servicio { get; set; }
-        public double precio_servicio { get; set; }
+        public Nullable<double> precio_servicio { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<factura_detalle> factura_detalle { get; set; }

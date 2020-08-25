@@ -1,6 +1,5 @@
 ﻿$(function () {
-
-    //obtenerClientes();
+    obtenerClientes();
     MostrarDialog();
     estableceEventosChange();
     cargaDropdownListProvincias()
@@ -55,6 +54,19 @@ function creaGridKendo(data) {
                 {
                     field: 'email',
                     title: 'Correo Electrónico'
+                },
+                {
+                    title: "Modificar",
+                    template: function (dataItem) {
+                        return "<a href='/Cliente/ModificaCliente?id_cliente=" + dataItem.id_cliente + "'>Modificar</a>"
+                    }
+                },
+                {
+                    title: "Eliminar",
+                    template: function (dataItem) {
+                        return "<a href='/Personas/PersonaElimina?id_cliente=" + dataItem.id_cliente + "'>Eliminar</a>"
+                    }
+
                 },
 
 

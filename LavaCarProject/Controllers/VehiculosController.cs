@@ -28,11 +28,26 @@ namespace LavaCarProject.Controllers
                 resultado = vehiculos
             });
         }
+
+        public ActionResult RetornaMarcasLista()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult FabricantesListaMarcas()
+        {
+            List<sp_RetornaFabricantes_Result> fabricante = this.modeloBD.sp_RetornaFabricantes(null,"", null).ToList();
+            return Json(fabricante);
+        }
         [HttpPost]
         public ActionResult RetornaMarcas()
         {
             List<sp_RetornaListaMarca_Result> marcasvehiculos = this.modeloBD.sp_RetornaListaMarca(null,"",null).ToList();
-            return Json(marcasvehiculos);
+            return Json(new
+            {
+                resultado = marcasvehiculos
+            });
         }
 
         [HttpPost]
@@ -250,10 +265,62 @@ namespace LavaCarProject.Controllers
             return Json(asignacion);
         }
 
+        public ActionResult RetornaVehiculoxcliente()
+        {
+            List<sp_RetornaVehiculosxCliente_Result> clientesvehiculo = this.modeloBD.sp_RetornaVehiculosxCliente(null, null, null).ToList();
+            return View(clientesvehiculo);
+        }
+        [HttpPost]
+        public ActionResult ReporteVehiculoxcliente()
+        {
+            List<sp_RetornaVehiculosxCliente_Result> vehiculos_cliente =
+                this.modeloBD.sp_RetornaVehiculosxCliente(null, null, null).ToList();
+            return Json(new
+            {
+                resultado = vehiculos_cliente
+            });
+        }
         void Cliente()
         {
             this.ViewBag.Cliente =
                 this.modeloBD.sp_RetornaCliente_ID(null).ToList();
         }
+
+        [HttpPost]
+        public ActionResult InsetaMarca(string pnombremarca, int pid_fabricante)
+        {
+            int reg_afectados = 0;
+            string mensaje = "";
+
+            try
+            {
+                reg_afectados = this.modeloBD.sp_InsertaMarca(
+                    pnombremarca,
+                    pid_fabricante
+                   );
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "Hubo un error " + error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    mensaje = "Registro agregado";
+                }
+                else
+                {
+                    mensaje += "No se pudo insertar, verifique";
+                }
+            }
+
+            return Json(new
+            {
+                resultado = mensaje
+            });
+        }
     }
+   
 }

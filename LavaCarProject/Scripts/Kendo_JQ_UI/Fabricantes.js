@@ -1,70 +1,56 @@
 ﻿$(function () {
-    //obtenerRegistrosFabricantes();
+    obtenerRegistrosFabricantes();
     MostrarDialog();
     cargaDropdownListPais();
     creareventos();
-    //creaGridKendo();
+    creaGridKendo();
 });
 
-//function obtenerRegistrosFabricantes() {
+function obtenerRegistrosFabricantes() {
 
-//    var urlMetodo = '/Fabricantes/RetornaFabricantes'
-//    var parametros = {};
-//    var funcion = creaGridKendo;
-//    ejecutaAjax(urlMetodo, parametros, funcion);
-//}
+    var urlMetodo = '/Fabricantes/RetornaFabricantes'
+    var parametros = {};
+    var funcion = creaGridKendo;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
 
-//function creaGridKendo() {
-//    $("#divKendoGridFabricante").kendoGrid({
-
-//        columns:
-//            [
-//                {
-//                    field: 'id_fabricante', width: "200px",
-//                    title: 'ID'
-//                },
-//                {
-//                    field: 'nombre_fabricante', width: "200px",
-//                    title: 'Nombre del Fabricante'
-//                },
-//                {
-//                    field: 'nombre_pais', width: "200px",
-//                    title: 'Nombre del País'
-//                },
-//                {
-//                    title: 'Editar',
-//                    command: 'edit'
-//                },
-//                {
-//                    title: 'Eliminar',
-//                    command: 'destroy'
-//                }
-//            ],
-//        dataSource: {
-//            //data: data.resultado,
-//            transport: {
-//                read: {
-//                   url: '/Fabricantes/RetornaFabricantes'
-//                },
-//                update: {
-//                    url: 'Fabricantes/ModificarFabricantes',
-//                    type: 'POST'
-//                }
-//            },
-//            schema: {
-//                model: {
-//                    id: 'id_fabricante'
-//                }
-//            },
-
-//            pageSize: 5
-//        },
-//        pageable: true,
-//        save: function () {this.refresh()},
-//        filterable: true,
-//        editable: 'inline'
-//    });
-//}
+function creaGridKendo(data) {
+    $("#divKendoGridFabricante").kendoGrid({
+            dataSource: {
+                data: data.resultado,
+                pageSize: 10
+            },
+            pageable: true,
+        columns:
+            [
+                {
+                    field: 'id_fabricante', width: "200px",
+                    title: 'ID'
+                },
+                {
+                    field: 'nombre_fabricante', width: "200px",
+                    title: 'Nombre del Fabricante'
+                },
+                {
+                    field: 'nombre_pais', width: "200px",
+                    title: 'Nombre del País'
+                },
+                {
+                    title: "Modificar",
+                    template: function (dataItem) {
+                        return "<a href='/Fabricantes/ModificaFabricantes?id_fabricante=" + dataItem.id_fabricante + "'>Modificar</a>"
+                    }
+                },
+                {
+                    title: "Eliminar",
+                    template: function (dataItem) {
+                        return "<a href='/Fabricantes/EliminarFabricante?id_fabricante=" + dataItem.id_fabricante + "'>Modificar</a>"
+                    }
+                }
+            ],
+        filterable : true
+    });
+}
 function MostrarDialog() {
 
     crearDialog();

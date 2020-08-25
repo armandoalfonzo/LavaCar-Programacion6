@@ -1,19 +1,19 @@
 ﻿$(function () {
-    obtenerRegistrosPersonas();
+    funcionparakendo();
     MostrarDialog();
-    creareventos();
+    CargaDDLFabricantes();
 });
 
 
-function obtenerRegistrosPersonas() {
+function funcionparakendo() {
 
-    var urlMetodo = '/Pais/RetornaPais'
+    var urlMetodo = '/Vehiculos/RetornaMarcas'
     var parametros = {};
     var funcion = creaGridKendo;
     ejecutaAjax(urlMetodo, parametros, funcion);
 }
 function creaGridKendo(data) {
-    $("#divKendoGridPais").kendoGrid({
+    $("#divKendoMarcas").kendoGrid({
         dataSource: {
             data: data.resultado,
             pageSize: 10
@@ -22,23 +22,23 @@ function creaGridKendo(data) {
         columns:
             [
                 {
-                    field: 'id_pais', width: "200px",
-                    title: 'Identificador de País'
+                    field: 'nombre_marca', width: "200px",
+                    title: 'Marca'
                 },
                 {
-                    field: 'nombre_pais', width: "200px",
-                    title: 'Nombre del País'
+                    field: 'nombre_fabricante', width: "200px",
+                    title: 'Fabricante'
                 },
                 {
                     title: "Modificar",
                     template: function (dataItem) {
-                        return "<a href='/Pais/ModificaPais?id_Pais=" + dataItem.id_pais + "'>Modificar</a>"
+                        return "<a href='/Cliente/ModificaCliente?id_marca=" + dataItem.id_marca + "'>Modificar</a>"
                     }
                 },
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Personas/PersonaElimina??id_Pais=" + dataItem.id_pais + "'>Eliminar</a>"
+                        return "<a href='/Personas/PersonaElimina?id_marca=" + dataItem.id_marca + "'>Eliminar</a>"
                     }
 
                 },
@@ -76,16 +76,34 @@ function crearDialog() {
     });
 }
 
-function creareventos() {
-    $("#btninsertar").on("click", function () {
-        var formulario = $("fmrnuevoPais");
-        InsertanuevoPais();
+function CargaDDLFabricantes() {
+
+    var urlMetodo = '/Vehiculos/FabricantesListaMarcas'
+    var parametros = {};
+    var funcion = procesarResultadoFabricantes;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+
+function procesarResultadoFabricantes(data) {
+
+    var ddlmarca = $("#fabricante");
+    ddlmarca.empty();
+    var nuevaOpcion = "<option value ''>Seleccione un Fabricante</option>";
+    ddlmarca.append(nuevaOpcion);
+
+    $(data).each(function () {
+
+        var marcaActual = this;
+        nuevaOpcion = "<option value ='" + marcaActual.id_fabricante + "'>" + marcaActual.nombre_fabricante + "</option>";
+        ddlmarca.append(nuevaOpcion);
     });
 }
-function InsertanuevoPais(){
-    var urlMetodo = '/Pais/InsertaPais'
+
+function InsertaMarca() {
+    var urlMetodo = '/Vehiculos/InsetaMarca'
     var parametros = {
-        pnombrepais: $("#pais").val()
+        pnombremarca: $("#nombremarca").val(),
+        pid_fabricante: $('#fabricante').val()
     };
     var funcion = procesarInsert;
     ejecutaAjax(urlMetodo, parametros, funcion);

@@ -5,6 +5,26 @@
 
 <h2>Eliminar Cliente</h2>
 
-<div class="form-group">
-    <input type="button" value="Insertar" id="btninsertar" />
-</div>
+<form class="form" id="fmrmodificaclient" method="POST">
+
+    <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" value="@Model.nombre_cliente" disabled>
+    </div>
+    <div class="form-group">
+        <label>Primer Apellido:</label>
+        <input type="text" name="primerapellido" id="primerapellido" class="form-control" value="@Model.apellido1" disabled>
+    </div>
+    <div class="form-group">
+        <label>Segundo Apellido:</label>
+        <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" value="@Model.apellido2" disabled>
+    </div>
+    <div class="form-group">
+        <label>Cédula:</label>
+        <input type="text" name="cedula" id="cedula" class="form-control" value="@Model.cedula" disabled>
+    </div>
+    <div class="form-group" role="button">
+        <input class="btn btn-danger" type="submit" value="Eliminar" id="btninsertar" />
+    </div>
+</form>
+    <a href="~/Cliente/Cliente" class="btn btn-info" role="button"> Regresar </a>

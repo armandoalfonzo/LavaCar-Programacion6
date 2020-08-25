@@ -17,6 +17,7 @@ namespace LavaCarProject.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public vehiculos()
         {
+            this.factura_encabezado = new HashSet<factura_encabezado>();
             this.vehiculos_x_cliente = new HashSet<vehiculos_x_cliente>();
         }
     
@@ -31,6 +32,8 @@ namespace LavaCarProject.Models
         public int id_fabricante_vehiculo { get; set; }
     
         public virtual fabricante fabricante { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<factura_encabezado> factura_encabezado { get; set; }
         public virtual tipo_vehiculo tipo_vehiculo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<vehiculos_x_cliente> vehiculos_x_cliente { get; set; }

@@ -37,6 +37,7 @@ namespace LavaCarProject.Models
         public virtual DbSet<marca_vehiculo> marca_vehiculo { get; set; }
         public virtual DbSet<modelo_vehiculo> modelo_vehiculo { get; set; }
         public virtual DbSet<Pais> Pais { get; set; }
+        public virtual DbSet<Parametros> Parametros { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tipo_servicio> tipo_servicio { get; set; }
@@ -44,6 +45,24 @@ namespace LavaCarProject.Models
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<vehiculos> vehiculos { get; set; }
         public virtual DbSet<vehiculos_x_cliente> vehiculos_x_cliente { get; set; }
+    
+        public virtual int InsertaNuevoModelo(string nombre_modelo, Nullable<int> id_marca_modelo)
+        {
+            var nombre_modeloParameter = nombre_modelo != null ?
+                new ObjectParameter("nombre_modelo", nombre_modelo) :
+                new ObjectParameter("nombre_modelo", typeof(string));
+    
+            var id_marca_modeloParameter = id_marca_modelo.HasValue ?
+                new ObjectParameter("id_marca_modelo", id_marca_modelo) :
+                new ObjectParameter("id_marca_modelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertaNuevoModelo", nombre_modeloParameter, id_marca_modeloParameter);
+        }
+    
+        public virtual ObjectResult<Retorna_Cierres_Caja_Result> Retorna_Cierres_Caja()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Retorna_Cierres_Caja_Result>("Retorna_Cierres_Caja");
+        }
     
         public virtual ObjectResult<RetornaCantones_Result> RetornaCantones(string nombre, Nullable<int> id_Provincia)
         {
@@ -118,6 +137,33 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
         }
     
+        public virtual int sp_AperturaCaja(Nullable<double> monto_apertura, Nullable<int> id_usuarioapertura)
+        {
+            var monto_aperturaParameter = monto_apertura.HasValue ?
+                new ObjectParameter("monto_apertura", monto_apertura) :
+                new ObjectParameter("monto_apertura", typeof(double));
+    
+            var id_usuarioaperturaParameter = id_usuarioapertura.HasValue ?
+                new ObjectParameter("id_usuarioapertura", id_usuarioapertura) :
+                new ObjectParameter("id_usuarioapertura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AperturaCaja", monto_aperturaParameter, id_usuarioaperturaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> sp_Cierra_Caja()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("sp_Cierra_Caja");
+        }
+    
+        public virtual int sp_Cierre_Caja(Nullable<int> id_usuariocierre)
+        {
+            var id_usuariocierreParameter = id_usuariocierre.HasValue ?
+                new ObjectParameter("id_usuariocierre", id_usuariocierre) :
+                new ObjectParameter("id_usuariocierre", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Cierre_Caja", id_usuariocierreParameter);
+        }
+    
         public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
@@ -159,6 +205,15 @@ namespace LavaCarProject.Models
                 new ObjectParameter("id_fabricante", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Elimina_Fabricante", id_fabricanteParameter);
+        }
+    
+        public virtual int sp_Elimina_Modelo(Nullable<int> id_modelo)
+        {
+            var id_modeloParameter = id_modelo.HasValue ?
+                new ObjectParameter("id_modelo", id_modelo) :
+                new ObjectParameter("id_modelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Elimina_Modelo", id_modeloParameter);
         }
     
         public virtual int sp_Elimina_TipoVehiculo(Nullable<int> id_tipo_vehiculo)
@@ -271,6 +326,61 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Fabricante", nombre_fabricanteParameter, paisParameter);
         }
     
+        public virtual int sp_Inserta_factura_Detalle(Nullable<int> id_factura_encabezado, Nullable<int> id_servicio, Nullable<int> cantidad, Nullable<double> precio)
+        {
+            var id_factura_encabezadoParameter = id_factura_encabezado.HasValue ?
+                new ObjectParameter("id_factura_encabezado", id_factura_encabezado) :
+                new ObjectParameter("id_factura_encabezado", typeof(int));
+    
+            var id_servicioParameter = id_servicio.HasValue ?
+                new ObjectParameter("id_servicio", id_servicio) :
+                new ObjectParameter("id_servicio", typeof(int));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("cantidad", cantidad) :
+                new ObjectParameter("cantidad", typeof(int));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("precio", precio) :
+                new ObjectParameter("precio", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_factura_Detalle", id_factura_encabezadoParameter, id_servicioParameter, cantidadParameter, precioParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Inserta_factura_encabezado(Nullable<int> id_cliente, Nullable<int> vehiculo_id)
+        {
+            var id_clienteParameter = id_cliente.HasValue ?
+                new ObjectParameter("id_cliente", id_cliente) :
+                new ObjectParameter("id_cliente", typeof(int));
+    
+            var vehiculo_idParameter = vehiculo_id.HasValue ?
+                new ObjectParameter("vehiculo_id", vehiculo_id) :
+                new ObjectParameter("vehiculo_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Inserta_factura_encabezado", id_clienteParameter, vehiculo_idParameter);
+        }
+    
+        public virtual int sp_Inserta_parametro(string nombre, string correo_aperture, string correo_cierre, Nullable<double> monto_minimo)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var correo_apertureParameter = correo_aperture != null ?
+                new ObjectParameter("correo_aperture", correo_aperture) :
+                new ObjectParameter("correo_aperture", typeof(string));
+    
+            var correo_cierreParameter = correo_cierre != null ?
+                new ObjectParameter("correo_cierre", correo_cierre) :
+                new ObjectParameter("correo_cierre", typeof(string));
+    
+            var monto_minimoParameter = monto_minimo.HasValue ?
+                new ObjectParameter("monto_minimo", monto_minimo) :
+                new ObjectParameter("monto_minimo", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_parametro", nombreParameter, correo_apertureParameter, correo_cierreParameter, monto_minimoParameter);
+        }
+    
         public virtual int SP_INSERTA_SERVICIO(string nOMBRE_SERVICIO, Nullable<double> pRECIO_SERVICIO)
         {
             var nOMBRE_SERVICIOParameter = nOMBRE_SERVICIO != null ?
@@ -360,6 +470,19 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertaCanton", id_ProvinciaParameter, nombreParameter, id_CantonInecParameter);
         }
     
+        public virtual int sp_InsertaMarca(string nombre_marca, Nullable<int> id_fabricante)
+        {
+            var nombre_marcaParameter = nombre_marca != null ?
+                new ObjectParameter("nombre_marca", nombre_marca) :
+                new ObjectParameter("nombre_marca", typeof(string));
+    
+            var id_fabricanteParameter = id_fabricante.HasValue ?
+                new ObjectParameter("id_fabricante", id_fabricante) :
+                new ObjectParameter("id_fabricante", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertaMarca", nombre_marcaParameter, id_fabricanteParameter);
+        }
+    
         public virtual int sp_InsertaNuevoCliente(string nombre, string apellido1, string apellido2, Nullable<int> cedula, Nullable<int> id_provincia, Nullable<int> id_canton, Nullable<int> id_distrito, string direccion, Nullable<int> telefono, string email)
         {
             var nombreParameter = nombre != null ?
@@ -431,11 +554,11 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Modifica_Fabricante", id_fabricanteParameter, nombre_fabricanteParameter, paisParameter);
         }
     
-        public virtual int SP_MODIFICA_SERVICIO(Nullable<int> cOD_SERVICIO, string nOMBRE_SERVICIO, Nullable<double> pRECIO_SERVICIO)
+        public virtual int SP_MODIFICA_SERVICIO(Nullable<int> iD_SERVICIO, string nOMBRE_SERVICIO, Nullable<double> pRECIO_SERVICIO)
         {
-            var cOD_SERVICIOParameter = cOD_SERVICIO.HasValue ?
-                new ObjectParameter("COD_SERVICIO", cOD_SERVICIO) :
-                new ObjectParameter("COD_SERVICIO", typeof(int));
+            var iD_SERVICIOParameter = iD_SERVICIO.HasValue ?
+                new ObjectParameter("ID_SERVICIO", iD_SERVICIO) :
+                new ObjectParameter("ID_SERVICIO", typeof(int));
     
             var nOMBRE_SERVICIOParameter = nOMBRE_SERVICIO != null ?
                 new ObjectParameter("NOMBRE_SERVICIO", nOMBRE_SERVICIO) :
@@ -445,7 +568,7 @@ namespace LavaCarProject.Models
                 new ObjectParameter("PRECIO_SERVICIO", pRECIO_SERVICIO) :
                 new ObjectParameter("PRECIO_SERVICIO", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MODIFICA_SERVICIO", cOD_SERVICIOParameter, nOMBRE_SERVICIOParameter, pRECIO_SERVICIOParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MODIFICA_SERVICIO", iD_SERVICIOParameter, nOMBRE_SERVICIOParameter, pRECIO_SERVICIOParameter);
         }
     
         public virtual int sp_Modifica_TipoVehiculo(string nombre, Nullable<int> id_tipo_vehiculo)
@@ -589,7 +712,7 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificaCliente", id_clienteParameter, nombreParameter, apellido1Parameter, apellido2Parameter, cedulaParameter, id_provinciaParameter, id_cantonParameter, id_distritoParameter, direccionParameter, telefonoParameter, emailParameter);
         }
     
-        public virtual int sp_ModificaModelo(Nullable<int> id_modelo, string nombre_modelo)
+        public virtual int sp_ModificaModelo(Nullable<int> id_modelo, string nombre_modelo, Nullable<int> id_marca_modelo)
         {
             var id_modeloParameter = id_modelo.HasValue ?
                 new ObjectParameter("id_modelo", id_modelo) :
@@ -599,7 +722,11 @@ namespace LavaCarProject.Models
                 new ObjectParameter("nombre_modelo", nombre_modelo) :
                 new ObjectParameter("nombre_modelo", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificaModelo", id_modeloParameter, nombre_modeloParameter);
+            var id_marca_modeloParameter = id_marca_modelo.HasValue ?
+                new ObjectParameter("id_marca_modelo", id_marca_modelo) :
+                new ObjectParameter("id_marca_modelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificaModelo", id_modeloParameter, nombre_modeloParameter, id_marca_modeloParameter);
         }
     
         public virtual int sp_ModificaPais(Nullable<int> id_pais, string nombre)
@@ -613,11 +740,6 @@ namespace LavaCarProject.Models
                 new ObjectParameter("nombre", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificaPais", id_paisParameter, nombreParameter);
-        }
-    
-        public virtual int sp_MostrarCajaChica()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MostrarCajaChica");
         }
     
         public virtual ObjectResult<sp_MostrarCliente_Result> sp_MostrarCliente()
@@ -640,6 +762,21 @@ namespace LavaCarProject.Models
                 new ObjectParameter("new_diagramname", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> sp_Retorna_cierre_Caja()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("sp_Retorna_cierre_Caja");
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> sp_Retorna_Fecha_Apertura()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("sp_Retorna_Fecha_Apertura");
+        }
+    
+        public virtual ObjectResult<sp_retorna_parametro_Result> sp_retorna_parametro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_retorna_parametro_Result>("sp_retorna_parametro");
         }
     
         public virtual ObjectResult<sp_Retorna_Vehiculos_sin_Cliente_Result> sp_Retorna_Vehiculos_sin_Cliente()
@@ -801,6 +938,15 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaModelo_Result>("sp_RetornaModelo", nombre_modeloParameter, id_fabricanteParameter, id_marcaParameter);
         }
     
+        public virtual ObjectResult<sp_RetornaModelo_ID_Result> sp_RetornaModelo_ID(Nullable<int> id_modelo)
+        {
+            var id_modeloParameter = id_modelo.HasValue ?
+                new ObjectParameter("id_modelo", id_modelo) :
+                new ObjectParameter("id_modelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaModelo_ID_Result>("sp_RetornaModelo_ID", id_modeloParameter);
+        }
+    
         public virtual ObjectResult<sp_RetornaPais_Result> sp_RetornaPais(string nombre)
         {
             var nombreParameter = nombre != null ?
@@ -874,6 +1020,27 @@ namespace LavaCarProject.Models
                 new ObjectParameter("id_vehiculo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaVehiculosxCliente_Result>("sp_RetornaVehiculosxCliente", id_vehiculo_clienteParameter, id_clienteParameter, id_vehiculoParameter);
+        }
+    
+        public virtual int sp_update_parametro(string nombre, string correo_aperture, string correo_cierre, Nullable<double> monto_minimo)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var correo_apertureParameter = correo_aperture != null ?
+                new ObjectParameter("correo_aperture", correo_aperture) :
+                new ObjectParameter("correo_aperture", typeof(string));
+    
+            var correo_cierreParameter = correo_cierre != null ?
+                new ObjectParameter("correo_cierre", correo_cierre) :
+                new ObjectParameter("correo_cierre", typeof(string));
+    
+            var monto_minimoParameter = monto_minimo.HasValue ?
+                new ObjectParameter("monto_minimo", monto_minimo) :
+                new ObjectParameter("monto_minimo", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_update_parametro", nombreParameter, correo_apertureParameter, correo_cierreParameter, monto_minimoParameter);
         }
     
         public virtual int sp_upgraddiagrams()
