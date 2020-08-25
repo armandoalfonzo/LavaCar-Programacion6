@@ -28,8 +28,8 @@ namespace LavaCarProject
 
             bundles.Add(new ScriptBundle("~/bundles/bundleJquery").Include(
                            "~/Scripts/jquery-3.4.1.js",
-                        //"~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.validate.js"
+                        "~/Scripts/jquery.validate.js",
+                        "~/Scripts/ValidacionesGenericas.js"
                         ));
         }
     }
