@@ -450,6 +450,9 @@
         <Function Name="sp_EliminaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_cliente" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_EliminaMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_modelo" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_EliminaPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_pais" Type="int" Mode="In" />
         </Function>
@@ -482,6 +485,10 @@
         <Function Name="sp_Inserta_factura_encabezado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_cliente" Type="int" Mode="In" />
           <Parameter Name="vehiculo_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Inserta_Modelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_modelo" Type="nchar" Mode="In" />
+          <Parameter Name="id_marca_modelo" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Inserta_parametro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="nchar" Mode="In" />
@@ -583,6 +590,11 @@
           <Parameter Name="telefono" Type="int" Mode="In" />
           <Parameter Name="email" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_ModificaMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_marca" Type="int" Mode="In" />
+          <Parameter Name="nombre_marca" Type="nchar" Mode="In" />
+          <Parameter Name="id_fabricante" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ModificaModelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_modelo" Type="int" Mode="In" />
           <Parameter Name="nombre_modelo" Type="nvarchar" Mode="In" />
@@ -674,6 +686,9 @@
           <Parameter Name="id_vehiculo_cliente" Type="int" Mode="In" />
           <Parameter Name="id_cliente" Type="int" Mode="In" />
           <Parameter Name="id_vehiculo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_RetornaVehiculoxCliente_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_vehiculo_cliente" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_update_parametro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="nchar" Mode="In" />
@@ -1336,6 +1351,9 @@
           <FunctionImport Name="sp_EliminaCliente">
             <Parameter Name="id_cliente" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_EliminaMarca">
+            <Parameter Name="id_modelo" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_EliminaPais">
             <Parameter Name="id_pais" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1368,6 +1386,10 @@
           <FunctionImport Name="sp_Inserta_factura_encabezado" ReturnType="Collection(Int32)">
             <Parameter Name="id_cliente" Mode="In" Type="Int32" />
             <Parameter Name="vehiculo_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Inserta_Modelo">
+            <Parameter Name="nombre_modelo" Mode="In" Type="String" />
+            <Parameter Name="id_marca_modelo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_parametro">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -1469,6 +1491,11 @@
             <Parameter Name="telefono" Mode="In" Type="Int32" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_ModificaMarca">
+            <Parameter Name="id_marca" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_marca" Mode="In" Type="String" />
+            <Parameter Name="id_fabricante" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ModificaModelo">
             <Parameter Name="id_modelo" Mode="In" Type="Int32" />
             <Parameter Name="nombre_modelo" Mode="In" Type="String" />
@@ -1561,6 +1588,9 @@
             <Parameter Name="id_cliente" Mode="In" Type="Int32" />
             <Parameter Name="id_vehiculo" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_RetornaVehiculoxCliente_ID" ReturnType="Collection(LavaCarModel.sp_RetornaVehiculoxCliente_ID_Result)">
+            <Parameter Name="id_vehiculo_cliente" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_update_parametro">
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="correo_aperture" Mode="In" Type="String" />
@@ -1652,11 +1682,11 @@
           <Property Type="Int32" Name="id_vehiculo" Nullable="false" />
           <Property Type="Int32" Name="placa" Nullable="false" />
           <Property Type="Int32" Name="id_marca" Nullable="false" />
-          <Property Type="String" Name="nombre_marca" Nullable="false" MaxLength="55" />
+          <Property Type="String" Name="nombre_marca" Nullable="true" MaxLength="55" />
           <Property Type="Int32" Name="id_tipo_vehiculo" Nullable="false" />
           <Property Type="String" Name="nombre_vehiculo" Nullable="false" MaxLength="55" />
           <Property Type="Int32" Name="id_modelo_vehiculo" Nullable="false" />
-          <Property Type="String" Name="nombre_modelo" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="nombre_modelo" Nullable="true" MaxLength="25" />
           <Property Type="Int16" Name="cantidad_puertas" Nullable="false" />
           <Property Type="Int16" Name="cantidad_ruedas" Nullable="false" />
           <Property Type="DateTime" Name="año_fabricacion" Nullable="false" />
@@ -1740,7 +1770,7 @@
         <ComplexType Name="sp_RetornaFabricantes_Result">
           <Property Type="String" Name="nombre_fabricante" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="id_fabricante" Nullable="false" />
-          <Property Type="String" Name="nombre_pais" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="nombre_pais" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_RetornaListaMarca_Result">
           <Property Type="String" Name="nombre_marca" Nullable="true" MaxLength="55" />
@@ -1749,12 +1779,14 @@
           <Property Type="Int32" Name="id_marca" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_RetornaMarca_ID_Result">
-          <Property Type="String" Name="nombre_marca" Nullable="false" MaxLength="55" />
+          <Property Type="Int32" Name="id_marca" Nullable="false" />
+          <Property Type="String" Name="nombre_marca" Nullable="true" MaxLength="55" />
           <Property Type="String" Name="nombre_fabricante" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="id_fabricante" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_RetornaModelo_Result">
-          <Property Type="String" Name="nombre_marca" Nullable="false" MaxLength="55" />
-          <Property Type="String" Name="nombre_modelo" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="nombre_marca" Nullable="true" MaxLength="55" />
+          <Property Type="String" Name="nombre_modelo" Nullable="true" MaxLength="25" />
           <Property Type="String" Name="nombre_fabricante" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="id_fabricante" Nullable="false" />
           <Property Type="Int32" Name="id_modelo" Nullable="false" />
@@ -1794,11 +1826,11 @@
           <Property Type="Int32" Name="id_vehiculo" Nullable="false" />
           <Property Type="Int32" Name="placa" Nullable="false" />
           <Property Type="Int32" Name="id_marca" Nullable="false" />
-          <Property Type="String" Name="nombre_marca" Nullable="false" MaxLength="55" />
+          <Property Type="String" Name="nombre_marca" Nullable="true" MaxLength="55" />
           <Property Type="Int32" Name="id_tipo_vehiculo" Nullable="false" />
           <Property Type="String" Name="nombre_vehiculo" Nullable="false" MaxLength="55" />
           <Property Type="Int32" Name="id_modelo_vehiculo" Nullable="false" />
-          <Property Type="String" Name="nombre_modelo" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="nombre_modelo" Nullable="true" MaxLength="25" />
           <Property Type="Int16" Name="cantidad_puertas" Nullable="false" />
           <Property Type="Int16" Name="cantidad_ruedas" Nullable="false" />
           <Property Type="DateTime" Name="año_fabricacion" Nullable="false" />
@@ -1821,6 +1853,17 @@
           <Property Type="String" Name="nombre_fabricante" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_RetornaVehiculosxCliente_Result">
+          <Property Type="Int32" Name="id_vehiculo_cliente" Nullable="false" />
+          <Property Type="String" Name="nombre_cliente" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="id_marca" Nullable="false" />
+          <Property Type="String" Name="nombre_marca" Nullable="true" MaxLength="55" />
+          <Property Type="Int32" Name="id_modelo_vehiculo" Nullable="false" />
+          <Property Type="String" Name="nombre_modelo" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="placa" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_RetornaVehiculoxCliente_ID_Result">
           <Property Type="Int32" Name="id_vehiculo_cliente" Nullable="false" />
           <Property Type="String" Name="nombre_cliente" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="apellido1" Nullable="false" MaxLength="100" />
@@ -2119,6 +2162,7 @@
           <FunctionImportMapping FunctionImportName="sp_Elimina_Vehiculos_x_Cliente" FunctionName="LavaCarModel.Store.sp_Elimina_Vehiculos_x_Cliente" />
           <FunctionImportMapping FunctionImportName="sp_EliminaCanton" FunctionName="LavaCarModel.Store.sp_EliminaCanton" />
           <FunctionImportMapping FunctionImportName="sp_EliminaCliente" FunctionName="LavaCarModel.Store.sp_EliminaCliente" />
+          <FunctionImportMapping FunctionImportName="sp_EliminaMarca" FunctionName="LavaCarModel.Store.sp_EliminaMarca" />
           <FunctionImportMapping FunctionImportName="sp_EliminaPais" FunctionName="LavaCarModel.Store.sp_EliminaPais" />
           <FunctionImportMapping FunctionImportName="sp_EliminarVehiculo" FunctionName="LavaCarModel.Store.sp_EliminarVehiculo" />
           <FunctionImportMapping FunctionImportName="sp_Fabricante_Update" FunctionName="LavaCarModel.Store.sp_Fabricante_Update" />
@@ -2144,6 +2188,7 @@
           <FunctionImportMapping FunctionImportName="sp_Inserta_Fabricante" FunctionName="LavaCarModel.Store.sp_Inserta_Fabricante" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_factura_Detalle" FunctionName="LavaCarModel.Store.sp_Inserta_factura_Detalle" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_factura_encabezado" FunctionName="LavaCarModel.Store.sp_Inserta_factura_encabezado" />
+          <FunctionImportMapping FunctionImportName="sp_Inserta_Modelo" FunctionName="LavaCarModel.Store.sp_Inserta_Modelo" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_parametro" FunctionName="LavaCarModel.Store.sp_Inserta_parametro" />
           <FunctionImportMapping FunctionImportName="SP_INSERTA_SERVICIO" FunctionName="LavaCarModel.Store.SP_INSERTA_SERVICIO" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_TipoVehiculo" FunctionName="LavaCarModel.Store.sp_Inserta_TipoVehiculo" />
@@ -2160,6 +2205,7 @@
           <FunctionImportMapping FunctionImportName="sp_Modifica_Vehiculos_x_Cliente" FunctionName="LavaCarModel.Store.sp_Modifica_Vehiculos_x_Cliente" />
           <FunctionImportMapping FunctionImportName="sp_ModificaCanton" FunctionName="LavaCarModel.Store.sp_ModificaCanton" />
           <FunctionImportMapping FunctionImportName="sp_ModificaCliente" FunctionName="LavaCarModel.Store.sp_ModificaCliente" />
+          <FunctionImportMapping FunctionImportName="sp_ModificaMarca" FunctionName="LavaCarModel.Store.sp_ModificaMarca" />
           <FunctionImportMapping FunctionImportName="sp_ModificaModelo" FunctionName="LavaCarModel.Store.sp_ModificaModelo" />
           <FunctionImportMapping FunctionImportName="sp_ModificaPais" FunctionName="LavaCarModel.Store.sp_ModificaPais" />
           <FunctionImportMapping FunctionImportName="sp_MostrarCliente" FunctionName="LavaCarModel.Store.sp_MostrarCliente">
@@ -2332,8 +2378,10 @@
           <FunctionImportMapping FunctionImportName="sp_RetornaMarca_ID" FunctionName="LavaCarModel.Store.sp_RetornaMarca_ID">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LavaCarModel.sp_RetornaMarca_ID_Result">
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
                 <ScalarProperty Name="nombre_marca" ColumnName="nombre_marca" />
                 <ScalarProperty Name="nombre_fabricante" ColumnName="nombre_fabricante" />
+                <ScalarProperty Name="id_fabricante" ColumnName="id_fabricante" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2440,6 +2488,21 @@
           <FunctionImportMapping FunctionImportName="sp_RetornaVehiculosxCliente" FunctionName="LavaCarModel.Store.sp_RetornaVehiculosxCliente">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LavaCarModel.sp_RetornaVehiculosxCliente_Result">
+                <ScalarProperty Name="id_vehiculo_cliente" ColumnName="id_vehiculo_cliente" />
+                <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+                <ScalarProperty Name="nombre_marca" ColumnName="nombre_marca" />
+                <ScalarProperty Name="id_modelo_vehiculo" ColumnName="id_modelo_vehiculo" />
+                <ScalarProperty Name="nombre_modelo" ColumnName="nombre_modelo" />
+                <ScalarProperty Name="placa" ColumnName="placa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_RetornaVehiculoxCliente_ID" FunctionName="LavaCarModel.Store.sp_RetornaVehiculoxCliente_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LavaCarModel.sp_RetornaVehiculoxCliente_ID_Result">
                 <ScalarProperty Name="id_vehiculo_cliente" ColumnName="id_vehiculo_cliente" />
                 <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
                 <ScalarProperty Name="apellido1" ColumnName="apellido1" />

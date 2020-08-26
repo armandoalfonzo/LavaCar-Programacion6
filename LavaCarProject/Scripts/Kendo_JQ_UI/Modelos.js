@@ -33,6 +33,19 @@ function creaGridKendo(data) {
                     field: 'nombre_fabricante',
                     title: 'Fabricante'
                 },
+                {
+                    title: "Modificar",
+                    template: function (dataItem) {
+                        return "<a href='/Modelos/ModificaModelo?id_modelo=" + dataItem.id_modelo + "'>Modificar</a>"
+                    }
+                },
+                {
+                    title: "Eliminar",
+                    template: function (dataItem) {
+                        return "<a href='/Modelos/EliminaModelo?id_modelo" + dataItem.id_modelo + "'>Eliminar</a>"
+                    }
+
+                },
                 
             ],
         filterable: true

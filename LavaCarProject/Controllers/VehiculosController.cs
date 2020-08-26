@@ -38,7 +38,10 @@ namespace LavaCarProject.Controllers
         public ActionResult FabricantesListaMarcas()
         {
             List<sp_RetornaFabricantes_Result> fabricante = this.modeloBD.sp_RetornaFabricantes(null,"", null).ToList();
-            return Json(fabricante);
+            return Json(new
+            {
+                resultado = fabricante
+            });
         }
         [HttpPost]
         public ActionResult RetornaMarcas()

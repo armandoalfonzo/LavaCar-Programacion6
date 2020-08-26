@@ -1,0 +1,21 @@
+﻿@model LavaCarProject.Models.sp_RetornaMarca_ID_Result
+@{
+    ViewBag.Title = "EliminaModelo";
+}
+
+<h2>Modificar Modelo</h2>
+
+<form class="form" method="post">
+    <div class="form-group">
+        <label>Nombre marca:</label>
+        <input class="form-control" type="text" name="nmarca" id="nmarca" value="@Model.nombre_marca" />
+    </div>
+    <div class="form-group">
+        <label>Fabricante :</label>
+    </div>
+
+    <div class="form-group" role="button">
+        <input class="btn btn-danger" type="submit" value="Eliminar" id="btninsertar" />
+    </div>
+</form>
+<a href="~/Modelos/Modelos" class="btn btn-info" role="button"> Regresar </a>

@@ -263,6 +263,9 @@
     <Compile Include="Models\sp_RetornaVehiculosxCliente_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_RetornaVehiculoxCliente_ID_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_RetornaVehiculo_ID_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -394,6 +397,8 @@
     <Content Include="Views\Caja\Parametros.cshtml" />
     <Content Include="Views\Vehiculos\RetornaVehiculoxcliente.cshtml" />
     <Content Include="Views\Vehiculos\EliminaVehiculoxClienteID.cshtml" />
+    <Content Include="Views\Modelos\ModificaModelo.cshtml" />
+    <Content Include="Views\Modelos\EliminaModelo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

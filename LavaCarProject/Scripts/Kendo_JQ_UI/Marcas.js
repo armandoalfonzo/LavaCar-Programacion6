@@ -32,13 +32,13 @@ function creaGridKendo(data) {
                 {
                     title: "Modificar",
                     template: function (dataItem) {
-                        return "<a href='/Cliente/ModificaCliente?id_marca=" + dataItem.id_marca + "'>Modificar</a>"
+                        return "<a href='/Modelos/ModificaModelo?id_modelo=" + dataItem.id_modelo + "'>Modificar</a>"
                     }
                 },
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Personas/PersonaElimina?id_marca=" + dataItem.id_marca + "'>Eliminar</a>"
+                        return "<a href='/Modelos/EliminaModelo?id_modelo" + dataItem.id_modelo + "'>Eliminar</a>"
                     }
 
                 },

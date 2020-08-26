@@ -252,6 +252,15 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminaCliente", id_clienteParameter);
         }
     
+        public virtual int sp_EliminaMarca(Nullable<int> id_modelo)
+        {
+            var id_modeloParameter = id_modelo.HasValue ?
+                new ObjectParameter("id_modelo", id_modelo) :
+                new ObjectParameter("id_modelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminaMarca", id_modeloParameter);
+        }
+    
         public virtual int sp_EliminaPais(Nullable<int> id_pais)
         {
             var id_paisParameter = id_pais.HasValue ?
@@ -358,6 +367,19 @@ namespace LavaCarProject.Models
                 new ObjectParameter("vehiculo_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Inserta_factura_encabezado", id_clienteParameter, vehiculo_idParameter);
+        }
+    
+        public virtual int sp_Inserta_Modelo(string nombre_modelo, Nullable<int> id_marca_modelo)
+        {
+            var nombre_modeloParameter = nombre_modelo != null ?
+                new ObjectParameter("nombre_modelo", nombre_modelo) :
+                new ObjectParameter("nombre_modelo", typeof(string));
+    
+            var id_marca_modeloParameter = id_marca_modelo.HasValue ?
+                new ObjectParameter("id_marca_modelo", id_marca_modelo) :
+                new ObjectParameter("id_marca_modelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Modelo", nombre_modeloParameter, id_marca_modeloParameter);
         }
     
         public virtual int sp_Inserta_parametro(string nombre, string correo_aperture, string correo_cierre, Nullable<double> monto_minimo)
@@ -712,6 +734,23 @@ namespace LavaCarProject.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificaCliente", id_clienteParameter, nombreParameter, apellido1Parameter, apellido2Parameter, cedulaParameter, id_provinciaParameter, id_cantonParameter, id_distritoParameter, direccionParameter, telefonoParameter, emailParameter);
         }
     
+        public virtual int sp_ModificaMarca(Nullable<int> id_marca, string nombre_marca, Nullable<int> id_fabricante)
+        {
+            var id_marcaParameter = id_marca.HasValue ?
+                new ObjectParameter("id_marca", id_marca) :
+                new ObjectParameter("id_marca", typeof(int));
+    
+            var nombre_marcaParameter = nombre_marca != null ?
+                new ObjectParameter("nombre_marca", nombre_marca) :
+                new ObjectParameter("nombre_marca", typeof(string));
+    
+            var id_fabricanteParameter = id_fabricante.HasValue ?
+                new ObjectParameter("id_fabricante", id_fabricante) :
+                new ObjectParameter("id_fabricante", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificaMarca", id_marcaParameter, nombre_marcaParameter, id_fabricanteParameter);
+        }
+    
         public virtual int sp_ModificaModelo(Nullable<int> id_modelo, string nombre_modelo, Nullable<int> id_marca_modelo)
         {
             var id_modeloParameter = id_modelo.HasValue ?
@@ -1020,6 +1059,15 @@ namespace LavaCarProject.Models
                 new ObjectParameter("id_vehiculo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaVehiculosxCliente_Result>("sp_RetornaVehiculosxCliente", id_vehiculo_clienteParameter, id_clienteParameter, id_vehiculoParameter);
+        }
+    
+        public virtual ObjectResult<sp_RetornaVehiculoxCliente_ID_Result> sp_RetornaVehiculoxCliente_ID(Nullable<int> id_vehiculo_cliente)
+        {
+            var id_vehiculo_clienteParameter = id_vehiculo_cliente.HasValue ?
+                new ObjectParameter("id_vehiculo_cliente", id_vehiculo_cliente) :
+                new ObjectParameter("id_vehiculo_cliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaVehiculoxCliente_ID_Result>("sp_RetornaVehiculoxCliente_ID", id_vehiculo_clienteParameter);
         }
     
         public virtual int sp_update_parametro(string nombre, string correo_aperture, string correo_cierre, Nullable<double> monto_minimo)

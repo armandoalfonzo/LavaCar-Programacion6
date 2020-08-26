@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using LavaCarProject.Models;
 
 namespace LavaCarProject.Controllers
@@ -60,7 +61,11 @@ namespace LavaCarProject.Controllers
             return Json(new { resultado = mensaje }
                       );
         }
-
+        void RetornaFabricanteslista()
+        {
+            this.ViewBag.ListaFabricantes =
+                this.modeloBD.sp_RetornaFabricantes(null,"",null).ToList();
+        }
         public ActionResult ModificaModelo (int id_modelo)
         {
             sp_RetornaModelo_ID_Result modelovista =  new sp_RetornaModelo_ID_Result();
@@ -139,13 +144,120 @@ namespace LavaCarProject.Controllers
             return View(modelovista);
 
         }
+        public ActionResult Marcas()
+        {
+
+            return View();
+
+        }
 
         [HttpPost]
         public ActionResult RetornaMarcas()
         {
             List<sp_RetornaListaMarca_Result> marcasvehiculos = this.modeloBD.sp_RetornaListaMarca(null, "", null).ToList();
-            return Json(marcasvehiculos);
+            return Json(new
+            {
+                resultado = marcasvehiculos
+            });
+        }
+        public ActionResult InsertaMarca(string pnombremarca, int pidfabricante)
+        {
+            int reg_afectados = 0;
+            string mensaje = "";
+            try
+            {
+                reg_afectados = this.modeloBD.sp_InsertaMarca(
+                    pnombremarca, pidfabricante);
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "Hubo un error" + error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    mensaje = "Registro insertado";
+                }
+                else
+                {
+                    mensaje += "No se pudo insertar, verifique.";
+                }
+            }
+            
+            return Json(new { resultado = mensaje }
+                     );
         }
 
+        public ActionResult ModificaMarca( int id_marca)
+        {
+            sp_RetornaMarca_ID_Result modelovista = new sp_RetornaMarca_ID_Result();
+            modelovista = this.modeloBD.sp_RetornaMarca_ID(id_marca).FirstOrDefault();
+            return View(modelovista);
+        }
+        [HttpPost]
+        public ActionResult ModificaMarca (sp_RetornaMarca_ID_Result modelovista)
+        {
+            int reg_afectados = 0;
+            string resultado = "";
+            try
+            {
+                reg_afectados = this.modeloBD.sp_ModificaMarca(modelovista.id_marca,modelovista.nombre_marca,modelovista.id_fabricante);
+            }
+            catch (Exception error)
+            {
+
+                resultado = "Hubo un error, " + error;
+            }
+            finally
+            {
+                if (reg_afectados>0)
+                {
+                    resultado = "Registro modificado";
+                }
+                else
+                {
+                    resultado += "No se pudo modificar, verifique";
+                }
+            }
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
+
+            return View(modelovista);
+        }
+        public ActionResult EliminaMarca(int id_marca)
+        {
+            sp_RetornaMarca_ID_Result modelovista = new sp_RetornaMarca_ID_Result();
+            modelovista = this.modeloBD.sp_RetornaMarca_ID(id_marca).FirstOrDefault();
+            return View(modelovista);
+        }
+        [HttpPost]
+        public ActionResult EliminaMarca (sp_RetornaMarca_ID_Result modelovista)
+        {
+            int reg_afectados = 0;
+            string resultado = "";
+            try
+            {
+                reg_afectados = this.modeloBD.sp_EliminaMarca(modelovista.id_marca);
+            }
+            catch (Exception error)
+            {
+
+                resultado = "Hubo un error " + error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    resultado = "Registro Eliminado";
+                }
+                else
+                {
+                    resultado += "No se pudo eliminar, verifique";
+                }
+            }
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
+            return View(modelovista);
+        }
     }
 }
