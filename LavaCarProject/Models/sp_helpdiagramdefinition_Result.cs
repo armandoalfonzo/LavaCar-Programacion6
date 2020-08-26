@@ -10,15 +10,10 @@
 namespace LavaCarProject.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class vehiculos_x_cliente
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int id_vehiculo_cliente { get; set; }
-        public int id_vehiculo { get; set; }
-        public int id_cliente { get; set; }
-    
-        public virtual cliente cliente { get; set; }
-        public virtual vehiculos vehiculos { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

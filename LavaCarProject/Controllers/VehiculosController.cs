@@ -44,10 +44,12 @@ namespace LavaCarProject.Controllers
         public ActionResult RetornaMarcas()
         {
             List<sp_RetornaListaMarca_Result> marcasvehiculos = this.modeloBD.sp_RetornaListaMarca(null,"",null).ToList();
-            return Json(new
-            {
-                resultado = marcasvehiculos
-            });
+
+            return Json(marcasvehiculos);
+            //return Json(new
+            //{
+            //    resultado = marcasvehiculos
+            //});
         }
 
         [HttpPost]
@@ -213,6 +215,15 @@ namespace LavaCarProject.Controllers
             return View(modeloVista);
         }
 
+        [HttpPost]
+        public ActionResult RetornaVehiculosLibres()
+        {
+            List<sp_Retorna_Vehiculos_sin_Cliente_Result> Vehlibres = this.modeloBD.sp_Retorna_Vehiculos_sin_Cliente().ToList();
+            return Json
+                ( new {
+                    resultado = Vehlibres
+                });
+        }
         public ActionResult AsignarVehiculos(int id_vehiculo, int pplaca)
         {
             List<sp_RetornaCliente_Result> asignar = this.modeloBD.sp_RetornaCliente("", "", "", null, null, null, null, "", null, "").ToList();
@@ -267,8 +278,7 @@ namespace LavaCarProject.Controllers
 
         public ActionResult RetornaVehiculoxcliente()
         {
-            List<sp_RetornaVehiculosxCliente_Result> clientesvehiculo = this.modeloBD.sp_RetornaVehiculosxCliente(null, null, null).ToList();
-            return View(clientesvehiculo);
+            return View();
         }
         [HttpPost]
         public ActionResult ReporteVehiculoxcliente()
@@ -279,6 +289,42 @@ namespace LavaCarProject.Controllers
             {
                 resultado = vehiculos_cliente
             });
+        }
+        public ActionResult EliminaVehiculoxClienteID (int id_vehiculo)
+        {
+            sp_RetornaVehiculo_ID_Result vhc = new sp_RetornaVehiculo_ID_Result();
+               vhc = this.modeloBD.sp_RetornaVehiculo_ID(id_vehiculo).FirstOrDefault();
+            return View(vhc);
+        }
+        [HttpPost]
+        public ActionResult EliminaVehiculoxClienteID(sp_RetornaVehiculo_ID_Result vistamodelo)
+        {
+            int reg_afectados = 0;
+            string resultado = "";
+
+            try
+            {
+                reg_afectados = this.modeloBD.sp_Elimina_Vehiculos_x_Cliente(
+                    vistamodelo.id_vehiculo);
+            }
+            catch (Exception error)
+            {
+
+                resultado = "Hubo un error"+ error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    resultado = "Registro Eliminado";
+                }
+                else
+                {
+                    resultado += "No se pudo eliminar, verifique";
+                }
+            }
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
+            return View(vistamodelo);
         }
         void Cliente()
         {

@@ -182,10 +182,7 @@
     <Compile Include="Models\modelo_vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pai.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Parametro.cs">
+    <Compile Include="Models\Pais.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Parametros.cs">
@@ -207,14 +204,12 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Retorna_Cierres_Caja_Result.cs">
-
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
-
-
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_MostrarCliente_Result.cs">
@@ -275,13 +270,12 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_retorna_parametro_Result.cs">
-
-    </Compile>
-    <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
-
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tipo_servicio.cs">
@@ -293,7 +287,7 @@
     <Compile Include="Models\usuario.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vehiculo.cs">
+    <Compile Include="Models\vehiculos.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vehiculos_x_cliente.cs">
@@ -359,6 +353,7 @@
     <Content Include="Scripts\Kendo_JQ_UI\Modelos.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_clientes.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_libres.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\ScriptGenerico.js" />
     <Content Include="Scripts\ValidacionesGenericas.js" />
@@ -395,12 +390,10 @@
     <Content Include="Views\Vehiculos\VehiculosLibres.cshtml" />
     <Content Include="Views\Vehiculos\AsignarVehiculos.cshtml" />
     <Content Include="Views\Imagenes\Carusel.cshtml" />
-
-    <Content Include="Views\Vehiculos\ReporteVehiculoxcliente.cshtml" />
     <Content Include="Views\Vehiculos\RetornaMarcasLista.cshtml" />
-
     <Content Include="Views\Caja\Parametros.cshtml" />
-
+    <Content Include="Views\Vehiculos\RetornaVehiculoxcliente.cshtml" />
+    <Content Include="Views\Vehiculos\EliminaVehiculoxClienteID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

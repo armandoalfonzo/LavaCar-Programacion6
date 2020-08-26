@@ -10,7 +10,7 @@ function obtenerVehiculos() {
     ejecutaAjax(urlMetodo, parametros, funcion);
 }
 function creaGridKendo(data) {
-    $("#divClientesVehiculos").kendoGrid({
+    $("#divClientesVehiculosCRUD").kendoGrid({
         dataSource: {
             data: data.resultado,
             pageSize: 10
@@ -19,23 +19,31 @@ function creaGridKendo(data) {
         columns:
             [
                 {
-                    field: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
+                    template: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
                     title: 'Nombre'
                 },
                 {
                     field: 'nombre_marca',
-                    title: 'Modelo'
+                    title: 'Marca'
                 },
                 {
                     field: 'nombre_modelo',
-                    title: 'Placa'
+                    title: 'Modelo'
                 },
                 {
                     field: 'placa',
-                    title: 'Tipo de Vehículo'
+                    title: 'Placa'
+                },
+                {
+                   
+                    title: 'Eliminar',
+                    template: function (dataItem) {
+                        return "<a href='/Vehiculos/EliminaVehiculoxClienteID?id_vehiculo_cliente=" + dataItem.id_vehiculo_cliente + "'>Eliminar</a>"
+                    }
                 },
 
             ],
-        filterable: true
+        filterable: true,
+        groupable: true
     });
 }

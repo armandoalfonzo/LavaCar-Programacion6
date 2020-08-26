@@ -19,12 +19,13 @@ namespace LavaCarProject.Controllers
             return View(fabricantes);
         }
 
-        //[HttpPost]
+        [HttpPost]
 
         public ActionResult RetornaFabricantes()
         {
             
-            List<sp_RetornaFabricantes_Result> fabricantes = this.modeloBD.sp_RetornaFabricantes(null, "", null).ToList();
+            List<sp_RetornaFabricantes_Result> fabricantes = 
+                this.modeloBD.sp_RetornaFabricantes(null, "", null).ToList();
             return Json(new
             {
                 resultado = fabricantes

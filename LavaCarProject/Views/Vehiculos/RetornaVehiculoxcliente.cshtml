@@ -1,32 +1,18 @@
-﻿@model List<LavaCarProject.Models.sp_RetornaVehiculosxCliente_Result>
-@{
-    ViewBag.Title = "RetornaVehiculoxcliente";
+﻿@section Style{
+    <link rel="stylesheet" href=" https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
 }
 
-<h2>Vehiculos por cliente</h2>
+<h2>Detalle de Vehículos por cliente</h2>
 
-<table class="table">
-    <tr>
-        <th>Nombre Cliente:</th>
-        <th>Placa:</th>
-        <th>Marca:</th>
-        <th>Modelo:</th>
-        <th>Acciones:</th>
-    </tr>
-    @{
-        foreach (LavaCarProject.Models.sp_RetornaVehiculosxCliente_Result posicionModelo in this.Model)
-        {
-            <tr>
-                <td>@posicionModelo.nombre_cliente @posicionModelo.apellido1 </td>
-                <td>@posicionModelo.placa</td>
-                <td>@posicionModelo.nombre_marca</td>
-                <td>@posicionModelo.nombre_modelo</td>
-                <td>
-                    <a href="~/Cliente/ModificaCliente?id_cliente=@posicionModelo.id_vehiculo_cliente">Modificar</a>
-                    <br />
-                    <a href="~/Cliente/EliminarCliente?id_cliente=@posicionModelo.id_vehiculo_cliente">Eliminar</a>
-                </td>
-            </tr>
-        }
-    }
-</table>
+<div id="divClientesVehiculosCRUD">
+
+</div>
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/Vehiculos_clientes.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+}

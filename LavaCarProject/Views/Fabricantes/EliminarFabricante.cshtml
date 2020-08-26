@@ -11,12 +11,12 @@
 
         <div class="form-group">
             <label>Nombre:</label>
-            <input type="text" name="nomfabricante" id="nomfabricante" class="form-control" value="@Model.nombre_fabricante">
+            <input type="text" name="nomfabricante" id="nomfabricante" class="form-control" value="@Model.nombre_fabricante" disabled>
         </div>
 
         <div class="form-group">
             <label>País:</label>
-            <select name="pais" id="pais" class="form-control">
+            <select name="pais" id="pais" class="form-control" disabled>
                 <option value="">Seleccione un país</option>
                 @{
                     foreach (LavaCarProject.Models.sp_RetornaPais_Result pais in this.ViewBag.ListaPais)
@@ -36,11 +36,11 @@
 
         </div>
 
-        <div class="form-group">
-            <input type="submit" value="Guardar" id="btninsertar" />
+        <div class="form-group" role="button">
+            <input class="btn btn-danger" type="submit" value="Eliminar" id="btninsertar" />
         </div>
         <div>
-            <a href="~/Fabricantes/Fabricantes"> Regresar a Fabricantes</a>
+            <a class="btn btn-info" href="~/Fabricantes/Fabricantes"> Regresar a Fabricantes</a>
         </div>
     </form>
 </div>
