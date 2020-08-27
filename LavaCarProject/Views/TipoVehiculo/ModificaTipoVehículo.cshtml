@@ -1,0 +1,26 @@
+﻿@model LavaCarProject.Models.sp_RetornaTipoVehiculo_ID_Result
+@{
+    ViewBag.Title = "ModificaTipoVehículo";
+}
+
+<h2>Modifica Tipo de Vehículo</h2>
+
+<form method="post" id="frmmodificatipoVH">
+    <div class="form-group">
+        <input type="text" id="id_tipo_vehiculo" hidden name="id_tipo_vehiculo" value="@Model.id_tipo_vehiculo" />
+        <label>Nombre tipo Vehículo:</label>
+        <input type="text" name="nombre_vehiculo" id="nombre_vehiculo" class="form-control" value="@Model.nombre_vehiculo" />
+    </div>
+    <div class="form-group">
+        <input class="btn btn-danger" type="submit" value="Guardar" id="btnModificaTV" />
+    </div>
+    <a class="btn btn-info" href="~/TipoVehiculo/TipoVehiculo">Regresar a tipo de Vehículos</a>
+</form>
+
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/TV_Modifica.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+}

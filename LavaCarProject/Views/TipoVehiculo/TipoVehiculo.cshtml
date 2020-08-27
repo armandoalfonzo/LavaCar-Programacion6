@@ -1,0 +1,38 @@
+﻿
+@section Style
+    {
+    <link rel="stylesheet" href=" https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
+}
+
+<h2>Tipos de Vehículo</h2>
+
+<div id="divKendoGrid">
+
+</div>
+<input type="button" id="btMostrarDialog" value="Insertar Tipo de Vehículo" class="btn btn-info" />
+<div id="divInsertar" hidden>
+
+    <h2>Insertar Tipo de Vehículo</h2>
+
+    <form class="form" id="fmrnuevoTV" method="POST">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            
+            <input type="text" name="nombre_vehiculo" id="nombre_vehiculo" class="form-control">
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="button" value="Insertar" id="btninsertartipovh" />
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/TipoVehículo.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+}

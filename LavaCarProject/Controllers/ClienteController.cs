@@ -219,5 +219,20 @@ namespace LavaCarProject.Controllers
             return View(modeloVista);
         }
 
+        public ActionResult ListaVehiculosCliente()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Vista_Vehiculos_cliente()
+        {
+            List<sp_RetornaVehiculosxCliente_Result> vehiculos_cliente =
+                this.modeloBD.sp_RetornaVehiculosxCliente(null, null, null).ToList();
+            return Json(new
+            {
+                resultado = vehiculos_cliente
+            });
+        }
+
     }
 }

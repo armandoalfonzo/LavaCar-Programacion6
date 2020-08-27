@@ -1113,5 +1113,88 @@ namespace LavaCarProject.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Verifica_Cliente_Existente", cedulaParameter);
         }
+    
+        public virtual int sp_AnularFactura(Nullable<int> id_Factura)
+        {
+            var id_FacturaParameter = id_Factura.HasValue ?
+                new ObjectParameter("id_Factura", id_Factura) :
+                new ObjectParameter("id_Factura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AnularFactura", id_FacturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_cierre_cajas_Result> sp_cierre_cajas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_cierre_cajas_Result>("sp_cierre_cajas");
+        }
+    
+        public virtual ObjectResult<sp_retorna_tiposervicio_Result> sp_retorna_tiposervicio(Nullable<int> id_servicio)
+        {
+            var id_servicioParameter = id_servicio.HasValue ?
+                new ObjectParameter("id_servicio", id_servicio) :
+                new ObjectParameter("id_servicio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_retorna_tiposervicio_Result>("sp_retorna_tiposervicio", id_servicioParameter);
+        }
+    
+        public virtual ObjectResult<sp_retorna_TODOS_tiposervicios_Result> sp_retorna_TODOS_tiposervicios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_retorna_TODOS_tiposervicios_Result>("sp_retorna_TODOS_tiposervicios");
+        }
+    
+        public virtual ObjectResult<sp_RetornaFacturas_Result> sp_RetornaFacturas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaFacturas_Result>("sp_RetornaFacturas");
+        }
+    
+        public virtual ObjectResult<sp_RetornaVehiculosxClientebyIdCliente_Result> sp_RetornaVehiculosxClientebyIdCliente(Nullable<int> id_cliente)
+        {
+            var id_clienteParameter = id_cliente.HasValue ?
+                new ObjectParameter("id_cliente", id_cliente) :
+                new ObjectParameter("id_cliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaVehiculosxClientebyIdCliente_Result>("sp_RetornaVehiculosxClientebyIdCliente", id_clienteParameter);
+        }
+    
+        public virtual ObjectResult<sp_zzxxRetornaFacturaEncabezadoID_Result> sp_zzxxRetornaFacturaEncabezadoID(Nullable<int> id_factura)
+        {
+            var id_facturaParameter = id_factura.HasValue ?
+                new ObjectParameter("id_factura", id_factura) :
+                new ObjectParameter("id_factura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_zzxxRetornaFacturaEncabezadoID_Result>("sp_zzxxRetornaFacturaEncabezadoID", id_facturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_RetornaFacturaEncabezadoID_Result> sp_RetornaFacturaEncabezadoID(Nullable<int> id_factura)
+        {
+            var id_facturaParameter = id_factura.HasValue ?
+                new ObjectParameter("id_factura", id_factura) :
+                new ObjectParameter("id_factura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaFacturaEncabezadoID_Result>("sp_RetornaFacturaEncabezadoID", id_facturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_RetornaTipoServicio_ID_Result> sp_RetornaTipoServicio_ID(Nullable<int> id_tipo_servicio)
+        {
+            var id_tipo_servicioParameter = id_tipo_servicio.HasValue ?
+                new ObjectParameter("id_tipo_servicio", id_tipo_servicio) :
+                new ObjectParameter("id_tipo_servicio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaTipoServicio_ID_Result>("sp_RetornaTipoServicio_ID", id_tipo_servicioParameter);
+        }
+    
+        public virtual ObjectResult<sp_UltimaCaja_Result> sp_UltimaCaja()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_UltimaCaja_Result>("sp_UltimaCaja");
+        }
+    
+        public virtual ObjectResult<sp_RetornaTipoVehiculo_ID_Result> sp_RetornaTipoVehiculo_ID(Nullable<int> id_tipo_vehiculo)
+        {
+            var id_tipo_vehiculoParameter = id_tipo_vehiculo.HasValue ?
+                new ObjectParameter("id_tipo_vehiculo", id_tipo_vehiculo) :
+                new ObjectParameter("id_tipo_vehiculo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RetornaTipoVehiculo_ID_Result>("sp_RetornaTipoVehiculo_ID", id_tipo_vehiculoParameter);
+        }
     }
 }

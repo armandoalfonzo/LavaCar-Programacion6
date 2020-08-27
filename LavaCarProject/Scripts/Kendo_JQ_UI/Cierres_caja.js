@@ -33,7 +33,7 @@ function creaGridKendo(data) {
                 },
                 {
                     field: 'monto_apertura',
-                    title: 'Monto de cierre'
+                    title: 'Monto de apertura'
                 },
                 {
                     field: 'monto_cierre_total',

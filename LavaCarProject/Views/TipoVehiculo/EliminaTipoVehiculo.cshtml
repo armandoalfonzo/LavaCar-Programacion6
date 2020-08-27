@@ -1,0 +1,17 @@
+﻿@model LavaCarProject.Models.sp_RetornaTipoVehiculo_ID_Result
+@{
+    ViewBag.Title = "EliminaTipoVehiculo";
+}
+<h2>Elimina Tipo de Vehículo</h2>
+
+<form method="post" id="frmeliminaVH">
+    <div class="form-group">
+        <input type="text" id="id_tipo_vehiculo" hidden name="id_tipo_vehiculo" value="@Model.id_tipo_vehiculo" />
+        <label>Nombre tipo Vehículo:</label>
+        <input disabled type="text" name="nombre_vehiculo" id="nombre_vehiculo" class="form-control" value="@Model.nombre_vehiculo" />
+    </div>
+    <div class="form-group">
+        <input class="btn btn-danger" type="submit" value="Eliminar" id="btnEliminar" />
+    </div>
+    <a class="btn btn-info" href="~/TipoVehiculo/TipoVehiculo">Regresar a tipo de Vehículos</a>
+</form>

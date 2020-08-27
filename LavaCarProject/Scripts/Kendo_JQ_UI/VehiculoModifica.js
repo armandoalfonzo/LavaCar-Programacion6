@@ -27,13 +27,13 @@
 
         }
     });
-
+    crearDatePicker();
 });
 
 function EventosChange() {
 
     $('#ddlmarca').change(function () {
-        var marca = $("#id_marca_select").val();
+        var marca = $("#ddlmarca").val();
         ddlmodelos(marca);
     });
 
@@ -55,5 +55,14 @@ function procesaddlmodelos(data){
         var modeloActual = this;
         nuevaOpcion = "<option value ='" + modeloActual.id_modelo + "'>" + modeloActual.nombre_modelo + "</option>";
         ddlmodelos.append(nuevaOpcion);
+    });
+}
+
+function crearDatePicker() {
+    $("#año_fabricacion").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "c-50 : c+1",
+        dateFormat: "dd/mm/yy"
     });
 }

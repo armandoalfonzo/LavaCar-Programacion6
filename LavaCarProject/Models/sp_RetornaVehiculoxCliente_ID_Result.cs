@@ -14,6 +14,7 @@ namespace LavaCarProject.Models
     public partial class sp_RetornaVehiculoxCliente_ID_Result
     {
         public int id_vehiculo_cliente { get; set; }
+        public int id_vehiculo { get; set; }
         public string nombre_cliente { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }

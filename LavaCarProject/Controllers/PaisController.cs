@@ -54,7 +54,7 @@ namespace LavaCarProject.Controllers
                 }
                 else
                 {
-                    mensaje = "No se pudo insertar, verifique";
+                    mensaje += "No se pudo insertar, verifique";
                 }
             }
 
