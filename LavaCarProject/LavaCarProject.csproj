@@ -140,174 +140,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\caja_chica.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Canton.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\cliente.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Distrito.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\fabricante.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\factura_detalle.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\factura_encabezado.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LavaCarModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LavaCarModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LavaCarModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LavaCarModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\marca_vehiculo.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\modelo_vehiculo.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Pai.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Parametro.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Provincia.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RetornaCantones_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RetornaUsuarioCorreoPwd_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RetornaUsuarioID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RetornaUsuario_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Retorna_Cierres_Caja_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_cierre_cajas_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_MostrarCliente_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaCantonesID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaCliente_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaCliente_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaDistritos_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaDistritos_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaFabricantes_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaFabricante_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaFacturaEncabezadoID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaFacturas_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaListaMarca_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaMarca_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaModelo_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaModelo_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaPais_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaPais_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaProvincias_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaTipoVehiculo_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaVehiculosxClientebyIdCliente_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaVehiculosxCliente_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaVehiculoxCliente_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaVehiculo_ID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_RetornaVehiculo_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_retorna_parametro_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_retorna_tiposervicio_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_retorna_TODOS_tiposervicios_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_UltimaCaja_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tipo_servicio.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tipo_vehiculo.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\usuario.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vehiculo.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vehiculos_x_cliente.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Asignar_Vehiculos_ViewModel.cs" />
     <Compile Include="ViewModels\CrearFacturaViewModel.cs" />
@@ -333,25 +165,8 @@
     <Content Include="Media_Data\sprite_css.png" />
     <Content Include="Media_Data\vacuum_cleaner.jpg" />
     <Content Include="Media_Data\washer_machine.jpg" />
-    <Content Include="Models\LavaCarModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-      <LastGenOutput>LavaCarModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\LavaCarModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-      <LastGenOutput>LavaCarModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\LavaCarModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LavaCarModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LavaCarModel.edmx.diagram">
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Geografia\Geografia.js" />
     <Content Include="Scripts\Geografia\ListaPais.js" />
@@ -423,6 +238,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
