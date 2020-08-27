@@ -293,6 +293,17 @@ namespace LavaCarProject.Controllers
                 resultado = vehiculos_cliente
             });
         }
+
+        [HttpPost]
+        public ActionResult ReporteVehiculoxclienteById(int id_cliente)
+        {
+            List<sp_RetornaVehiculosxClientebyIdCliente_Result> vehiculos_cliente =
+                this.modeloBD.sp_RetornaVehiculosxClientebyIdCliente(id_cliente).ToList();
+            return Json(new
+            {
+                resultado = vehiculos_cliente
+            });
+        }
         public ActionResult EliminaVehiculoxClienteID (int id_vehiculo)
         {
             sp_RetornaVehiculo_ID_Result vhc = new sp_RetornaVehiculo_ID_Result();

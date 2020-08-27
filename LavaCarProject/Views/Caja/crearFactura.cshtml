@@ -1,0 +1,272 @@
+﻿@model LavaCarProject.ViewModels.CrearFacturaViewModel
+
+@{
+    ViewBag.Title = "crear Factura";
+}
+
+<h2>Encabezado Factura</h2>
+
+<form class="form" id="fmrCrearFactura" method="POST">
+    <div class="form-group">
+        <label>Datos Cliente:</label>
+        <input type="text" name="datosCliente" id="datosCliente" class="form-control">
+        <input id="id_cliente" hidden />
+        <span id="alertcliente" class="has-error" style="color:red" hidden>Datos Invalidos</span>
+    </div>
+    <div class="form-group">
+        <label>Placa Vehiculo:</label>
+        <input type="text" name="Vehiculo" id="Vehiculo" class="form-control">
+        <input id="id_vehiculo" hidden />
+        <span id="alertvehiculo" class="has-error" style="color:red" hidden>Datos Invalidos</span>
+    </div>
+
+    <h2>Detalles de Factura</h2>
+    <div class="form-group">
+        <label>Tipo Servicio:</label>
+        <input type="text" name="IdServicio" id="IdServicio" class="form-control">
+        <input id="id_servicio" hidden />
+        <span id="alertServicio" class="has-error" style="color:red" hidden>el tipo se servivio es invalido</span>
+    </div>
+    <div class="form-group">
+        <label>Cantidad:</label>
+        <input type="number" name="cantidad" id="cantidad" class="form-control">
+        <span id="alertcantidad" class="has-error" style="color:red" hidden>La cantidad es requerida</span>
+    </div>
+    <div class="form-group">
+        <label>Precio:</label>
+        <input type="number" name="precio" id="precio" class="form-control" disabled>
+        <span id="alertPrecio" class="has-error" style="color:red" hidden>El Precio es requerida</span>
+    </div>
+    <br />
+    <a class="btn btn-primary" id="btndetalleFactura">Añadir detalle Factura</a>
+    <br />
+    <br />
+    <table class="table" id="gridDetails">
+        <tr>
+            <th>Servicio</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+    </table>
+    <br />
+    <span id="alertDetalle" class="has-error" style="color:red" hidden>Debe Ingresar al menos un detalle</span>
+    <hr />
+    <a class="btn btn-group-lg btn-success" id="btnCrearFactura">Crear factura</a>
+</form>
+<br />
+<br />
+<div>
+    @Html.ActionLink("Back to List", "Facturas")
+</div>
+
+@section scripts{
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+    <script>
+        var DetallesFactura = [];
+        $(function () {
+            $("#fmrCrearFactura").validate({
+                rules: {
+                    datosCliente: {
+                        required: true
+                    },
+                    Vehiculo: {
+                        required: true,
+                        maxlength: 50
+                    }
+                }
+            });
+
+            $("#btnCrearFactura").on('click', function () {
+                var formulario = $("#fmrCrearFactura");
+                formulario.validate();
+                if (formulario.valid()) {
+                    if ($("#id_cliente").val() == null || $.trim($("#id_cliente").val()) == "") {
+                        $(".has-error").attr("hidden", true);
+                        $("#alertcliente").attr("hidden", false);
+                    }
+                    else if ($("#id_vehiculo").val() == null || $.trim($("#id_vehiculo").val()) == "") {
+                        $(".has-error").attr("hidden", true);
+                        $("#alertvehiculo").attr("hidden", false);
+                    }
+                    else if (DetallesFactura.length > 0) {
+                        $(".has-error").attr("hidden", true);
+                        InsertaNuevoFactura();
+                    }
+                    else {
+                        $(".has-error").attr("hidden", true);
+                        $("#alertDetalle").attr("hidden", false);
+                    }
+
+                }
+            });
+
+            obtenerServicios();
+            obtenerClinte();
+            $("#datosCliente").on('change', function () {
+                obtenerVehiculo();
+            })
+            $("#IdServicio").on('change', function () {
+                obtenerTipoServicio();
+            })
+
+            $("#btndetalleFactura").on('click', function () {
+
+                if ($.trim($("#IdServicio").val()) == "" || $("#IdServicio").val() == null || $.trim($("#id_servicio").val()) == "") {
+                    $(".has-error").attr("hidden", true);
+                    $("#alertServicio").attr("hidden", false);
+                }
+                else if ($("#cantidad").val() == null || $("#cantidad").val() == "" || $("#cantidad").val() <= 0) {
+                    $(".has-error").attr("hidden", true);
+                    $("#alertcantidad").attr("hidden", false);
+                }
+                else if ($("#precio").val() == null || $("#precio").val() == "" || $("#precio").val() <= 0) {
+                    $(".has-error").attr("hidden", true);
+                    $("#alertPrecio").attr("hidden", false);
+                }
+                else {
+                    $("#IdServicio").prop("disabled", false);
+                    $(".has-error").attr("hidden", true);
+                    DetallesFactura.push({ IdServicio: $("#id_servicio").val(), Cantidad: $("#cantidad").val(), Precio: $("#precio").val() })
+                    $('#gridDetails').append('<tr><td>' + $("#IdServicio").val() + '</td><td>' + $("#cantidad").val() + '</td><td>' + $("#precio").val() + '</td></tr>');
+                    $("#id_servicio").val(""); $("#cantidad").val(""); $("#precio").val(""); $("#IdServicio").val("");
+                }
+
+            });
+        });
+
+        function InsertaNuevoFactura() {
+            var CrearFacturaViewModel = { id_cliente: $("#id_cliente").val(), id_vehiculo: $("#id_vehiculo").val(), Detalles: DetallesFactura }
+            var urlMetodo = '/Caja/CrearFactura'
+            var parametros = { Model: CrearFacturaViewModel };
+            var funcion = facturaCreada;
+            ejecutaAjax(urlMetodo, parametros, funcion);
+        }
+        function facturaCreada(data) {
+            $("#id_cliente").val("");
+            $("#id_vehiculo").val("");
+            $("#datosCliente").val("");
+            $("#Vehiculo").val("");
+            $("#datosCliente").prop("disabled", false);
+            $("#Vehiculo").prop("disabled", false);
+            $('#gridDetails').html('');
+            $('#gridDetails').append('<tr><td>Servicio</td><td>Cantidad</td><td>Precio</td></tr>');
+            alert(data);
+        }
+
+        function obtenerTipoServicio() {
+            if ($("#id_servicio").val() != "" && $("#id_servicio").val() != null) {
+                var urlMetodo = '/Caja/RetornatipoServicioxID'
+                var parametros = { ServicioId: $("#id_servicio").val() };
+                var funcion = cargarTipoSercio;
+                ejecutaAjax(urlMetodo, parametros, funcion);
+            }
+        }
+
+        function cargarTipoSercio(data) {
+            if (data.servicio.precio_servicio == null || data.servicio.precio_servicio <= 0) {
+                $("#precio").prop("disabled", false);
+            }
+            else {
+                $("#precio").val(data.servicio.precio_servicio)
+            }
+
+        };
+
+        function obtenerServicios() {
+            var urlMetodo = '/Caja/RetornaServicios'
+            var parametros = {};
+            var funcion = crearAutoCompleteServicio;
+            ejecutaAjax(urlMetodo, parametros, funcion);
+        }
+        function crearAutoCompleteServicio(data) {
+            var datosAutoCompleteVehiculo = $.map(data.servicios, function (item) {
+                return {
+                    label: item.nombre_servicio,
+                    id_servicio: item.id_servicio,
+                }
+            })
+            $("#IdServicio").autocomplete({
+                source: datosAutoCompleteVehiculo,
+                select: function (event, ui) {
+                    $("#id_servicio").val(ui.item.id_servicio)
+                    $("#IdServicio").prop("disabled", true)
+                }
+
+            });
+        };
+
+
+        function obtenerVehiculo() {
+            var urlMetodo = '/Vehiculos/ReporteVehiculoxclienteById'
+            var parametros = { id_cliente: $("#id_cliente").val() };
+            var funcion = crearAutoCompleteVehiculo;
+            ejecutaAjax(urlMetodo, parametros, funcion);
+        }
+        function crearAutoCompleteVehiculo(data) {
+            var datosAutoCompleteVehiculo = $.map(data.resultado, function (item) {
+                return {
+                    label: item.placa,
+                    id_vehiculo: item.id_vehiculo,
+                }
+            })
+            $("#Vehiculo").autocomplete({
+                source: datosAutoCompleteVehiculo,
+                select: function (event, ui) {
+                    $("#id_vehiculo").val(ui.item.id_vehiculo)
+                }
+
+            });
+        };
+
+        function obtenerVehiculo() {
+            var urlMetodo = '/Vehiculos/ReporteVehiculoxclienteById'
+            var parametros = { id_cliente: $("#id_cliente").val() };
+            var funcion = crearAutoCompleteVehiculo;
+            ejecutaAjax(urlMetodo, parametros, funcion);
+        }
+        function crearAutoCompleteVehiculo(data) {
+            var datosAutoCompleteVehiculo = $.map(data.resultado, function (item) {
+                return {
+                    label: item.placa,
+                    id_vehiculo: item.id_vehiculo,
+                }
+            })
+            $("#Vehiculo").autocomplete({
+                source: datosAutoCompleteVehiculo,
+                select: function (event, ui) {
+                    $("#id_vehiculo").val(ui.item.id_vehiculo)
+                    $("#Vehiculo").prop("disabled", true)
+                    $(".has-error").attr("hidden", true);
+                }
+
+            });
+        };
+
+        function obtenerClinte() {
+            var urlMetodo = '/Cliente/RetornaClientes'
+            var parametros = {};
+            var funcion = crearAutoComplete;
+            ejecutaAjax(urlMetodo, parametros, funcion);
+        }
+        function crearAutoComplete(data) {
+            var datosAutoComplete = $.map(data.resultado, function (item) {
+                return {
+                    label: $.trim(item.cedula) + " " + $.trim(item.nombre_cliente) + " " + $.trim(item.apellido1),
+                    id_cliente: item.id_cliente,
+                }
+            })
+            $("#datosCliente").autocomplete({
+                source: datosAutoComplete,
+                select: function (event, ui) {
+                    $("#id_cliente").val(ui.item.id_cliente)
+                    $("#datosCliente").prop("disabled", true)
+
+                }
+
+            });
+        };
+
+
+
+    </script>
+}

@@ -1,0 +1,108 @@
+﻿@model List<LavaCarProject.Models.sp_RetornaFacturas_Result>
+@{
+    ViewBag.Title = "Facturas";
+}
+
+
+@section Style{
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
+}
+<h2>Lista Fabricantes</h2>
+<br />
+
+<a class="btn btn-primary" id="btnCrearFactura" href="~/Caja/CrearFactura">Crear Nueva Factura</a>
+<br />
+<br />
+<table class="table" id="grid">
+    <tr>
+        <th>Nombre Completo</th>
+        <th>Cedula</th>
+        <th>Placa Vehiculo</th>
+        <th>Total sin IVA</th>
+        <th>Total</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Opcion</th>
+    </tr>
+    @{
+        foreach (var factura in Model)
+        {
+            string estado = factura.estado_factura ? "Activa" : "Anulada";
+            <tr>
+                <td>@factura.nombre_cliente @factura.apellido1</td>
+                <td>@factura.cedula</td>
+                <td>@factura.placa</td>
+                <td>@factura.total_sin_iv</td>
+                <td>@factura.total_pagar</td>
+                <td>@factura.fecha_factura</td>
+                <td>@estado</td>
+                <td>
+                    @if (factura.estado_factura)
+                    {<a class="btn btn-sm btn-danger" id="Anular" onclick="Abrirdiv('@factura.id_factura')">Anular</a>}
+                </td>
+            </tr>
+        }
+    }
+</table>
+<div id="DivAnular" hidden>
+    <input id="idfacturahdn" hidden />
+    <p>¿Esta Seguro de que desea anular esta factura?</p>
+    <hr />
+    <div class="row">
+        <div class="col-sm-5">
+            <button class="btn btn-warning" id="btnAnular">Si, Anular</button>
+        </div>
+        <div class="col-sm-5">
+            <button class="btn btn-primary" id="btnNOAnular">No, Cerrar</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="~/Scripts/ScriptGenerico.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#grid").kendoGrid({
+                sortable: true,
+                filterable: true,
+                dataSource: {
+                    pageSize: 10
+                },
+                pageable: true
+            });
+            crearEventoAnular();
+        });
+
+        function crearEventoAnular() {
+            $("#DivAnular").dialog({
+                autoOpen: false,
+                height: 300,
+                width: 250,
+                modal: true,
+                title: 'Anular Factura',
+                resizable: true
+            });
+
+            $("#btnNOAnular").click(function () {
+                $("#DivAnular").dialog("close");
+            });
+
+            $("#btnAnular").click(function () {
+                var urlMetodo = '/Caja/AnularFactura'
+                var parametros = { idFactura: $("#idfacturahdn").val() };
+                var funcion = AnularFactura;
+                ejecutaAjax(urlMetodo, parametros, funcion);
+            });
+        }
+        function Abrirdiv(idFactura) {
+            $("#DivAnular").dialog("open");
+            $("#idfacturahdn").val(idFactura);
+        }
+        function AnularFactura(data) {
+            alert(data)
+        }
+    </script>
+}

@@ -1,4 +1,5 @@
 ﻿using LavaCarProject.Models;
+using LavaCarProject.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,16 @@ namespace LavaCarProject.Controllers
         /// <returns>returna un modelo de tipo List<sp_retorna_parametro_Result></returns>
         public ActionResult Facturas()
         {
-            sp_retorna_parametro_Result fabricantes =
-               this.modeloBD.sp_retorna_parametro().FirstOrDefault();
+            List<sp_RetornaFacturas_Result> fabricantes = this.modeloBD.sp_RetornaFacturas().ToList();
             return View(fabricantes);
         }
+
+        public ActionResult crearFactura()
+        {
+            return View();
+        }
+
+
         #endregion
 
         #region POSTS
@@ -181,6 +188,155 @@ namespace LavaCarProject.Controllers
             return Json(mensaje);
         }
 
+        [HttpPost]
+        public ActionResult CerrarCaja()
+        {
+            int reg_afectados = 0;
+            string mensaje = "";
+            RetornaUsuarioCorreoPwd_Result usuarioBuscar = (RetornaUsuarioCorreoPwd_Result)Session["datosUsuario"];
+
+            try
+            {
+                sp_retorna_parametro_Result parametros =
+               this.modeloBD.sp_retorna_parametro().FirstOrDefault();
+                if (parametros != null && parametros.monto_minimo > 0)
+                {
+
+                    if (modeloBD.sp_Retorna_cierre_Caja().FirstOrDefault()?.ToString("M/d/yyyy") != DateTime.Now.ToString("M/d/yyyy"))
+                    {
+                        reg_afectados = this.modeloBD.sp_Cierre_Caja(usuarioBuscar.id_Usuario);
+                        if (reg_afectados > 0)
+                        {
+                            mensaje = "La caja se cerro exitosamente";
+                            var ultimaCaja = this.modeloBD.sp_UltimaCaja().FirstOrDefault();
+                            if (EnviarCorreo(parametros.correo_cierre, "Cierre de Caja", $"la caja fue Cerrada con el monto de {ultimaCaja.monto_cierre_total}"))
+                            {
+                                mensaje += "\n se envio un correo con los detalles";
+                            }
+                            else
+                            {
+                                mensaje += "\n no se pudo enviar el correo";
+                            }
+                        }
+                        else
+                        {
+                            mensaje = "No se pudo Cerrar la caja";
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "La caja ya ha sido Cerrada el dia de hoy";
+                    }
+
+                }
+                else
+                {
+                    mensaje = "los Parametros no han sido establecidos";
+                }
+
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "No se pudo Cerrar la caja";
+            }
+
+            return Json(mensaje);
+        }
+
+        [HttpPost]
+        public ActionResult RetornatipoServicioxID(int ServicioId)
+        {
+            sp_retorna_tiposervicio_Result servicio =
+              this.modeloBD.sp_retorna_tiposervicio(ServicioId).FirstOrDefault();
+            return Json(new
+            {
+                servicio
+            });
+        }
+
+        [HttpPost]
+        public ActionResult RetornaServicios()
+        {
+            List<sp_retorna_TODOS_tiposervicios_Result> servicios = modeloBD.sp_retorna_TODOS_tiposervicios().ToList();
+            foreach (var servicio in servicios)
+            {
+                servicio.nombre_servicio = servicio.nombre_servicio.Trim();
+            }
+            return Json(new
+            {
+                servicios
+            });
+        }
+
+        [HttpPost]
+        public ActionResult CrearFactura(CrearFacturaViewModel Model)
+        {
+            int reg_afectados = 0;
+            string mensaje = "";
+            int idEncabezado = 0;
+
+            try
+            {
+                if (modeloBD.sp_UltimaCaja().FirstOrDefault() != null && modeloBD.sp_UltimaCaja().FirstOrDefault().id_usuario_cierre == null)
+                {
+                    idEncabezado = (int)modeloBD.sp_Inserta_factura_encabezado(Model.id_cliente, Model.id_vehiculo).FirstOrDefault();
+                    if (idEncabezado > 0)
+                    {
+                        foreach (var detalle in Model.Detalles)
+                        {
+                            reg_afectados += modeloBD.sp_Inserta_factura_Detalle(idEncabezado, detalle.IdServicio, detalle.Cantidad, detalle.Precio);
+                        }
+                        if (reg_afectados > 0)
+                        {
+                            return Json("La factura se ha creado exitosamente");
+                        }
+                        return Json("No se ha podido incluir detalles en la factura");
+                    }
+                    return Json("algo fallo con el encabezado, verifique");
+                }
+                return Json("Debe abrir la caja para poder agregar una factura");
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "No se pudo crear la factura";
+            }
+
+            return Json(mensaje);
+        }
+
+        [HttpPost]
+        public ActionResult AnularFactura(int idFactura)
+        {
+            sp_RetornaFacturaEncabezadoID_Result Ultimafactura = modeloBD.sp_RetornaFacturaEncabezadoID(idFactura).FirstOrDefault();
+            int reg_afectados = 0;
+            string mensaje = "";
+
+            try
+            {
+                if (Ultimafactura != null && DaysBetween(Ultimafactura.fecha_factura, DateTime.Now) < 15)
+                {
+                    reg_afectados = modeloBD.sp_AnularFactura(idFactura);
+                    if (reg_afectados > 0)
+                    {
+                        return Json("La factura se ha Anulado exitosamente");
+                    }
+                    return Json("No se pudo anular la factura");
+                }
+                return Json("Han pasado mas de 15 dias desde que la fatura se emitio, no se puede eliminar ");
+
+
+            }
+            catch (Exception error)
+            {
+
+                mensaje = "No se pudo anular la factura";
+            }
+
+            return Json(mensaje);
+        }
+
         #endregion
 
         #region Metodos Extras
@@ -219,6 +375,12 @@ namespace LavaCarProject.Controllers
                 wasSend = false;
             }
             return wasSend;
+        }
+
+        int DaysBetween(DateTime d1, DateTime d2)
+        {
+            TimeSpan span = d2.Subtract(d1);
+            return (int)span.TotalDays;
         }
         #endregion
     }
