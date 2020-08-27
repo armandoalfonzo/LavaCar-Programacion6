@@ -329,6 +329,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Asignar_Vehiculos_ViewModel.cs" />
+    <Compile Include="ViewModels\CrearFacturaViewModel.cs" />
+    <Compile Include="ViewModels\FacturaDetalle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -352,25 +354,8 @@
     <Content Include="Media_Data\trololo.mp3" />
     <Content Include="Media_Data\vacuum_cleaner.jpg" />
     <Content Include="Media_Data\washer_machine.jpg" />
-    <Content Include="Models\LavaCarModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-      <LastGenOutput>LavaCarModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\LavaCarModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-      <LastGenOutput>LavaCarModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\LavaCarModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LavaCarModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LavaCarModel.edmx.diagram">
-      <DependentUpon>LavaCarModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Geografia\Geografia.js" />
     <Content Include="Scripts\Geografia\ListaPais.js" />
@@ -450,6 +435,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
