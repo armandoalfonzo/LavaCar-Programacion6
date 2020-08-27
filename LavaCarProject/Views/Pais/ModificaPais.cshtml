@@ -6,11 +6,27 @@
 <h2>Modifica País</h2>
 <form method="post" id="frmmodificapais">
     <div class="form-group">
+        <input type="text" id="id_pais" name="id_pais" value="@Model.id_pais" hidden />
         <label>Nombre País</label>
-        <input type="text" name="nombre" id="nombre" class="form-control" value="@Model.nombre_pais" />
+        <input type="text" name="nombre_pais" id="nombre_pais" class="form-control" value="@Model.nombre_pais" />
     </div>
     <div class="form-group">
         <input class="btn btn-danger" type="submit" value="Guardar" id="btnAceptar" />
     </div>
     <a class="btn btn-info" href="~/Pais/Pais">Regresar a Países</a>
 </form>
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#frmmodificapais").validate({
+                rules: {
+                    nombre_pais: {
+                        required: true,
+                        maxlength:50
+                                }
+                       }
+            });
+        });
+    </script>
+}

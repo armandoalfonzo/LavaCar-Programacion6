@@ -1,4 +1,5 @@
 ﻿$(function () {
+    Validaciones()
     obtenerRegistrosPersonas();
     MostrarDialog();
     creareventos();
@@ -38,7 +39,7 @@ function creaGridKendo(data) {
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Personas/PersonaElimina??id_Pais=" + dataItem.id_pais + "'>Eliminar</a>"
+                        return "<a href='/Pais/EliminaPais?id_Pais=" + dataItem.id_pais + "'>Eliminar</a>"
                     }
 
                 },
@@ -54,9 +55,6 @@ function MostrarDialog() {
         $("#divInsertar").dialog("open");
     });
 
-    $("#btninsertar").click(function () {
-        $("#divInsertar").dialog("close");
-    });
 }
 
 function crearDialog() {
@@ -77,9 +75,14 @@ function crearDialog() {
 }
 
 function creareventos() {
-    $("#btninsertar").on("click", function () {
-        var formulario = $("fmrnuevoPais");
-        InsertanuevoPais();
+    $("#btninsertarpais").on("click", function () {
+        var formulario = $("#fmrnuevoPais");
+        
+        if (formulario.valid()) {
+
+            InsertanuevoPais();
+            $("#divInsertar").dialog("close");
+        }
     });
 }
 function InsertanuevoPais(){
@@ -95,4 +98,14 @@ function procesarInsert(data) {
     var resultadoFuncion = data.resultado;
     alert(resultadoFuncion);
     location.reload();
+}
+function Validaciones() {
+    $("#fmrnuevoPais").validate({
+        rules: {
+            pais: {
+                required: true,
+                maxlength: 50
+            }
+        }
+    });
 }

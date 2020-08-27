@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlTypes;
 using LavaCarProject.ViewModels;
+using System.Runtime.CompilerServices;
 
 namespace LavaCarProject.Controllers
 {
@@ -15,9 +16,10 @@ namespace LavaCarProject.Controllers
         // GET: Vehiculos
         public ActionResult Vehiculos()
         {
-            List<sp_RetornaVehiculo_Result> vehiculos = this.modeloBD.sp_RetornaVehiculo(null).ToList();
+            //List<sp_RetornaVehiculo_Result> vehiculos = this.modeloBD.sp_RetornaVehiculo(null).ToList();
        
-            return View(vehiculos);
+            //return View(vehiculos);
+            return View();
         }
         [HttpPost]
         public ActionResult RetornaVehiculos()
@@ -48,11 +50,11 @@ namespace LavaCarProject.Controllers
         {
             List<sp_RetornaListaMarca_Result> marcasvehiculos = this.modeloBD.sp_RetornaListaMarca(null,"",null).ToList();
 
-            return Json(marcasvehiculos);
-            //return Json(new
-            //{
-            //    resultado = marcasvehiculos
-            //});
+            //return Json(marcasvehiculos);
+            return Json(new
+            {
+                resultado = marcasvehiculos
+            });
         }
 
         [HttpPost]
@@ -121,10 +123,25 @@ namespace LavaCarProject.Controllers
                     );
         }
 
+       public void TipoVehiculo()
+        {
+            this.ViewBag.Listatipovehiculo = this.modeloBD.sp_RetornaTipoVehiculo(null, "").ToList();
+        }
+        public void Listamarcas()
+        {
+            this.ViewBag.ListaMarcas = this.modeloBD.sp_RetornaListaMarca(null, "", null).ToList();
+        }
+        public void Listamodelos()
+        {
+            this.ViewBag.ListaModelos = this.modeloBD.sp_RetornaModelo("", null, null).ToList();
+        }
         public ActionResult ModificaVehiculo( int id_vehiculo)
         {
             sp_RetornaVehiculo_ID_Result modelovista = new sp_RetornaVehiculo_ID_Result();
             modelovista = this.modeloBD.sp_RetornaVehiculo_ID(id_vehiculo).FirstOrDefault();
+            TipoVehiculo();
+            Listamarcas();
+            Listamodelos();
             return View (modelovista);
         }
 
@@ -152,7 +169,7 @@ namespace LavaCarProject.Controllers
             catch (Exception error)
             {
 
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {
@@ -166,19 +183,21 @@ namespace LavaCarProject.Controllers
                 }
             }
             Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
-
+            TipoVehiculo();
+            Listamodelos();
+            Listamarcas();
             return View(modeloVista);
         }
         public ActionResult EliminaVehiculo(int id_vehiculo)
         {
-            List<sp_RetornaVehiculo_ID_Result> modeloVista = this.modeloBD.sp_RetornaVehiculo_ID(id_vehiculo).ToList();
+            sp_RetornaVehiculo_ID_Result modeloVista = new sp_RetornaVehiculo_ID_Result();
+            modeloVista= this.modeloBD.sp_RetornaVehiculo_ID(id_vehiculo).FirstOrDefault();
 
             return View(modeloVista);
         }
 
 
         [HttpPost]
-
         public ActionResult EliminaVehiculo(sp_RetornaVehiculo_ID_Result modeloVista)
         {
             int reg_afectados = 0;
@@ -193,7 +212,7 @@ namespace LavaCarProject.Controllers
             catch (Exception error)
             {
 
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {
@@ -304,14 +323,14 @@ namespace LavaCarProject.Controllers
                 resultado = vehiculos_cliente
             });
         }
-        public ActionResult EliminaVehiculoxClienteID (int id_vehiculo)
+        public ActionResult EliminaVehiculoxClienteID (int id_vehiculo_cliente)
         {
-            sp_RetornaVehiculo_ID_Result vhc = new sp_RetornaVehiculo_ID_Result();
-               vhc = this.modeloBD.sp_RetornaVehiculo_ID(id_vehiculo).FirstOrDefault();
-            return View(vhc);
+            sp_RetornaVehiculoxCliente_ID_Result vistamodelo = new sp_RetornaVehiculoxCliente_ID_Result();
+            vistamodelo = this.modeloBD.sp_RetornaVehiculoxCliente_ID(id_vehiculo_cliente).FirstOrDefault();
+            return View(vistamodelo);
         }
         [HttpPost]
-        public ActionResult EliminaVehiculoxClienteID(sp_RetornaVehiculo_ID_Result vistamodelo)
+        public ActionResult EliminaVehiculoxClienteID(sp_RetornaVehiculoxCliente_ID_Result vistamodelo)
         {
             int reg_afectados = 0;
             string resultado = "";
@@ -319,7 +338,7 @@ namespace LavaCarProject.Controllers
             try
             {
                 reg_afectados = this.modeloBD.sp_Elimina_Vehiculos_x_Cliente(
-                    vistamodelo.id_vehiculo);
+                    vistamodelo.id_vehiculo_cliente);
             }
             catch (Exception error)
             {
@@ -380,6 +399,90 @@ namespace LavaCarProject.Controllers
             {
                 resultado = mensaje
             });
+        }
+         void Listafabricantes()
+        {
+            this.ViewBag.ListaFabric = 
+                this.modeloBD.sp_RetornaFabricantes(null, "",  null).ToList();
+        }
+        public ActionResult Modificamarca (int id_marca)
+        {
+            sp_RetornaMarca_ID_Result modelovista = new sp_RetornaMarca_ID_Result();
+            modelovista = this.modeloBD.sp_RetornaMarca_ID(id_marca).FirstOrDefault();
+            this.Listafabricantes();
+            return View(modelovista);
+        }
+        [HttpPost]
+        public ActionResult Modificamarca (sp_RetornaMarca_ID_Result modelovista)
+        {
+            int reg_afectados = 0;
+            string resultado = "";
+
+            try
+            {
+                reg_afectados = this.modeloBD.sp_ModificaMarca(
+                    modelovista.id_marca,
+                    modelovista.nombre_marca,
+                    modelovista.id_fabricante);
+            }
+            catch (Exception error)
+            {
+
+                resultado = "Ocurrió un error " + error;
+            }
+            finally
+            {
+                if (reg_afectados>0)
+                {
+                    resultado = "Registro modificado";
+                }
+                else
+                {
+                    resultado += "No se pudo modificar, verifique";
+                }
+            }
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
+            this.Listafabricantes();
+            return View(modelovista);
+        }
+
+        public ActionResult EliminaMarca( int id_marca)
+        {
+            sp_RetornaMarca_ID_Result modelovista = new sp_RetornaMarca_ID_Result();
+            modelovista = this.modeloBD.sp_RetornaMarca_ID(id_marca).FirstOrDefault();
+            this.Listafabricantes();
+            return View(modelovista);
+        }
+        [HttpPost]
+        public ActionResult EliminaMarca(sp_RetornaMarca_ID_Result modelovista)
+        {
+            int reg_afectados = 0;
+            string resultado = "";
+
+            try
+            {
+                reg_afectados = this.modeloBD.sp_EliminaMarca(
+                    modelovista.id_marca);
+            }
+            catch (Exception error)
+            {
+
+                resultado = "Ocurrió un error " + error;
+            }
+            finally
+            {
+                if (reg_afectados > 0)
+                {
+                    resultado = "Registro eliminado";
+                }
+                else
+                {
+                    resultado += "No se pudo eliminar, veririque";
+                }
+            }
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
+            this.Listafabricantes();
+            return View(modelovista);
         }
     }
    

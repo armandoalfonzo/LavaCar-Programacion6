@@ -101,6 +101,7 @@ namespace LavaCarProject.Controllers
                 resultado += "No se pudo modificar, verifique";
                  }
             }
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
             return View (modelovista);
         }
 
@@ -126,12 +127,18 @@ namespace LavaCarProject.Controllers
             finally
             {
                 if (reg_afectados > 0)
-
+                { 
                     resultado = "Registro eliminado";
+                }
                 else
-                    resultado = "No se pudo eliminar, verifique";
+                { 
+                
+                resultado += "No se pudo eliminar, verifique";
+                }
             }
-            return View(modelovista);
+            Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
+            return View(modeloBD);
+            //return RedirectToAction("Pais");
         }
 
     }

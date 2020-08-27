@@ -1,42 +1,71 @@
-﻿@model LavaCarProject.Models.sp_RetornaMarca_ID_Result
+﻿@model LavaCarProject.Models.sp_RetornaModelo_ID_Result
 @{
     ViewBag.Title = "ModificaModelo";
 }
 
 <h2>Modificar Modelo</h2>
+<div id="divModificarModelo">
+    <form name="frmModificarModelo" id="frmModificarModelo" class="form" method="post" action="@Url.Action("ModificaModelo","Modelos")">
+        <div class="form-group">
+            <label>Nombre modelo:</label>
+            <label>id_fabricante</label>
+       
+            <label>id_modelo</label>
+            <input type="text" value="@Model.id_modelo" name="id_modelo" id="id_modelo" />
+            <input class="form-control" type="text" name="nombre_modelo" id="nombre_modelo" value="@Model.nombre_modelo" />
+        </div>
+        <div class="form-group">
+            <label>Marca:</label>
+            <select name="id_marca_modelo" id="id_marca_modelo" class="form-control">
+                <option value="">Seleccione una Marca:</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaListaMarca_Result modelo
+                        in this.ViewBag.ListaMarcas)
 
-<form class="form" method="post">
-    <div class="form-group">
-        <label>Nombre marca:</label>
-        <input class="form-control" type="text" name="nmarca" id="nmarca" value="@Model.nombre_marca" />
-    </div>
-    <div class="form-group">
-        <label>Fabricante :</label>
-        <select name="fabricante" id="fabricante" class="form-control">
-            <option value="">Seleccione un Fabricante:</option>
-            @{
-                foreach (LavaCarProject.Models.sp_RetornaFabricantes_Result fabricante
-                    in this.ViewBag.ListaFabricantes)
 
-
-                {
-                    bool esIdFabricanteModelo = fabricante.id_fabricante == Model.id_fabricante;
-
-                    if (esIdFabricanteModelo)
                     {
-                        <option value="@fabricante.id_fabricante" selected>@fabricante.nombre_pais</option>
-                    }
-                    else
-                    {
-                        <option value="@fabricante.id_fabricante">@fabricante.nombre_fabricante</option>
+                        bool esIdModelo = modelo.id_marca == Model.id_marca;
+
+                        if (esIdModelo)
+                        {
+                            <option value="@modelo.id_marca" selected>@modelo.nombre_marca</option>
+                        }
+                        else
+                        {
+                            <option value="@modelo.id_marca">@modelo.nombre_marca</option>
+                        }
                     }
                 }
-            }
-        </select>
-    </div>
+            </select>
+        </div>
 
-    <div class="form-group" role="button">
-        <input class="btn btn-danger" type="submit" value="Modificar" id="btninsertar" />
-    </div>
-</form>
-<a href="~/Modelos/Modelos" class="btn btn-info" role="button"> Regresar </a>
+        <div class="form-group" role="button">
+            <input class="btn btn-danger" type="submit" value="Modificar" id="btnmodificar" />
+        </div>
+    </form>
+    <a href="~/Modelos/Modelos" class="btn btn-info" role="button"> Regresar </a>
+</div>
+@section scripts{
+    <script>
+
+            $(function () {
+                $("#frmModificarModelo").validate({
+                rules: {
+                    id_marca_modelo: {
+                required: true,
+                        maxlength:50
+                    },
+                    nombre_modelo: {
+                required: true,
+                        maxlength:50
+                    },
+                    id_marca_modelo: {
+                        required: true,
+                        maxlength:50
+                    }
+                }
+            });
+        });
+
+    </script>
+}

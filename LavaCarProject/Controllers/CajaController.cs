@@ -383,5 +383,24 @@ namespace LavaCarProject.Controllers
             return (int)span.TotalDays;
         }
         #endregion
+
+        public ActionResult Cierres()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult ReporteCierres()
+        {
+            List<sp_cierre_cajas_Result> cierres =
+                this.modeloBD.sp_cierre_cajas().ToList();
+            return Json(
+                new { 
+                    resultado = cierres
+                });
+        }
     }
+
+   
 }

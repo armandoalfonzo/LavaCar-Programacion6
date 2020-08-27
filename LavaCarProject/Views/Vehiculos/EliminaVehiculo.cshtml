@@ -11,18 +11,18 @@
 
 
         <div>
-            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca" value="@Model.nombre_marca">
+            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca" value="@Model.nombre_marca" disabled>
             <input id="id_marca_select" hidden />
             <input id="id_fabricante_select" hidden />
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label>Modelo:</label>
-            <select name="modelo" id="modelo" class="form-control"></select>
+            <select name="modelo" id="modelo" class="form-control" @Model.nombre_modelo></select>
 
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label>Cantidad de Puertas:</label>
             <input type="text" name="cantpuertas" id="cantpuertas" class="form-control" value="@Model.cantidad_puertas">
         </div>
@@ -34,21 +34,21 @@
         <div class="form-group">
             <label>Tipo Vehículo:</label>
             <select name="tipovehiculo" id="tipovehiculo" class="form-control"></select>
-        </div>
+        </div>*@
 
 
         <div class="form-group">
             <label>Número de placa:</label>
-            <input type="text" name="placa" id="placa" class="form-control" value="@Model.placa">
+            <input type="text" name="placa" id="placa" class="form-control" value="@Model.placa" disabled>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label for="fechaNacimiento">Año de Fabricación: </label>
             <input type="text" name="aniofabric" id="aniofabric" value="@Model.año_fabricacion" />
-        </div>
+        </div>*@
 
         <div class="form-group">
-            <input class="btn btn-danger" type="button" value="Eliminar" id="btninsertar" />
+            <input class="btn btn-danger" type="submit" value="Eliminar" id="btninsertar" />
         </div>
         <a href="~/Vehiculos/Vehiculos" class="btn btn-info" role="button"> Regresar </a>
     </form>

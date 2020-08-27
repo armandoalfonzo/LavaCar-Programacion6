@@ -2,7 +2,24 @@
     funcionparakendo();
     MostrarDialog();
     CargaDDLFabricantes();
+
+    $("#divModificamarca").validate({
+        rules: {
+            nombre_marca: {
+                required: true,
+                maxlength: 50
+            },
+            id_fabricante: {
+                required: true
+            }
+        }
+    });
+
 });
+
+
+
+
 
 
 function funcionparakendo() {
@@ -32,13 +49,13 @@ function creaGridKendo(data) {
                 {
                     title: "Modificar",
                     template: function (dataItem) {
-                        return "<a href='/Modelos/ModificaModelo?id_modelo=" + dataItem.id_modelo + "'>Modificar</a>"
+                        return "<a href='/Vehiculos/Modificamarca?id_marca=" + dataItem.id_marca + "'>Modificar</a>"
                     }
                 },
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Modelos/EliminaModelo?id_modelo" + dataItem.id_modelo + "'>Eliminar</a>"
+                        return "<a href='/Vehiculos/EliminaMarca?id_marca" + dataItem.id_marca + "'>Eliminar</a>"
                     }
 
                 },
@@ -114,3 +131,28 @@ function procesarInsert(data) {
     alert(resultadoFuncion);
     location.reload();
 }
+//function creaEventos() {
+//    $("#btnmodificar").on("click", function () {
+//        var formulario = $("#divModificamarca");
+//        formulario.validate();
+
+//        if (formulario.valid()) {
+//            ModificaNuevoVehiculos();
+//        }
+//    });
+//}
+//function ModificaNuevoVehiculos() {
+//    var urlMetodo = '/Vehiculos/InsertaNuevoVehículo'
+//    var parametros = {
+//        pplaca: $("#placa").val(),
+//        pid_marca: $("#id_marca_select").val(),
+//        pid_tipo_vehiculo: $("#tipovehiculo").val(),
+//        pid_modelo_vehiculo: $("#modelo").val(),
+//        pcantidad_puertas: $("#cantpuertas").val(),
+//        pcantidad_ruedas: $("#cantruedas").val(),
+//        panio_fabricacion: $("#aniofabric").val(),
+//        pid_fabricante_vehiculo: $("#id_fabricante_select").val()
+//    };
+//    var funcion = procesarInsert;
+//    ejecutaAjax(urlMetodo, parametros, funcion);
+//}

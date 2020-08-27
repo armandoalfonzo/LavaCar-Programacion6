@@ -1,12 +1,14 @@
-﻿@model LavaCarProject.Models.sp_RetornaPais_Result
+﻿@model LavaCarProject.Models.sp_RetornaPais_ID_Result
 
 <h2>Elimina Pais</h2>
-<form method="post" id="frmelimnapais">
+<form method="post" id="frmelimnapais" name="frmelimnapais">
     <div class="form-group">
+        <input type="text" id="id_pais" name="id_pais" value="@Model.id_pais" hidden />
         <label>País a eliminar</label>
         <input type="text" class="form-control" name="paiselimina" id="paiselimina" value="@Model.nombre_pais" />
     </div>
     <div class="form-group" role="button">
-        <input class="btn btn-danger" type="submit" value="Eliminar" id="btninsertar" />
+        <input class="btn btn-danger" type="submit" value="Eliminar" id="btneliminar" />
+        <a href="~/Pais/Pais" class="btn btn-info" role="button"> Regresar </a>
     </div>
 </form>

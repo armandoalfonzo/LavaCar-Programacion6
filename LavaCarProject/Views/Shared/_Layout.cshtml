@@ -35,12 +35,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    <li class=""><a href="frmInicio.aspx">Inicio</a></li>
+                    @*<li class=""><a href="frmInicio.aspx">Inicio</a></li>*@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reportes<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Servicios Facturados</a></li>
-                            <li><a href="#">Cierres de caja</a></li>
+                            <li><a href="~/Caja/Cierres">Cierres de caja</a></li>
                         </ul>
                     </li>
                     <li class="dropdown" id="ddlAdmin" runat="server">
@@ -57,7 +57,7 @@
                             <li><a href="~/Vehiculos/Vehiculos">Vehiculos</a></li>
                             <li><a href="~/Vehiculos/RetornaVehiculoxcliente">Vehiculos por Cliente</a></li>
                             <li><a href="~/Vehiculos/VehiculosLibres">Vehículos Libres</a></li>
-                            <li><a href="~/Vehiculos/RetornaMarcas">Marcas</a></li>
+                            <li><a href="~/Vehiculos/RetornaMarcasLista">Marcas</a></li>
                             <li><a href="~/Modelos/Modelos">Modelos</a></li>
                             <li><a href="~/Fabricantes/Fabricantes">Fabricantes</a></li>
                         </ul>
