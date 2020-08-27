@@ -2,6 +2,18 @@
     obtenerModelos();
     obtenerMarcas()
     MostrarDialog();
+    $("#fmrnuevomodelo").validate({
+        rules: {
+            nombre: {
+                required: true,
+                maxlength: 50
+            },
+            txtMarca: {
+                required: true
+            }
+        }
+    });
+    creareventos();
 });
 
 
@@ -42,7 +54,7 @@ function creaGridKendo(data) {
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Modelos/EliminaModelo?id_modelo" + dataItem.id_modelo + "'>Eliminar</a>"
+                        return "<a href='/Modelos/EliminaModelo?id_modelo=" + dataItem.id_modelo + "'>Eliminar</a>"
                     }
 
                 },
@@ -89,7 +101,7 @@ function obtenerMarcas() {
 }
 
 function crearAutoComplete(data) {
-    var datosAutoComplete = $.map(data, function (item) {
+    var datosAutoComplete = $.map(data.resultado, function (item) {
         return {
             label: item.nombre_marca,
             id_marca: item.id_marca,
@@ -105,3 +117,29 @@ function crearAutoComplete(data) {
 
     });
 };
+function creareventos() {
+    $("#btninsertarmodelo").on("click", function () {
+        console.log('click');
+        var formulario = $("#fmrnuevomodelo");
+        formulario.validate();
+
+        if (formulario.valid()) {
+            InsertanuevoModelo();
+        }
+    });
+}
+function InsertanuevoModelo() {
+    var urlMetodo = '/Modelos/InsertaModelo'
+    var parametros = {
+        pnombremodelo: $("#nombre").val(),
+        pmarcaid: $("#id_marca_select").val()
+    };
+    var funcion = procesarInsert;
+    ejecutaAjax(urlMetodo, parametros, funcion);
+}
+
+function procesarInsert(data) {
+    var resultadoFuncion = data.resultado;
+    alert(resultadoFuncion);
+    location.reload();
+}

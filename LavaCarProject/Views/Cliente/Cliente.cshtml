@@ -11,41 +11,41 @@
 
 <div id="divClientes">
 
-    </div>
+</div>
 
 @*<table class="table">
-    <tr>
-        <th>Nombre Cliente:</th>
-        <th>Cédula:</th>
-        <th>Provincia:</th>
-        <th>Cantón:</th>
-        <th>Distrito:</th>
-        <th>Direccion:</th>
-        <th>Teléfono:</th>
-        <th>Correo Electrónico:</th>
-    </tr>
-    @{
-        foreach (LavaCarProject.Models.sp_RetornaCliente_Result posicionModelo in this.Model)
-        {
         <tr>
-            <td>@posicionModelo.nombre_cliente @posicionModelo.apellido1 @posicionModelo.apellido2</td>
-            <td>@posicionModelo.cedula</td>
-            <td>@posicionModelo.Provincia</td>
-            <td>@posicionModelo.Cantón</td>
-            <td>@posicionModelo.Distrito</td>
-            <td>@posicionModelo.direccion</td>
-            <td>@posicionModelo.telefono</td>
-            <td>@posicionModelo.email</td>
-
-            <td>
-                <a href="~/Cliente/ModificaCliente?id_cliente=@posicionModelo.id_cliente">Modificar</a>
-                <br />
-                <a href="~/Cliente/EliminarCliente?id_cliente=@posicionModelo.id_cliente">Eliminar</a>
-            </td>
+            <th>Nombre Cliente:</th>
+            <th>Cédula:</th>
+            <th>Provincia:</th>
+            <th>Cantón:</th>
+            <th>Distrito:</th>
+            <th>Direccion:</th>
+            <th>Teléfono:</th>
+            <th>Correo Electrónico:</th>
         </tr>
+        @{
+            foreach (LavaCarProject.Models.sp_RetornaCliente_Result posicionModelo in this.Model)
+            {
+            <tr>
+                <td>@posicionModelo.nombre_cliente @posicionModelo.apellido1 @posicionModelo.apellido2</td>
+                <td>@posicionModelo.cedula</td>
+                <td>@posicionModelo.Provincia</td>
+                <td>@posicionModelo.Cantón</td>
+                <td>@posicionModelo.Distrito</td>
+                <td>@posicionModelo.direccion</td>
+                <td>@posicionModelo.telefono</td>
+                <td>@posicionModelo.email</td>
+
+                <td>
+                    <a href="~/Cliente/ModificaCliente?id_cliente=@posicionModelo.id_cliente">Modificar</a>
+                    <br />
+                    <a href="~/Cliente/EliminarCliente?id_cliente=@posicionModelo.id_cliente">Eliminar</a>
+                </td>
+            </tr>
+            }
         }
-    }
-</table>*@
+    </table>*@
 
 
 
@@ -54,7 +54,7 @@
 
     <h2>Inserta Cliente</h2>
 
-    <form class="form" id="fmrnuevocliente" method="POST">
+    <form class="form" id="fmrnuevocliente" name="fmrnuevocliente" method="POST">
 
         <div class="form-group">
             <label>Nombre:</label>

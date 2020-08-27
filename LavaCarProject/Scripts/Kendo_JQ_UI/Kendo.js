@@ -1,8 +1,9 @@
 ﻿$(function () {
+    validaciones();
     obtenerClientes();
     MostrarDialog();
     estableceEventosChange();
-    cargaDropdownListProvincias()
+    cargaDropdownListProvincias();
     creaEventos();
 });
 
@@ -82,9 +83,9 @@ function MostrarDialog() {
         $("#divInsertar").dialog("open");
     });
 
-    $("#btninsertar").click(function () {
-        $("#divInsertar").dialog("close");
-    });
+    //$("#btninsertar").click(function () {
+    //    $("#divInsertar").dialog("close");
+    //});
 }
 
 function crearDialog() {
@@ -165,7 +166,7 @@ function procesarResultadoCanton(data) {
 function cargaDropdownListDistritos(pidCanton) {
     var urlMetodo = '/Cliente/RetornaDistritos'
     var parametros = {
-        id_canton : pidCanton
+        id_canton: pidCanton
     };
     var funcion = procesarResultadoDistrito;
     ejecutaAjax(urlMetodo, parametros, funcion);
@@ -189,7 +190,12 @@ function procesarResultadoDistrito(data) {
 function creaEventos() {
     $("#btninsertar").on("click", function () {
         var formulario = $("#fmrnuevocliente");
-        InsertaNuevoCliente();
+        formulario.validate();
+        if (formulario.valid()) {
+            InsertaNuevoCliente();
+            $("#divInsertar").dialog("close");
+        }
+
     });
 }
 
@@ -211,11 +217,59 @@ function InsertaNuevoCliente() {
     ejecutaAjax(urlMetodo, parametros, funcion);
 }
 
-
+///se encarga de llamar al controlador y procesar el resultado para insertar
 function procesarInsert(data) {
 
     var resultadoFuncion = data.respuesta;
     alert(resultadoFuncion);
     location.reload();
 
+}
+
+function validaciones() {
+    $("#fmrnuevocliente").validate({
+        rules: {
+            nombre: {
+                required: true,
+                maxlength: 50
+            },
+            primerapellido: {
+                required: true,
+                maxlength: 50
+            },
+            segundoapellido: {
+                required: true,
+                maxlength: 50
+            },
+            telefono: {
+                required: true,
+                maxlength: 50
+            },
+            cedula: {
+                required: true,
+                maxlength: 50
+            },
+            provincia: {
+                required: true,
+                maxlength: 50
+            },
+            canton: {
+                required: true,
+                maxlength: 50
+            },
+            distrito: {
+                required: true,
+                maxlength: 50
+            },
+            direccion: {
+                required: true,
+                maxlength: 50
+            },
+            email: {
+                required: true,
+                maxlength: 50,
+                email: true
+            }
+        }
+    });
 }

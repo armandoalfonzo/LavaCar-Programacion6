@@ -8,7 +8,7 @@
 <div id="divInserta">
 
 
-    <form class="form" id="fmrmodificaclient" method="POST">
+    <form  id="fmrmodificaclient" method="POST">
 
         <div class="form-group">
             <label>Nombre:</label>
@@ -27,17 +27,17 @@
             <input type="text" name="cedula" id="cedula" class="form-control" value="@Model.cedula">
         </div>
 
-        <div class="form-group" >
+        <div class="form-group">
             <label>Provincia:</label>
             <select name="provincia" id="provincia" class="form-control">
-                <option value="" >Seleccione una provincia</option>
+                <option value="">Seleccione una provincia</option>
                 @{
                     foreach (LavaCarProject.Models.sp_RetornaProvincias_Result provincia in this.ViewBag.ListaProvincias)
                     {
                         bool pronviciaID = provincia.id_Provincia == Model.id_provincia;
                         if (pronviciaID)
                         {
-                            <option value="@provincia.id_Provincia" selected >@provincia.nombre</option>
+                            <option value="@provincia.id_Provincia" selected>@provincia.nombre</option>
                         }
                         else
                         {
@@ -105,13 +105,66 @@
         <div class="form-group">
             <input class="btn btn-primary" type="button" value="Modificar" id="btninsertar" />
         </div>
+        <a href="~/Cliente/Cliente" class="btn btn-info" role="button"> Regresar </a>
     </form>
 </div>
 
-@*@section scripts{
+@section scripts{
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
     <script src="~/Scripts/Kendo_JQ_UI/Kendo.js"></script>
     <script src="~/Scripts/ScriptGenerico.js"></script>
-}*@
+
+        <script>
+
+            $(function () {
+                $("#fmrmodificaclient").validate({
+                    rules: {
+                             nombre: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        primerapellido: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        segundoapellido: {
+                            required: true,
+                            maxlength: 50
+                        },
+            /**/            telefono: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        cedula: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        provincia: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        canton: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        distrito: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        direccion: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        email: {
+                            required: true,
+                            maxlength: 50,
+                            email: true
+                        }
+                    }
+                });
+            });
+
+        </script>
+}

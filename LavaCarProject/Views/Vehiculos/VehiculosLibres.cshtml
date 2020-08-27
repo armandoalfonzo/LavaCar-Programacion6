@@ -1,16 +1,16 @@
-﻿@*@model List<LavaCarProject.Models.sp_Retorna_Vehiculos_sin_Cliente_Result>
+﻿@model List<LavaCarProject.Models.sp_Retorna_Vehiculos_sin_Cliente_Result>
     @{
         ViewBag.Title = "VehiculosLibres";
-    }*@
+    }
 @section Style{
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" />
 }
 <h2>Asignación de Vehículos</h2>
 
-<div id="divVehiculosLibres">
-</div>
-@*<form class="form" id="fmrVehiculosLibres" method="POST">
+@*<div id="divVehiculosLibres">*@
+@*</div>*@
+<form class="form" id="fmrVehiculosLibres" method="POST">
 
             <table class="table">
                 <tr>
@@ -42,7 +42,7 @@
                 }
             </table>
         </form>
-    </div>*@
+    </div>
 @section scripts{
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>

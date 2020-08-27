@@ -43,6 +43,12 @@ namespace LavaCarProject.Controllers
             this.ViewBag.ListaPais =
                 this.modeloBD.sp_RetornaPais("").ToList();
         }
+        /// <summary>
+        /// 
+        /// </summary>metodo para insertar el fabricante
+        /// <param name="pfabricante"></param> parametro con el nombre del fabricante
+        /// <param name="pid_pais"></param>parametro con el nombre del pais
+        /// <returns></returns>
         [HttpPost]
         public ActionResult InsertaFabricante(string pfabricante, int pid_pais)
         {
@@ -91,8 +97,6 @@ namespace LavaCarProject.Controllers
             return View (modelovista);
         }
 
-       
-
         [HttpPost]
         public ActionResult ModificaFabricantes(sp_RetornaFabricante_ID_Result modeloVista)
         {
@@ -108,7 +112,7 @@ namespace LavaCarProject.Controllers
             }
             catch (Exception error)
             {
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {
@@ -147,7 +151,7 @@ namespace LavaCarProject.Controllers
             }
             catch (Exception error)
             {
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {

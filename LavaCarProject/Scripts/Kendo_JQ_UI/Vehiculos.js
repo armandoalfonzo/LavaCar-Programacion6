@@ -5,19 +5,46 @@
     estableceEventosChange();
     obtenerTiposVehiculos();
     crearDatePicker();
+    $("#fmrnuevovehiculo").validate({
+        rules: {
+            txtMarca: {
+                required: true,
+                maxlength: 50
+            },
+            modelo: {
+                required: true
+            },
+            cantpuertas: {
+                required: true
+            },
+            cantruedas: {
+                required: true
+            },
+            tipovehiculo: {
+                required: true
+            },
+            placa: {
+                required: true
+            },
+            aniofabric: {
+                required: true
+            },
+
+        }
+    });
     creaEventos();
 });
 
 
 
 function obtenerVehiculos() {
-    var urlMetodo = '/Vehiculos/ReporteVehiculoxcliente'
+    var urlMetodo = '/Vehiculos/RetornaVehiculos'
     var parametros = {};
     var funcion = creaGridKendo;
     ejecutaAjax(urlMetodo, parametros, funcion);
 }
 function creaGridKendo(data) {
-    $("#divClientesVehiculos").kendoGrid({
+    $("#divVehiculoslista").kendoGrid({
         dataSource: {
             data: data.resultado,
             pageSize: 10
@@ -26,21 +53,46 @@ function creaGridKendo(data) {
         columns:
             [
                 {
-                    field: "#= nombre_cliente # #= apellido1 # #= apellido2 #",
-                    title: 'Nombre'
-                },
-                {
-                    field: 'nombre_marca',
-                    title: 'Modelo'
-                },
-                {
-                    field: 'nombre_modelo',
+                    field: "placa",
                     title: 'Placa'
                 },
                 {
-                    field: 'placa',
+                    field: 'nombre_marca',
+                    title: 'Marca'
+                },
+                {
+                    field: 'nombre_modelo',
+                    title: 'Modelo'
+                },
+                {
+                    field: 'nombre_vehiculo',
                     title: 'Tipo de Vehículo'
-                },               
+                },
+                {
+                    field: 'cantidad_puertas',
+                    title: 'Cantidad de puertas'
+                },
+                {
+                    field: 'cantidad_ruedas',
+                    title: 'Cantidad de ruedas'
+                },
+                {
+                    field: 'año_fabricacion',
+                    title: 'Año',
+                    type: 'date', format: '{0:yyyy}'
+                },
+                {
+                    title: "Modificar",
+                    template: function (dataItem) {
+                        return "<a href='/Vehiculos/ModificaVehiculo?id_vehiculo=" + dataItem.id_vehiculo + "'>Modificar</a>"
+                    }
+                },
+                {
+                    title: "Eliminar",
+                    template: function (dataItem) {
+                        return "<a href='/Vehiculos/EliminaVehiculo?id_vehiculo=" + dataItem.id_vehiculo + "'>Eliminar</a>"
+                    }
+                },
 
             ],
         filterable: true
@@ -84,7 +136,7 @@ function obtenerMarcas() {
 }
 
 function crearAutoComplete(data) {
-    var datosAutoComplete = $.map(data, function (item) {
+    var datosAutoComplete = $.map(data.resultado, function (item) {
         return {
             label: item.nombre_marca,
             id_marca: item.id_marca,
@@ -170,14 +222,13 @@ function crearDatePicker() {
 
 
 function creaEventos() {
-    $("#btninsertar").on("click", function () {
+    $("#btninsertarvehiculo").on("click", function () {
         var formulario = $("#fmrnuevovehiculo");
-        //formulario.validate();
+        formulario.validate();
 
-        //if (formulario.valid()) {
-        //    InsertaRegistro();
-        //}
-        InsertaNuevoVehiculos();
+        if (formulario.valid()) {
+            InsertaNuevoVehiculos();
+        }
     });
 }
 

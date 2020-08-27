@@ -1,5 +1,5 @@
 ﻿$(function () {
-    funcionparakendo();
+    //funcionparakendo();
 
 });
 
@@ -39,7 +39,14 @@ function creaGridKendo(data) {
                     field: 'año_fabricacion', width: '200px',
                     title: 'Año',
                     type: 'date', format :'{0:yyyy}'
+                },
+                {
+                    title: "Asignar",
+                    template: function (dataItem) {
+                        return "<a href='/Vehiculos/AsignarVehiculos?id_vehiculo=" + dataItem.id_vehiculo + "?pplaca="+ dataItem.placa + "'>Asignar</a>"
+                    }
                 }
+                
             ],
         filterable: true
     });

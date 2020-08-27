@@ -30,11 +30,11 @@ namespace LavaCarProject.Controllers
                 
             });
         }
-        public ActionResult NuevoCliente()
-        {
-            this.RetornaProvincias();
-            return View();
-        }
+        //public ActionResult NuevoCliente()
+        //{
+        //    this.RetornaProvincias();
+        //    return View();
+        //}
 
         void AgregaProvincia()
         {
@@ -76,7 +76,7 @@ namespace LavaCarProject.Controllers
 
         public ActionResult NuevoCliente(string pnombre, string papelli1,string papelli2, int pcedula, int pidprovincia,
             int pidcanton, int pid_distrito, string pdireccion, int ptelefono, string pemail)
-        {
+            {
             int reg_afectados = 0;
             string resultado = "";
 
@@ -117,6 +117,7 @@ namespace LavaCarProject.Controllers
                     resultado += "\n No se pudo insertar, verifique";
                 }
             }
+            //Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
             this.AgregaProvincia();
             return Json(new { respuesta = resultado }
                 );

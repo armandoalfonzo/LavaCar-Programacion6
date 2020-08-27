@@ -2,8 +2,22 @@
     obtenerRegistrosFabricantes();
     MostrarDialog();
     cargaDropdownListPais();
+
+   
+    $("#fmrnuevoFabri").validate({
+        rules: {
+            nomfabricante: {
+                required: true,
+                maxlength: 50
+            },
+            pais: {
+                required: true
+            }
+        }
+    });
+    console.log('ready');
     creareventos();
-    creaGridKendo();
+
 });
 
 function obtenerRegistrosFabricantes() {
@@ -44,7 +58,7 @@ function creaGridKendo(data) {
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Fabricantes/EliminarFabricante?id_fabricante=" + dataItem.id_fabricante + "'>Modificar</a>"
+                        return "<a href='/Fabricantes/EliminarFabricante?id_fabricante=" + dataItem.id_fabricante + "'>Eliminar</a>"
                     }
                 }
             ],
@@ -103,9 +117,14 @@ function procesarResultadoPais(data) {
 }
 
 function creareventos() {
-    $("#btninsertar").on("click", function () {
-        var formulario = $("fmrnuevoFabri");
-        InsertanuevoFabricante();
+    $("#btninsertarfabri").on("click", function () {
+        console.log('click');
+        var formulario = $("#fmrnuevoFabri");
+        formulario.validate();
+
+        if (formulario.valid()) {
+            InsertanuevoFabricante();
+        }
     });
 }
 function InsertanuevoFabricante() {

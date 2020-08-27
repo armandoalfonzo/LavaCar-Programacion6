@@ -10,37 +10,84 @@
 }
 
 <h2>Modificar Vehículos</h2>
-<div id="divInsertar" hidden>
+<div id="divModificar" >
 
-    <form class="form" id="fmrnuevovehiculo" method="POST">
-
-
-        <div>
-            <input name="txtMarca" id="txtMarca" title="Ingrese la marca a buscar" placeholder="Nombre de la marca" value="@Model.nombre_marca">
-            <input id="id_marca_select" hidden />
-            <input id="id_fabricante_select" hidden />
+    <form class="form" id="fmrmodificavehiculo" method="POST">
+        <input type="text" name="id_fabricante_vehiculo"id="id_fabricante_vehiculo" disabled value="@Model.id_fabricante_vehiculo" />
+        <div class="form-group">
+            <input type="text" name="id_marca_select" id="id_marca_select" disabled value="@Model.id_marca"/>
+            <br />
+            <label>Marca:</label>
+            <select name="ddlmarca" id="ddlmarca" class="form-control" >
+                
+                <option value="">Seleccione una Marca</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaListaMarca_Result marca in this.ViewBag.Listamarcas)
+                    {
+                        bool MarcaID = marca.id_marca == Model.id_marca;
+                        if (MarcaID)
+                        {
+                            <option value="@marca.id_marca" selected>@marca.nombre_marca</option>
+                        }
+                        else
+                        {
+                            <option value="@marca.id_marca"> @marca.nombre_marca </option>
+                        }
+                    }
+                }
+            </select>
         </div>
 
         <div class="form-group">
             <label>Modelo:</label>
-            <select name="modelo" id="modelo" class="form-control"></select>
-
+            <select name="id_modelo_vehiculo" id="id_modelo_vehiculo" class="form-control">
+                <option value="">Seleccione un Modelo</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaModelo_Result modelo in this.ViewBag.Listamodelos)
+                    {
+                        bool ModeloID = modelo.id_modelo == Model.id_modelo_vehiculo;
+                        if (ModeloID)
+                        {
+                            <option value="@modelo.id_modelo" selected>@modelo.nombre_modelo</option>
+                        }
+                        else
+                        {
+                            <option value="@modelo.id_modelo"> @modelo.nombre_modelo </option>
+                        }
+                    }
+                }
+            </select>
         </div>
 
         <div class="form-group">
             <label>Cantidad de Puertas:</label>
-            <input type="text" name="cantpuertas" id="cantpuertas" class="form-control" value="@Model.cantidad_puertas">
+            <input type="text" name="cantidad_puertas" id="cantidad_puertas" class="form-control" value="@Model.cantidad_puertas">
         </div>
         <div class="form-group">
             <label>Cantidad de ruedas:</label>
-            <input type="text" name="cantruedas" id="cantruedas" class="form-control" value="@Model.cantidad_ruedas">
+            <input type="text" name="cantidad_ruedas" id="cantidad_ruedas" class="form-control" value="@Model.cantidad_ruedas">
         </div>
 
         <div class="form-group">
             <label>Tipo Vehículo:</label>
-            <select name="tipovehiculo" id="tipovehiculo" class="form-control"></select>
+            <select name="id_tipo_vehiculo" id="id_tipo_vehiculo" class="form-control">
+                <option value="">Seleccione un Tipo de Vehículo</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaTipoVehiculo_Result tipovh in this.ViewBag.Listatipovehiculo)
+                    {
+                        bool TipoVhID = tipovh.id_tipo_vehiculo == Model.id_tipo_vehiculo;
+                        if (TipoVhID)
+                        {
+                            <option value="@tipovh.id_tipo_vehiculo" selected>@tipovh.nombre_vehiculo</option>
+                        }
+                        else
+                        {
+                            <option value="@tipovh.id_tipo_vehiculo"> @tipovh.nombre_vehiculo </option>
+                        }
+                    }
+                }
+            </select>
         </div>
-
 
         <div class="form-group">
             <label>Número de placa:</label>
@@ -48,8 +95,8 @@
         </div>
 
         <div class="form-group">
-            <label for="fechaNacimiento">Año de Fabricación: </label>
-            <input type="text" name="aniofabric" id="aniofabric" value="@Model.año_fabricacion" />
+            <label for="anio">Año de Fabricación: </label>
+            <input  type="text" name="año_fabricacion" id="año_fabricacion" value="@Model.año_fabricacion" />
         </div>
 
         <div class="form-group">
@@ -63,5 +110,6 @@
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
     <script src="~/Scripts/ScriptGenerico.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/VehiculoModifica.js"></script>
     <script src="~/Scripts/Kendo_JQ_UI/Vehiculos.js"></script>
 }

@@ -354,6 +354,7 @@
     <Content Include="Scripts\Kendo_JQ_UI\Kendo.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Marcas.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Modelos.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\VehiculoModifica.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_clientes.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_libres.js" />
@@ -399,6 +400,8 @@
     <Content Include="Views\Vehiculos\EliminaVehiculoxClienteID.cshtml" />
     <Content Include="Views\Modelos\ModificaModelo.cshtml" />
     <Content Include="Views\Modelos\EliminaModelo.cshtml" />
+    <Content Include="Views\Vehiculos\Modificamarca.cshtml" />
+    <Content Include="Views\Vehiculos\EliminaMarca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

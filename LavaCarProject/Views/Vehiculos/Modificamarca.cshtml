@@ -1,0 +1,44 @@
+﻿@model LavaCarProject.Models.sp_RetornaMarca_ID_Result
+@{
+    ViewBag.Title = "Modificamarca";
+}
+
+<h2>Modificar marca</h2>
+
+<div id="divModificamarca">
+    <form class="form" id="frmmodificamarca" method="post" action="@Url.Action("Modificamarca","Vehiculos")">
+        <div class="form-group">
+            <input type="text" value="@Model.id_marca" hidden id="id_marca" name="id_marca" />
+            <label> Nombre marca:</label>
+            <input type="text" name="nombre_marca" id="nombre_marca" class="form-control" value="@Model.nombre_marca" />
+        </div>
+        <div class="form-group">
+            <label>Fabricante:</label>
+            <select name="id_fabricante" id="id_fabricante" class="form-control">
+                <option value="">Selecione un fabricante</option>
+                @{
+                    foreach (LavaCarProject.Models.sp_RetornaFabricantes_Result fabri in
+                        this.ViewBag.ListaFabric)
+                    {
+
+                        bool fabriID = fabri.id_fabricante == Model.id_fabricante;
+                        if (fabriID)
+                        {
+                            <option value="@fabri.id_fabricante" selected>@fabri.nombre_fabricante</option>
+                        }
+                        else
+                        {
+                            <option value="@fabri.id_fabricante">@fabri.nombre_fabricante</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-danger" type="submit" value="Guardar" id="btnmodificar" />
+        </div>
+        <div>
+            <a class="btn btn-info" href="~/Vehiculos/RetornaMarcasLista">Regresar</a>
+        </div>
+    </form>
+</div>

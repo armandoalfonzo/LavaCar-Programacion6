@@ -1,24 +1,25 @@
-﻿@model LavaCarProject.Models.sp_RetornaVehiculo_ID_Result
+﻿@model LavaCarProject.Models.sp_RetornaVehiculoxCliente_ID_Result
 @{
     ViewBag.Title = "EliminaVehiculoxClienteID";
 }
 
 <h2>Eliminar Vehiculo por Cliente</h2>
-
-<form class="form">
-    <input class="form-group" />
-    <div class="form-group">
-        <label>Placa:</label>
-        <input type="text" name="id_vehiculo" id="id_vehiculo" class="form-control" value="@Model.id_vehiculo" disabled>
-    </div>
-    <div class="form-group" role="button">
-        <input class="btn btn-danger" type="submit" value="Eliminar" id="btninsertar" />
-    </div>
-    <div>
-        <a class="btn btn-info" href="~/Vehiculos/RetornaVehiculoxcliente"> Regresar a Vehiculos</a>
-    </div>
-</form>
-
+<div id="frmeliminavhicxcliente">
+    <form class="form" id="frmeliminavhxcliente" method="post" action="@Url.Action("EliminaVehiculoxClienteID","Vehiculos")">
+        <label>id_vehiculo_cliente</label>
+        <input type="text" hidden value="@Model.id_vehiculo_cliente" id="id_vehiculo_cliente" name="id_vehiculo_cliente" />
+        <div class="form-group">
+            <label>Placa:</label>
+            <input type="text" name="placa" id="placa" class="form-control" value="@Model.placa" disabled>
+        </div>
+        <div class="form-group" role="button">
+            <input class="btn btn-danger" type="submit" value="Eliminar" id="btneliminar" />
+        </div>
+        <div>
+            <a class="btn btn-info" href="~/Vehiculos/RetornaVehiculoxcliente"> Regresar a Vehiculos</a>
+        </div>
+    </form>
+</div>
 @section scripts{
 
-    }
+}

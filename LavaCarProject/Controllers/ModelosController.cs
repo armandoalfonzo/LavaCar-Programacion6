@@ -66,10 +66,17 @@ namespace LavaCarProject.Controllers
             this.ViewBag.ListaFabricantes =
                 this.modeloBD.sp_RetornaFabricantes(null,"",null).ToList();
         }
+        void RetornaMarcaslista()
+        {
+            this.ViewBag.ListaMarcas = 
+                this.modeloBD.sp_RetornaListaMarca(null, "", null).ToList();
+        }
         public ActionResult ModificaModelo (int id_modelo)
         {
             sp_RetornaModelo_ID_Result modelovista =  new sp_RetornaModelo_ID_Result();
             modelovista = this.modeloBD.sp_RetornaModelo_ID(id_modelo).FirstOrDefault();
+            RetornaFabricanteslista();
+            RetornaMarcaslista();
             return View(modelovista);
         }
 
@@ -89,7 +96,7 @@ namespace LavaCarProject.Controllers
             catch (Exception error)
             {
 
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {
@@ -103,7 +110,8 @@ namespace LavaCarProject.Controllers
                 }
             }
             Response.Write("<script language = javascript>alert('" + resultado + "');</script>");
-
+            RetornaFabricanteslista();
+            RetornaMarcaslista();
             return View(modelovista);
         }
 
