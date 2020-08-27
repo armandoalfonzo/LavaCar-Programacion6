@@ -11,11 +11,14 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaMarca_ID_Result
+    public partial class sp_UltimaCaja_Result
     {
-        public int id_marca { get; set; }
-        public string nombre_marca { get; set; }
-        public string nombre_fabricante { get; set; }
-        public int id_fabricante { get; set; }
+        public int Id { get; set; }
+        public System.DateTime hora_apertura { get; set; }
+        public Nullable<System.DateTime> hora_cierre { get; set; }
+        public Nullable<int> id_usuario_cierre { get; set; }
+        public int id_usuario_apertura { get; set; }
+        public double monto_apertura { get; set; }
+        public Nullable<double> monto_cierre_total { get; set; }
     }
 }

@@ -182,10 +182,10 @@
     <Compile Include="Models\modelo_vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pais.cs">
+    <Compile Include="Models\Pai.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Parametros.cs">
+    <Compile Include="Models\Parametro.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Provincia.cs">
@@ -207,12 +207,6 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_cierre_cajas_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_MostrarCliente_Result.cs">
@@ -237,6 +231,9 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_RetornaFabricante_ID_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_RetornaFacturaEncabezadoID_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_RetornaFacturas_Result.cs">
@@ -293,10 +290,7 @@
     <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_zzxxRetornaFacturaEncabezadoID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
+    <Compile Include="Models\sp_UltimaCaja_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tipo_servicio.cs">
@@ -308,7 +302,7 @@
     <Compile Include="Models\usuario.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vehiculos.cs">
+    <Compile Include="Models\vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vehiculos_x_cliente.cs">
@@ -316,6 +310,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Asignar_Vehiculos_ViewModel.cs" />
+    <Compile Include="ViewModels\CrearFacturaViewModel.cs" />
+    <Compile Include="ViewModels\FacturaDetalle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

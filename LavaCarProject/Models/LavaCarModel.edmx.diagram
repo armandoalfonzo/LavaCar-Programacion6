@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="10a487ead2264ba99f5b696392fd6e9a" Name="Diagram1">
+      <Diagram DiagramId="e39fc882bd4c42d4ab85407246603ffa" Name="Diagram1">
         <EntityTypeShape EntityType="LavaCarModel.caja_chica" Width="1.5" PointX="12" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.Canton" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.cliente" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
@@ -14,14 +14,13 @@
         <EntityTypeShape EntityType="LavaCarModel.factura_encabezado" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.marca_vehiculo" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.modelo_vehiculo" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="LavaCarModel.Pais" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LavaCarModel.Parametros" Width="1.5" PointX="9.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.Pai" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.Parametro" Width="1.5" PointX="9.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.Provincia" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LavaCarModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.tipo_servicio" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.tipo_vehiculo" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.usuario" Width="1.5" PointX="9.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LavaCarModel.vehiculos" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavaCarModel.vehiculo" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LavaCarModel.vehiculos_x_cliente" Width="1.5" PointX="10.5" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="LavaCarModel.FK_caja_chica_usuario1" ManuallyRouted="false" />
         <AssociationConnector Association="LavaCarModel.FK_caja_chica_usuario2" ManuallyRouted="false" />

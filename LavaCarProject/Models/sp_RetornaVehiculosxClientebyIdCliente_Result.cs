@@ -11,11 +11,9 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaMarca_ID_Result
+    public partial class sp_RetornaVehiculosxClientebyIdCliente_Result
     {
-        public int id_marca { get; set; }
-        public string nombre_marca { get; set; }
-        public string nombre_fabricante { get; set; }
-        public int id_fabricante { get; set; }
+        public int id_vehiculo { get; set; }
+        public int placa { get; set; }
     }
 }
