@@ -206,6 +206,9 @@
     <Compile Include="Models\Retorna_Cierres_Caja_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_cierre_cajas_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -236,6 +239,9 @@
     <Compile Include="Models\sp_RetornaFabricante_ID_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_RetornaFacturas_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_RetornaListaMarca_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -260,6 +266,9 @@
     <Compile Include="Models\sp_RetornaTipoVehiculo_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_RetornaVehiculosxClientebyIdCliente_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_RetornaVehiculosxCliente_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -275,7 +284,16 @@
     <Compile Include="Models\sp_retorna_parametro_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_retorna_tiposervicio_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_retorna_TODOS_tiposervicios_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_Retorna_Vehiculos_sin_Cliente_Result.cs">
+      <DependentUpon>LavaCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_zzxxRetornaFacturaEncabezadoID_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
@@ -350,10 +368,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\Cierres_caja.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Fabricantes.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Kendo.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Marcas.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Modelos.js" />
+    <Content Include="Scripts\Kendo_JQ_UI\Modifica__Cliente_js.js" />
     <Content Include="Scripts\Kendo_JQ_UI\VehiculoModifica.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos.js" />
     <Content Include="Scripts\Kendo_JQ_UI\Vehiculos_clientes.js" />
@@ -402,6 +422,7 @@
     <Content Include="Views\Modelos\EliminaModelo.cshtml" />
     <Content Include="Views\Vehiculos\Modificamarca.cshtml" />
     <Content Include="Views\Vehiculos\EliminaMarca.cshtml" />
+    <Content Include="Views\Caja\Cierres.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

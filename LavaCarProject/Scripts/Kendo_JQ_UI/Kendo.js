@@ -65,7 +65,7 @@ function creaGridKendo(data) {
                 {
                     title: "Eliminar",
                     template: function (dataItem) {
-                        return "<a href='/Personas/PersonaElimina?id_cliente=" + dataItem.id_cliente + "'>Eliminar</a>"
+                        return "<a href='/Cliente/EliminarCliente?id_cliente=" + dataItem.id_cliente + "'>Eliminar</a>"
                     }
 
                 },
@@ -82,10 +82,6 @@ function MostrarDialog() {
     $("#btMostrarDialog").click(function () {
         $("#divInsertar").dialog("open");
     });
-
-    //$("#btninsertar").click(function () {
-    //    $("#divInsertar").dialog("close");
-    //});
 }
 
 function crearDialog() {
@@ -191,6 +187,7 @@ function creaEventos() {
     $("#btninsertar").on("click", function () {
         var formulario = $("#fmrnuevocliente");
         formulario.validate();
+
         if (formulario.valid()) {
             InsertaNuevoCliente();
             $("#divInsertar").dialog("close");

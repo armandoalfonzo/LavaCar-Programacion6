@@ -199,7 +199,7 @@ namespace LavaCarProject.Controllers
             }
             catch (Exception error)
             {
-                resultado = "Ocurrió un error " + error.Message;
+                resultado = "Ocurrió un error " + error;
             }
             finally
             {

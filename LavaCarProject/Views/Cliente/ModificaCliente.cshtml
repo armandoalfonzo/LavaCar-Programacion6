@@ -12,15 +12,16 @@
 
         <div class="form-group">
             <label>Nombre:</label>
-            <input type="text" name="nombre" id="nombre" class="form-control" value="@Model.nombre_cliente">
+            <input type="text" value="@Model.id_cliente" />
+            <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control" value="@Model.nombre_cliente">
         </div>
         <div class="form-group">
             <label>Primer Apellido:</label>
-            <input type="text" name="primerapellido" id="primerapellido" class="form-control" value="@Model.apellido1">
+            <input type="text" name="apellido1" id="apellido1" class="form-control" value="@Model.apellido1">
         </div>
         <div class="form-group">
             <label>Segundo Apellido:</label>
-            <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" value="@Model.apellido2">
+            <input type="text" name="apellido2" id="apellido2" class="form-control" value="@Model.apellido2">
         </div>
         <div class="form-group">
             <label>Cédula:</label>
@@ -29,7 +30,7 @@
 
         <div class="form-group">
             <label>Provincia:</label>
-            <select name="provincia" id="provincia" class="form-control">
+            <select name="id_provincia" id="id_provincia" class="form-control">
                 <option value="">Seleccione una provincia</option>
                 @{
                     foreach (LavaCarProject.Models.sp_RetornaProvincias_Result provincia in this.ViewBag.ListaProvincias)
@@ -50,7 +51,7 @@
 
         <div class="form-group">
             <label>Cantón:</label>
-            <select name="canton" id="canton" class="form-control">
+            <select name="id_canton" id="id_canton" class="form-control">
                 <option value="">Seleccione una cantón</option>
                 @{
                     foreach (LavaCarProject.Models.RetornaCantones_Result canton in this.ViewBag.ListaCantones)
@@ -71,7 +72,7 @@
 
         <div class="form-group">
             <label>Distrito:</label>
-            <select name="distrito" id="distrito" class="form-control">
+            <select name="id_distrito" id="id_distrito" class="form-control">
                 <option value="">Seleccione un distrito</option>
                 @{
                     foreach (LavaCarProject.Models.sp_RetornaDistritos_Result distrito in this.ViewBag.ListaDistritos)
@@ -103,7 +104,7 @@
             <input type="text" name="email" id="email" class="form-control" value="@Model.email">
         </div>
         <div class="form-group">
-            <input class="btn btn-primary" type="button" value="Modificar" id="btninsertar" />
+            <input class="btn btn-primary" type="submit" value="Modificar" id="btninsertar" />
         </div>
         <a href="~/Cliente/Cliente" class="btn btn-info" role="button"> Regresar </a>
     </form>
@@ -113,58 +114,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
-    <script src="~/Scripts/Kendo_JQ_UI/Kendo.js"></script>
+    <script src="~/Scripts/Kendo_JQ_UI/Modifica__Cliente_js.js"></script>
     <script src="~/Scripts/ScriptGenerico.js"></script>
 
-        <script>
-
-            $(function () {
-                $("#fmrmodificaclient").validate({
-                    rules: {
-                             nombre: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        primerapellido: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        segundoapellido: {
-                            required: true,
-                            maxlength: 50
-                        },
-            /**/            telefono: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        cedula: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        provincia: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        canton: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        distrito: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        direccion: {
-                            required: true,
-                            maxlength: 50
-                        },
-                        email: {
-                            required: true,
-                            maxlength: 50,
-                            email: true
-                        }
-                    }
-                });
-            });
-
-        </script>
 }
