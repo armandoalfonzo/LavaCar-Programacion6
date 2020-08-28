@@ -436,6 +436,8 @@
     <Content Include="Views\TipoVehiculo\ModificaTipoVehículo.cshtml" />
     <Content Include="Views\TipoVehiculo\EliminaTipoVehiculo.cshtml" />
     <Content Include="Views\Cliente\ListaVehiculosCliente.cshtml" />
+    <Content Include="Views\Caja\crearFactura.cshtml" />
+    <Content Include="Views\Caja\Facturas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

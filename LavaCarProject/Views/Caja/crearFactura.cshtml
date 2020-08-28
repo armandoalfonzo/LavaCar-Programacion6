@@ -16,7 +16,7 @@
     <div class="form-group">
         <label>Placa Vehiculo:</label>
         <input type="text" name="Vehiculo" id="Vehiculo" class="form-control">
-        <input id="id_vehiculo" hidden />
+        <input id="id_vehiculo" type="text" />
         <span id="alertvehiculo" class="has-error" style="color:red" hidden>Datos Invalidos</span>
     </div>
 
@@ -68,10 +68,6 @@
                 rules: {
                     datosCliente: {
                         required: true
-                    },
-                    Vehiculo: {
-                        required: true,
-                        maxlength: 50
                     }
                 }
             });
@@ -83,10 +79,6 @@
                     if ($("#id_cliente").val() == null || $.trim($("#id_cliente").val()) == "") {
                         $(".has-error").attr("hidden", true);
                         $("#alertcliente").attr("hidden", false);
-                    }
-                    else if ($("#id_vehiculo").val() == null || $.trim($("#id_vehiculo").val()) == "") {
-                        $(".has-error").attr("hidden", true);
-                        $("#alertvehiculo").attr("hidden", false);
                     }
                     else if (DetallesFactura.length > 0) {
                         $(".has-error").attr("hidden", true);
