@@ -11,9 +11,14 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaTipoServicio_ID_Result
+    public partial class sp_RetornaModelo_ID_Result
     {
-        public int id_servicio { get; set; }
-        public string nombre_servicio { get; set; }
+        public int id_modelo { get; set; }
+        public int id_marca_modelo { get; set; }
+        public string nombre_modelo { get; set; }
+        public int id_marca { get; set; }
+        public string nombre_marca { get; set; }
+        public int id_fabricante { get; set; }
+        public string nombre_fabricante { get; set; }
     }
 }

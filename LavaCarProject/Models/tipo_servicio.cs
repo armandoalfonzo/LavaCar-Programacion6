@@ -10,11 +10,21 @@
 namespace LavaCarProject.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_retorna_tiposervicio_Result
+    public partial class tipo_servicio
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tipo_servicio()
+        {
+            this.factura_detalle = new HashSet<factura_detalle>();
+        }
+    
         public int id_servicio { get; set; }
         public string nombre_servicio { get; set; }
         public Nullable<double> precio_servicio { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<factura_detalle> factura_detalle { get; set; }
     }
 }

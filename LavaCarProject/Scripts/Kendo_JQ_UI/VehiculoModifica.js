@@ -32,8 +32,8 @@
 
 function EventosChange() {
 
-    $('#ddlmarca').change(function () {
-        var marca = $("#ddlmarca").val();
+    $('#id_marca_select').change(function () {
+        var marca = $("#id_marca_select").val();
         ddlmodelos(marca);
     });
 

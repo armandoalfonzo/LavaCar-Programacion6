@@ -10,10 +10,20 @@
 namespace LavaCarProject.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_RetornaTipoVehiculo_ID_Result
+    public partial class tipo_vehiculo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tipo_vehiculo()
+        {
+            this.vehiculos = new HashSet<vehiculo>();
+        }
+    
         public int id_tipo_vehiculo { get; set; }
         public string nombre_vehiculo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vehiculo> vehiculos { get; set; }
     }
 }

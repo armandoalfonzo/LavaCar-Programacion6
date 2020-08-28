@@ -10,15 +10,19 @@
 namespace LavaCarProject.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_UltimaCaja_Result
+    public partial class caja_chica
     {
-        public int Id { get; set; }
+        public int id_caja { get; set; }
         public System.DateTime hora_apertura { get; set; }
         public Nullable<System.DateTime> hora_cierre { get; set; }
-        public Nullable<int> id_usuario_cierre { get; set; }
-        public int id_usuario_apertura { get; set; }
         public double monto_apertura { get; set; }
         public Nullable<double> monto_cierre_total { get; set; }
+        public int id_usuario_apertura { get; set; }
+        public Nullable<int> id_usuario_cierre { get; set; }
+    
+        public virtual usuario usuario { get; set; }
+        public virtual usuario usuario1 { get; set; }
     }
 }

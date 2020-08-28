@@ -10,9 +10,16 @@
 namespace LavaCarProject.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_RetornaFacturaEncabezadoID_Result
+    public partial class factura_encabezado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public factura_encabezado()
+        {
+            this.factura_detalle = new HashSet<factura_detalle>();
+        }
+    
         public int id_factura { get; set; }
         public System.DateTime fecha_factura { get; set; }
         public int id_cliente_factura { get; set; }
@@ -20,13 +27,10 @@ namespace LavaCarProject.Models
         public Nullable<double> total_pagar { get; set; }
         public Nullable<double> total_sin_iv { get; set; }
         public bool estado_factura { get; set; }
-        public int id_detalle_factura { get; set; }
-        public int id_factura_encabezado { get; set; }
-        public int id_cliente { get; set; }
-        public int cedula { get; set; }
-        public string nombre_cliente { get; set; }
-        public string apellido1 { get; set; }
-        public int id_vehiculo_cliente { get; set; }
-        public int id_vehiculo { get; set; }
+    
+        public virtual cliente cliente { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<factura_detalle> factura_detalle { get; set; }
+        public virtual vehiculo vehiculo { get; set; }
     }
 }

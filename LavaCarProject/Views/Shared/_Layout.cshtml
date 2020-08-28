@@ -34,50 +34,47 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-                    @*<li class=""><a href="frmInicio.aspx">Inicio</a></li>*@
+                    <li class=""><a href="~/Home/Index">Inicio</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reportes<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Servicios Facturados</a></li>
                             <li><a href="~/Caja/Cierres">Cierres de caja</a></li>
+                            <li><a href="~/Cliente/ListaVehiculosCliente">Vehiculos por clientes</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown" id="ddlAdmin" runat="server">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mantenimiento Clientes<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="~/Cliente/Cliente">Clientes</a></li>
-                            <li><a href="~/Vehiculos/ReporteVehiculoxcliente">Vehiculos por Cliente</a></li>
-                            <li><a href="~/Pais/Pais">Lista de Pais</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="ddlAmind2" runat="server">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mantenimiento Vehículos<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="~/Vehiculos/Vehiculos">Vehiculos</a></li>
-                            <li><a href="~/Vehiculos/RetornaVehiculoxcliente">Vehiculos por Cliente</a></li>
-                            <li><a href="~/Vehiculos/VehiculosLibres">Vehículos Libres</a></li>
-                            <li><a href="~/Vehiculos/RetornaMarcasLista">Marcas</a></li>
-                            <li><a href="~/Modelos/Modelos">Modelos</a></li>
-                            <li><a href="~/Fabricantes/Fabricantes">Fabricantes</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="Li1" runat="server">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Facturacion<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Abrir Caja</a></li>
-                            <li><a href="#">Cerrar Caja</a></li>
-                            <li><a href="#">Facturar a cliente</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="li2" runat="server">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Caja <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a id="parametros" href="~/Caja/Parametros">Parametros</a></li>
-                            <li><a id="abrirCaja">Abrir Caja</a></li>
-                            <li><a id="CerrarCaja">Cerrar Caja</a></li>
-                        </ul>
-                    </li>
+                    @if (usuarioBuscar.tipo_usuario.ToLower().Equals("admin"))
+                    {
+                        <li class="dropdown" id="ddlAdmin" runat="server">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mantenimiento Clientes<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Cliente/Cliente">Clientes</a></li>
+                                <li><a href="~/Vehiculos/ReporteVehiculoxcliente">Vehiculos por Cliente</a></li>
+                                <li><a href="~/Pais/Pais">Lista de Pais</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="ddlAmind2" runat="server">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mantenimiento Vehículos<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Vehiculos/Vehiculos">Vehiculos</a></li>
+                                <li><a href="~/Vehiculos/RetornaVehiculoxcliente">Vehiculos por Cliente</a></li>
+                                <li><a href="~/Vehiculos/VehiculosLibres">Vehículos Libres</a></li>
+                                <li><a href="~/Vehiculos/RetornaMarcasLista">Marcas</a></li>
+                                <li><a href="~/Modelos/Modelos">Modelos</a></li>
+                                <li><a href="~/Fabricantes/Fabricantes">Fabricantes</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="~/Caja/Facturas">Facturacion</a></li>
+                        <li class="dropdown" id="li2" runat="server">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Caja <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="parametros" href="~/Caja/Parametros">Parametros</a></li>
+                                <li><a id="abrirCaja">Abrir Caja</a></li>
+                                <li><a id="CerrarCaja">Cerrar Caja</a></li>
+                            </ul>
+                        </li>
+
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li id="LogOut"><a><span class="glyphicon glyphicon-log-in"></span> Cerrar sesion</a></li>

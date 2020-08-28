@@ -11,9 +11,12 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaTipoServicio_ID_Result
+    public partial class sp_retorna_parametro_Result
     {
-        public int id_servicio { get; set; }
-        public string nombre_servicio { get; set; }
+        public int id_parametro { get; set; }
+        public string nombre { get; set; }
+        public string correo_apertura { get; set; }
+        public string correo_cierre { get; set; }
+        public double monto_minimo { get; set; }
     }
 }

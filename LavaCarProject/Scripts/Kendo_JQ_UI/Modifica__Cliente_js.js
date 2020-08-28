@@ -4,18 +4,18 @@
 
     estableceEventosChange();
     //cargaDropdownListProvincias();
-    creaEventos();
 });
 
 function estableceEventosChange() {
 
-    $("#provincia").change(function () {
-        var provincia = $("#provincia").val();
+    $("#id_provincia").change(function () {
+        var provincia = $("#id_provincia").val();
+        console.log($("#id_provincia").val() + 'cambio');
         cargaDropdownListCantones(provincia);
     });
 
-    $("#canton").change(function () {
-        var canton = $("#canton").val();
+    $("#id_canton").change(function () {
+        var canton = $("#id_canton").val();
         cargaDropdownListDistritos(canton);
     });
 }
@@ -28,7 +28,7 @@ function cargaDropdownListProvincias() {
 }
 function procesarResultadoProvincias(data) {
 
-    var ddlProvincias = $("#provincia");
+    var ddlProvincias = $("#id_provincia");
     ddlProvincias.empty();
     var nuevaOpcion = "<option value ''>Seleccione una Provincia</option>";
     ddlProvincias.append(nuevaOpcion);
@@ -50,7 +50,7 @@ function cargaDropdownListCantones(pIdProvincia) {
 }
 function procesarResultadoCanton(data) {
 
-    var ddlcantones = $("#canton");
+    var ddlcantones = $("#id_canton");
     ddlcantones.empty();
     var nuevaOpcion = "<option value ''>Seleccione un Cantón</option>";
     ddlcantones.append(nuevaOpcion);
@@ -76,7 +76,7 @@ function cargaDropdownListDistritos(pidCanton) {
 
 function procesarResultadoDistrito(data) {
 
-    var ddldistritos = $("#distrito");
+    var ddldistritos = $("#id_distrito");
     ddldistritos.empty();
     var nuevaOpcion = "<option value ''>Selecciones un Distrito</option>";
     ddldistritos.append(nuevaOpcion);

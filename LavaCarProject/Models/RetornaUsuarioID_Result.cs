@@ -11,9 +11,12 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaTipoServicio_ID_Result
+    public partial class RetornaUsuarioID_Result
     {
-        public int id_servicio { get; set; }
-        public string nombre_servicio { get; set; }
+        public int id_Usuario { get; set; }
+        public string nombre_usuario { get; set; }
+        public string correo_usuario { get; set; }
+        public string contraseña { get; set; }
+        public Nullable<System.DateTime> FechaIngreso { get; set; }
     }
 }

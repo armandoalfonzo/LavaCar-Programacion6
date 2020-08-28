@@ -11,17 +11,20 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaVehiculoxCliente_ID_Result
+    public partial class sp_Retorna_Vehiculos_sin_Cliente_Result
     {
-        public int id_vehiculo_cliente { get; set; }
         public int id_vehiculo { get; set; }
-        public string nombre_cliente { get; set; }
-        public string apellido1 { get; set; }
-        public string apellido2 { get; set; }
+        public int placa { get; set; }
         public int id_marca { get; set; }
         public string nombre_marca { get; set; }
+        public int id_tipo_vehiculo { get; set; }
+        public string nombre_vehiculo { get; set; }
         public int id_modelo_vehiculo { get; set; }
         public string nombre_modelo { get; set; }
-        public int placa { get; set; }
+        public short cantidad_puertas { get; set; }
+        public short cantidad_ruedas { get; set; }
+        public System.DateTime año_fabricacion { get; set; }
+        public int id_fabricante_vehiculo { get; set; }
+        public string nombre_fabricante { get; set; }
     }
 }

@@ -11,17 +11,21 @@ namespace LavaCarProject.Models
 {
     using System;
     
-    public partial class sp_RetornaFacturas_Result
+    public partial class sp_RetornaCliente_Result
     {
         public int id_cliente { get; set; }
         public string nombre_cliente { get; set; }
         public string apellido1 { get; set; }
+        public string apellido2 { get; set; }
         public int cedula { get; set; }
-        public int placa { get; set; }
-        public Nullable<double> total_sin_iv { get; set; }
-        public Nullable<double> total_pagar { get; set; }
-        public System.DateTime fecha_factura { get; set; }
-        public bool estado_factura { get; set; }
-        public int id_factura { get; set; }
+        public int id_provincia { get; set; }
+        public string Provincia { get; set; }
+        public int id_canton { get; set; }
+        public string Cantón { get; set; }
+        public int id_distrito { get; set; }
+        public string Distrito { get; set; }
+        public string direccion { get; set; }
+        public Nullable<int> telefono { get; set; }
+        public string email { get; set; }
     }
 }

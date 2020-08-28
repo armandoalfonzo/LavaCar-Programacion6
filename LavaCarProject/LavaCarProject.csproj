@@ -183,10 +183,10 @@
     <Compile Include="Models\modelo_vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pais.cs">
+    <Compile Include="Models\Pai.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Parametros.cs">
+    <Compile Include="Models\Parametro.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Provincia.cs">
@@ -208,12 +208,6 @@
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_cierre_cajas_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_MostrarCliente_Result.cs">
@@ -306,12 +300,6 @@
     <Compile Include="Models\sp_UltimaCaja_Result.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_zzxxRetornaFacturaEncabezadoID_Result.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>LavaCarModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tipo_servicio.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
@@ -321,7 +309,7 @@
     <Compile Include="Models\usuario.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vehiculos.cs">
+    <Compile Include="Models\vehiculo.cs">
       <DependentUpon>LavaCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vehiculos_x_cliente.cs">
@@ -354,8 +342,25 @@
     <Content Include="Media_Data\trololo.mp3" />
     <Content Include="Media_Data\vacuum_cleaner.jpg" />
     <Content Include="Media_Data\washer_machine.jpg" />
+    <Content Include="Models\LavaCarModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LavaCarModel.edmx</DependentUpon>
+      <LastGenOutput>LavaCarModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\LavaCarModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LavaCarModel.edmx</DependentUpon>
+      <LastGenOutput>LavaCarModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\LavaCarModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LavaCarModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LavaCarModel.edmx.diagram">
+      <DependentUpon>LavaCarModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Geografia\Geografia.js" />
     <Content Include="Scripts\Geografia\ListaPais.js" />
@@ -435,7 +440,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -15,10 +15,9 @@
     <form class="form" id="fmrmodificavehiculo" method="POST">
         <input type="text" name="id_fabricante_vehiculo"id="id_fabricante_vehiculo" hidden value="@Model.id_fabricante_vehiculo" />
         <div class="form-group">
-            <input type="text" name="id_marca_select" id="id_marca_select" hidden value="@Model.id_marca"/>
             <br />
             <label>Marca:</label>
-            <select name="ddlmarca" id="ddlmarca" class="form-control" >
+            <select name="id_marca_select" id="id_marca_select" class="form-control" >
                 
                 <option value="">Seleccione una Marca</option>
                 @{
@@ -111,5 +110,5 @@
     <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
     <script src="~/Scripts/ScriptGenerico.js"></script>
     <script src="~/Scripts/Kendo_JQ_UI/VehiculoModifica.js"></script>
-    @*<script src="~/Scripts/Kendo_JQ_UI/Vehiculos.js"></script>*@
+    <script src="~/Scripts/Kendo_JQ_UI/Vehiculos.js"></script>
 }

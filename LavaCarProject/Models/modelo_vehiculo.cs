@@ -10,10 +10,14 @@
 namespace LavaCarProject.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_RetornaTipoServicio_ID_Result
+    public partial class modelo_vehiculo
     {
-        public int id_servicio { get; set; }
-        public string nombre_servicio { get; set; }
+        public int id_modelo { get; set; }
+        public string nombre_modelo { get; set; }
+        public int id_marca_modelo { get; set; }
+    
+        public virtual marca_vehiculo marca_vehiculo { get; set; }
     }
 }
